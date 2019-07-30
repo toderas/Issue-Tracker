@@ -1,0 +1,13 @@
+{% extends 'base.html' %} 
+{% block content %} 
+<h1>Text outside for loop</h1>
+{% for bug in new_item %}
+
+<h3>{{ bug.name }}</h3>
+<p>{{ bug.description }}</p>
+<p>{{ bug.in_progress }}</p>
+
+
+{% endfor %} 
+
+{% endblock %}
