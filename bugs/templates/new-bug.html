@@ -1,7 +1,8 @@
 {% extends "base.html" %}
+{% load bootstrap_tags %}
 {% block content %}
     <form action="" method="POST">{% csrf_token %}
-    {{ item_form.as_p }}
+    {{ item_form | as_bootstrap }}
     <input type="submit" value="Submit" />
     </form>
 {% endblock %}
