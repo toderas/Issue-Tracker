@@ -16,9 +16,11 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from bugs import urls as urls_bugs
+from accounts import urls as urls_accounts
 from bugs.views import get_bugs, add_new_bug
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^bugs/', include(urls_bugs)),
+    url(r'^accounts/', include(urls_accounts)),
 ]
