@@ -4,8 +4,8 @@ from .forms import AddBugForm
 
 # Create your views here.
 def get_bugs(request):
-    new_item = bug_item.objects.all()
-    return render(request, "bugs.html", {"new_item": new_item})
+    bugs = bug_item.objects.all()
+    return render(request, "bugs.html", {"bugs": bugs})
     
     
 def add_new_bug(request):

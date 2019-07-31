@@ -21,6 +21,7 @@ from bugs.views import get_bugs, add_new_bug
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^bugs/', include(urls_bugs)),
+    url(r'^$', get_bugs, name='index'),
+    url(r'^bugs', include(urls_bugs)),
     url(r'^accounts/', include(urls_accounts)),
 ]
