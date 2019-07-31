@@ -3,6 +3,6 @@ from .views import get_bugs, add_new_bug
 
 
 urlpatterns = [
-    url(r'^$', get_bugs),
-    url(r'^add/', add_new_bug, name="add_new_bug"),
+    url(r'^current-bugs/$', get_bugs, name="show_bugs"),
+    url(r'^add-bug/', add_new_bug, name="add_new_bug"),
 ]
