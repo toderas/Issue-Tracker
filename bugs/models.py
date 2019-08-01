@@ -6,7 +6,7 @@ from datetime import date
 class bug_item(models.Model):
     name = models.CharField(max_length=254, default="")
     description = models.TextField()
-    date_reported = models.DateField(auto_now_add=True)
+    date_reported = models.DateTimeField(auto_now_add=True)
     
     STATUS = (
         ('Pending-review','Pending Review'),
@@ -21,3 +21,4 @@ class bug_item(models.Model):
     def __str__(self):
         return self.name
         
+
