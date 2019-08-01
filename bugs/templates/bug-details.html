@@ -1,0 +1,24 @@
+{% extends 'base.html' %} 
+{% block content %} 
+
+<div class="row">
+{% if bug.status == "Pending-review" %}
+<div class="card-body bg-danger mt-2">
+{% elif bug.status == "In-progress" %}
+<div class="card-body bg-info text-white mt-2">
+{% elif bug.status == "Resolved" %}
+<div class="card-body bg-success text-white mt-2">
+{% else %}
+<div class="card-body"> <p>No Data Recieved</p>
+{% endif %}
+<div class="card-header">{{ bug.status }}</div>
+<div class="card-title">{{ bug.name }}
+<span> Added On {{ bug.date_reported }}</span>
+</div>
+
+<div class="card-content">{{ bug.description }}</div>
+</div>
+</div>
+{% endblock %}
+
+
