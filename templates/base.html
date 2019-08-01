@@ -32,13 +32,13 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Issues
         </a>
-        <!--Navigation Items-->
+                        <!--Navigation Items-->
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{% url 'show_bugs' %}">Current Bugs</a>
                             <a class="dropdown-item" href="{% url 'add_new_bug' %}">Report Bug</a>
 
                         </div>
-    
+
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,7 +50,8 @@
                         </div>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0" action= ""><!--Url for search goes here-->
+                <form class="form-inline my-2 my-lg-0" action="">
+                    <!--Url for search goes here-->
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
@@ -65,10 +66,10 @@
                     <li><a href="{% url 'login' %}"><i class="fa fa-sign-in"></i> Log In</a></li>
                     {% endif %}
                     <li>
-                    
+
                     </li>
                 </ul>
-            
+
                 <!--END-->
             </div>
         </nav>
@@ -78,7 +79,7 @@
         <div class="container">
             {% block content %} {% endblock %}
         </div>
-        
+
     </section>
     <footer>
 
