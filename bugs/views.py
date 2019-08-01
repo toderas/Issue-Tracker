@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, redirect, reverse
+from django.shortcuts import render, HttpResponse, redirect, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import bug_item
 from .forms import AddBugForm
@@ -23,3 +23,11 @@ def add_new_bug(request):
     else:
         item_form = AddBugForm()
     return render(request, 'new-bug.html', {"item_form": item_form})
+
+
+def get_current_bug(request, id):
+    bug = get_object_or_404(bug_item, id=id)
+    print(bug)
+    return render(request, 'bug-details.html', {'bug': bug})
+
+
