@@ -1,3 +1,6 @@
 form {
     width: 50%;
 }
+.form-right {
+    width: auto!important;
+}
