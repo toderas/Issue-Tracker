@@ -13,7 +13,9 @@
 <div class="card-body">
 {% endif %}
 <div class="card-header">{{ bug.status }}</div>
-<div class="card-title">{{ bug.name }}</div>
+<div class="card-title">{{ bug.name }}
+<span> Added On {{ bug.date_reported }}</span>
+</div>
 
 <div class="card-content">{{ bug.description }}</div>
 </div>
