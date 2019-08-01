@@ -9,5 +9,3 @@ class AddBugForm(forms.ModelForm):
     name = forms.CharField()
     description = forms.Textarea()
     
-
-    

@@ -20,6 +20,9 @@
 <div class="card-content">{{ bug.description }}</div>
 </div>
 </div>
+
+
+<a class="dropdown-item" href="{% url 'get-bug' bug.id %}">See More</a>
 {% endfor %} 
 
 {% endblock %}
