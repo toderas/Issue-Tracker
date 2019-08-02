@@ -22,3 +22,12 @@ class bug_item(models.Model):
         return self.name
         
 
+class BugComment(models.Model):
+    post = models.ForeignKey(bug_item, null=True)
+    author = models.CharField(max_length=200)
+    comment = models.TextField()
+    date_reported = models.DateTimeField(auto_now_add=True)
+    approved_comment = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.comment
