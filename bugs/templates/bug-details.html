@@ -1,24 +1,35 @@
-{% extends 'base.html' %} 
-{% block content %} 
+{% extends 'base.html' %} {% load bootstrap_tags %} {% block content %}
 
 <div class="row">
-{% if bug.status == "Pending-review" %}
-<div class="card-body bg-danger mt-2">
-{% elif bug.status == "In-progress" %}
-<div class="card-body bg-info text-white mt-2">
-{% elif bug.status == "Resolved" %}
-<div class="card-body bg-success text-white mt-2">
-{% else %}
-<div class="card-body"> <p>No Data Recieved</p>
-{% endif %}
-<div class="card-header">{{ bug.status }}</div>
-<div class="card-title">{{ bug.name }}
-<span> Added On {{ bug.date_reported }}</span>
-</div>
+    {% if bug.status == "Pending-review" %}
+    <div class="card-body bg-danger mt-2">
+        {% elif bug.status == "In-progress" %}
+        <div class="card-body bg-info text-white mt-2">
+            {% elif bug.status == "Resolved" %}
+            <div class="card-body bg-success text-white mt-2">
+                {% else %}
+                <div class="row card-body">
+                    <p>No Data Recieved</p>
+                    {% endif %}
+                    <div class="card-header">{{ bug.status }}</div>
+                    <div class="card-title">{{ bug.name }}
+                        <span> Added On {{ bug.date_reported }}</span>
+                    </div>
 
-<div class="card-content">{{ bug.description }}</div>
-</div>
-</div>
-{% endblock %}
+                    <div class="card-content">{{ bug.description }}</div>
+                </div>
+                </div>
 
+            <form action="" method="POST">
+                {% csrf_token %} {{ comment_form | as_bootstrap }}
+                <input type="submit" value="Submit" />
+            </form>
 
+{%  for comment in comment  %}
+            <div class="card-body bg-danger mt-2">
+                <div class="card-body">{{ date_reported }}</div>
+                <strong>{{ comment.author }}</strong>
+                <p>{{ comment.comment }}</p>
+            </div>
+{% endfor %}
+            {% endblock %}
