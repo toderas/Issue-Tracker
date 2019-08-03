@@ -1,35 +1,56 @@
 {% extends 'base.html' %} {% load bootstrap_tags %} {% block content %}
-
-<div class="row">
+<!--Bug-->
+<div class="card">
     {% if bug.status == "Pending-review" %}
-    <div class="card-body bg-danger mt-2">
+    <div class="card-header bg-danger mt-2">
         {% elif bug.status == "In-progress" %}
-        <div class="card-body bg-info text-white mt-2">
+        <div class="card-header bg-info text-white mt-2">
             {% elif bug.status == "Resolved" %}
-            <div class="card-body bg-success text-white mt-2">
+            <div class="card-header bg-success text-white mt-2">
                 {% else %}
-                <div class="row card-body">
-                    <p>No Data Recieved</p>
-                    {% endif %}
-                    <div class="card-header">{{ bug.status }}</div>
-                    <div class="card-title">{{ bug.name }}
-                        <span> Added On {{ bug.date_reported }}</span>
-                    </div>
-
-                    <div class="card-content">{{ bug.description }}</div>
+                <div>
+                    {% endif %} 
+                    {{ bug.status }}
                 </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <span><strong> {{ bug.name }} </strong></span>
+                        <p>{{ bug.description }}</p>
+                        <footer class="blockquote-footer"> Added {{ bug.date_reported | timesince}} ago by {{ bug.author }}</footer>
+                    </blockquote>
+                    <a class="btn btn-sm btn-success" href="#">I have This Too</a> 
                 </div>
-
-            <form action="" method="POST">
-                {% csrf_token %} {{ comment_form | as_bootstrap }}
-                <input type="submit" value="Submit" />
-            </form>
-
-{%  for comment in comment  %}
-            <div class="card-body bg-danger mt-2">
-                <div class="card-body">{{ date_reported }}</div>
-                <strong>{{ comment.author }}</strong>
-                <p>{{ comment.comment }}</p>
             </div>
+<!--Add comment Form-->
+<div class="card mt-2">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-sm btn-info collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Leave a Comment
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+       <form class="w-100" action="" method="POST">
+                {% csrf_token %} {{ comment_form | as_bootstrap }}
+                <button type="submit" class="float-right btn btn-sm btn-success">Add Comment</button>
+            </form>
+      </div>
+    </div>
+  </div>
+<!--Comments-->
+{%  for comment in comment  %}
+<div class="card mt-3">
+  <div class="card-header">
+    {{ comment.author }} Says..
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>{{ comment.comment }}</p>
+      <footer class="blockquote-footer">{{ comment.date_reported | timesince}} ago</footer>
+    </blockquote>
+  </div>
+</div>
 {% endfor %}
-            {% endblock %}
+{% endblock %}
