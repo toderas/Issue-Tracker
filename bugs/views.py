@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect, reverse, get_object_or_404
+from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from .models import bug_item, BugComment
 from .forms import AddBugForm, AddCommentForm
@@ -6,12 +7,22 @@ from .forms import AddBugForm, AddCommentForm
 # Create your views here.
 def get_bugs(request):
     bugs = bug_item.objects.filter().order_by('-date_reported')
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(bugs, 5)
+    try:
+        bugs = paginator.page(page)
+    except PageNotAnInteger:
+        bugs = paginator.page(1)
+    except EmptyPage:
+        bugs = paginator.page(paginator.num_pages)
     return render(request, "bugs.html", {"bugs": bugs})
-    
+
+
 @login_required()
 def add_new_bug(request):
     """
-    Renders AddBugForm saves its contents and returns to main page (user dependant yet to be implemented)
+    Renders AddBugForm saves its contents and returns to main page 
     """
     if request.method == 'POST':
         item_form = AddBugForm(request.POST)
@@ -20,14 +31,16 @@ def add_new_bug(request):
             bug.author = request.user
             bug.save()
             return redirect(get_bugs)
-            
     else:
         item_form = AddBugForm()
     return render(request, 'new-bug.html', {"item_form": item_form})
-#
 
-#
+
+@login_required
 def get_current_bug(request, id):
+    """
+    Displays single item and related comments with option to insert new comment
+    """
     bug = get_object_or_404(bug_item, id=id)
     print(bug)
     if request.method == 'POST':
@@ -37,15 +50,18 @@ def get_current_bug(request, id):
             comment.post = bug
             comment.author = request.user
             comment.save()
-            print(comment)
-           # return render(request, 'bug-details.html', {'bug': bug, 'comment': comment, 'comment_form': comment_form})
-
     else:
         comment_form = AddCommentForm()
         print(comment_form)
     comment = BugComment.objects.filter(post_id=bug.id).order_by('-date_reported')
-    print(comment)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(comment, 5)
+    try:
+        comment = paginator.page(page)
+    except PageNotAnInteger:
+        comment = paginator.page(1)
+    except EmptyPage:
+        comment = paginator.page(paginator.num_pages)
     comment_form = AddCommentForm()
-    
     return render(request, 'bug-details.html', {'bug': bug, 'comment': comment, 'comment_form': comment_form})
     
