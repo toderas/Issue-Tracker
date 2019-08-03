@@ -5,7 +5,7 @@ from .forms import AddBugForm, AddCommentForm
 
 # Create your views here.
 def get_bugs(request):
-    bugs = bug_item.objects.all()
+    bugs = bug_item.objects.filter().order_by('-date_reported')
     return render(request, "bugs.html", {"bugs": bugs})
     
 @login_required()
@@ -16,7 +16,8 @@ def add_new_bug(request):
     if request.method == 'POST':
         item_form = AddBugForm(request.POST)
         if item_form.is_valid():
-            bug = item_form.save(commit=True)
+            bug = item_form.save(commit=False)
+            bug.author = request.user
             bug.save()
             return redirect(get_bugs)
             
@@ -42,7 +43,7 @@ def get_current_bug(request, id):
     else:
         comment_form = AddCommentForm()
         print(comment_form)
-    comment = BugComment.objects.filter(post_id=bug.id)
+    comment = BugComment.objects.filter(post_id=bug.id).order_by('-date_reported')
     print(comment)
     comment_form = AddCommentForm()
     
