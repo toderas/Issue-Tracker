@@ -1,4 +1,8 @@
-{% extends 'base.html' %} {% block content %} {% for bug in bugs %}
+{% extends 'base.html' %} 
+
+{% block content %} 
+
+{% for bug in bugs %}
 
 <div class="card mt-3">
     {% if bug.status == "Pending-review" %}
@@ -20,4 +24,20 @@
                     <a class="btn btn-sm btn-success" href="{% url 'get-bug' bug.id %}">See More</a>
                 </div>
             </div>
-            {% endfor %} {% endblock %}
+            {% endfor %}
+<!--Pagination-->
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        {% if bugs.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ bugs.previous_page_number }}">Previous</a></li>
+        {% endif %}
+        <li><a class="page-link"> Page {{ bugs.number }} of {{ bugs.paginator.num_pages }}. </a> </li>
+        {% if bugs.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ bugs.next_page_number }}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ bugs.paginator.num_pages }}">Last &raquo;</a></li>
+        {% endif %}
+    </ul>
+</nav>
+<!--END-->
+{% endblock %}
