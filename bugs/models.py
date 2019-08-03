@@ -7,6 +7,7 @@ class bug_item(models.Model):
     name = models.CharField(max_length=254, default="")
     description = models.TextField()
     date_reported = models.DateTimeField(auto_now_add=True)
+    author = models.CharField(max_length=200)
     
     STATUS = (
         ('Pending-review','Pending Review'),
