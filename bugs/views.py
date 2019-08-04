@@ -75,3 +75,9 @@ def remove_comment(request, BugComment_id):
     comment.delete()
     return redirect(request.META['HTTP_REFERER'])
     
+    
+def add_upvotes(request, id):
+    like = bug_item.objects.get(pk=id)
+    like.upvotes += 1
+    like.save()
+    return redirect(request.META['HTTP_REFERER'])
