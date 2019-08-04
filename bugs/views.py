@@ -52,7 +52,7 @@ def get_current_bug(request, id):
             comment.save()
     else:
         comment_form = AddCommentForm()
-        print(comment_form)
+    
     comment = BugComment.objects.filter(post_id=bug.id).order_by('-date_reported')
     page = request.GET.get('page', 1)
     paginator = Paginator(comment, 5)
@@ -64,4 +64,14 @@ def get_current_bug(request, id):
         comment = paginator.page(paginator.num_pages)
     comment_form = AddCommentForm()
     return render(request, 'bug-details.html', {'bug': bug, 'comment': comment, 'comment_form': comment_form})
+    
+    
+def remove_comment(request, BugComment_id):
+    """
+    Removes comment and returns to the same page 
+    """
+    comment = get_object_or_404(BugComment, pk=BugComment_id)
+    print(comment)
+    comment.delete()
+    return redirect(request.META['HTTP_REFERER'])
     
