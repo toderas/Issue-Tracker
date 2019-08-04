@@ -21,7 +21,7 @@
                         <p>{{ bug.description }}</p>
                         <footer class="blockquote-footer"> Added {{ bug.date_reported | timesince}} ago by {{ bug.author }}</footer>
                     </blockquote>
-                    <a class="btn btn-sm btn-success" href="#">I have This Too</a>
+                    <a class="btn btn-sm btn-success" href="{% url 'add-upvote' bug.id %}">I have This Too</a>
                 </div>
             </div>
 <!--Add comment Form-->
