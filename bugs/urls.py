@@ -1,5 +1,5 @@
 from django.conf.urls import url, include
-from .views import get_bugs, add_new_bug, get_current_bug, remove_comment
+from .views import get_bugs, add_new_bug, get_current_bug, remove_comment, add_upvotes
 
 
 urlpatterns = [
@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^add-bug/', add_new_bug, name="add_new_bug"),
     url(r'^get-bug/(?P<id>\d+)', get_current_bug, name="get-bug"),
     url(r'^remove-comment/(\d+)/$', remove_comment, name="delete-comment"),
+    url(r'^add-upvote/(?P<id>\d+)', add_upvotes, name="add-upvote"),
 ]
