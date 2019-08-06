@@ -1,8 +1,4 @@
-{% extends 'base.html' %}
-
-{% load bootstrap_tags %}
-
-{% block content %}
+{% extends 'base.html' %} {% load bootstrap_tags %} {% block content %}
 <!--Bug-->
 <div class="card">
     {% if bug.status == "Pending-review" %}
@@ -21,60 +17,61 @@
                         <p>{{ bug.description }}</p>
                         <footer class="blockquote-footer"> Added {{ bug.date_reported | timesince}} ago by {{ bug.author }}</footer>
                     </blockquote>
-                    <a class="btn btn-sm btn-success" href="{% url 'add-upvote' bug.id %}">I have This Too</a>
+                    <a class="btn btn-sm btn-success" href="{% url 'add-upvote' bug.id %}" type="POST">I have This Too</a>
+
                 </div>
             </div>
-<!--Add comment Form-->
-<div class="card mt-2">
-    <div class="card-header" id="headingTwo">
-        <h5 class="mb-0">
-            <button class="btn btn-sm btn-info collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+
+            <!--Add comment Form-->
+            <div class="card mt-2">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn btn-sm btn-info collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
           Leave a Comment
         </button>
-        </h5>
-    </div>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-        <div class="card-body">
-            <form class="w-100" action="" method="POST">
-                {% csrf_token %} {{ comment_form | as_bootstrap }}
-                <button type="submit" class="float-right btn btn-sm btn-success">Add Comment</button>
-            </form>
-        </div>
-    </div>
-</div>
-<!--Comments-->
-{% for comment in comment %}
-<div class="card mt-3">
-    <div class="card-header">
-        {% if user.is_authenticated and user.username == comment.author %}
-        <p>You</p>
-        {% else %} {{ comment.author }} Says.. {% endif %}
-    </div>
-    <div class="card-body">
-        <blockquote class="blockquote mb-0">
-            <p>{{ comment.comment }}</p>
-            <footer class="blockquote-footer">{{ comment.date_reported | timesince}} ago</footer>
-        </blockquote>
-        {% if user.is_authenticated and user.username == comment.author %}
-        <a class="btn btn-sm btn-success" href="{% url 'delete-comment' comment.id %}">Remove Comment</a>
-         {% endif %}
-    </div>
-</div>
-{% endfor %}
-<!--Pagination-->
-<nav aria-label="Page navigation example">
-    <ul class="pagination mt-4">
-        {% if comment.has_previous %}
-        <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{ comment.previous_page_number }}">Previous</a></li>
-        {% endif %}
-        <li><a class="page-link"> Page {{ comment.number }} of {{ comment.paginator.num_pages }}. </a> </li>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                        <form class="w-100" action="" method="POST">
+                            {% csrf_token %} {{ comment_form | as_bootstrap }}
+                            <button type="submit" class="float-right btn btn-sm btn-success">Add Comment</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--Comments-->
+            {% for comment in comment %}
+            <div class="card mt-3">
+                <div class="card-header">
+                    {% if user.is_authenticated and user.username == comment.author %}
+                    <p>You</p>
+                    {% else %} {{ comment.author }} Says.. {% endif %}
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>{{ comment.comment }}</p>
+                        <footer class="blockquote-footer">{{ comment.date_reported | timesince}} ago</footer>
+                    </blockquote>
+                    {% if user.is_authenticated and user.username == comment.author %}
+                    <a class="btn btn-sm btn-success" href="{% url 'delete-comment' comment.id %}">Remove Comment</a> {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            <!--Pagination-->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination mt-4">
+                    {% if comment.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ comment.previous_page_number }}">Previous</a></li>
+                    {% endif %}
+                    <li><a class="page-link"> Page {{ comment.number }} of {{ comment.paginator.num_pages }}. </a> </li>
 
-        {% if comment.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{ comment.next_page_number }}">Next</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{ comment.paginator.num_pages }}">Last &raquo;</a></li>
-        {% endif %}
-    </ul>
-</nav>
-<!--END-->
-{% endblock %}
+                    {% if comment.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ comment.next_page_number }}">Next</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ comment.paginator.num_pages }}">Last &raquo;</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            <!--END-->
+            {% endblock %}
