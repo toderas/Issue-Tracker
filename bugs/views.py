@@ -1,7 +1,9 @@
 from django.shortcuts import render, HttpResponse, redirect, reverse, get_object_or_404
+from django.contrib import messages
 from django.core.paginator import Paginator
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .models import bug_item, BugComment
+from .models import bug_item, BugComment, Like
 from .forms import AddBugForm, AddCommentForm
 
 # Create your views here.
@@ -29,6 +31,7 @@ def add_new_bug(request):
         if item_form.is_valid():
             bug = item_form.save(commit=False)
             bug.author = request.user
+            bug.upvoted_by = request.user
             bug.save()
             return redirect(get_bugs)
     else:
@@ -48,12 +51,14 @@ def get_current_bug(request, id):
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
             comment.post = bug
-            comment.author = request.user
             comment.save()
     else:
         comment_form = AddCommentForm()
     
     comment = BugComment.objects.filter(post_id=bug.id).order_by('-date_reported')
+
+    like = Like.objects.filter(post_id=bug.id).count()
+    print(like)
     page = request.GET.get('page', 1)
     paginator = Paginator(comment, 5)
     try:
@@ -63,7 +68,7 @@ def get_current_bug(request, id):
     except EmptyPage:
         comment = paginator.page(paginator.num_pages)
     comment_form = AddCommentForm()
-    return render(request, 'bug-details.html', {'bug': bug, 'comment': comment, 'comment_form': comment_form})
+    return render(request, 'bug-details.html', {'bug': bug, 'comment': comment, 'comment_form': comment_form, 'like': like})
     
     
 def remove_comment(request, BugComment_id):
@@ -73,11 +78,18 @@ def remove_comment(request, BugComment_id):
     comment = get_object_or_404(BugComment, pk=BugComment_id)
     print(comment)
     comment.delete()
+    messages.error(request, "Comment has been removedq")
     return redirect(request.META['HTTP_REFERER'])
     
-    
+
+
 def add_upvotes(request, id):
-    like = bug_item.objects.get(pk=id)
-    like.upvotes += 1
-    like.save()
+    """ Allows user to upvote an item and limits the number of likes to 1 """
+    post = get_object_or_404(bug_item, id=id)
+    upvotes = Like.objects.filter(user=request.user, post=post).count()
+    if upvotes > 0:
+        messages.error(request, 'You Already liked this post!')
+    else:
+        Like.objects.create(user=request.user, post=post)
     return redirect(request.META['HTTP_REFERER'])
+    
