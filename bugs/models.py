@@ -1,7 +1,8 @@
 from django.db import models
 from datetime import date
-
+from django.contrib.auth.models import User
 # Create your models here.
+
 
 
 class bug_item(models.Model):
@@ -25,6 +26,10 @@ class bug_item(models.Model):
              )
     def __str__(self):
         return self.name
+        
+class Like(models.Model):
+    user = models.ForeignKey(User, null=True)
+    post = models.ForeignKey(bug_item, null=True)
         
 
 class BugComment(models.Model):
