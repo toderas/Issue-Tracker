@@ -51,6 +51,7 @@ def get_current_bug(request, id):
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
             comment.post = bug
+            comment.author = request.user
             comment.save()
     else:
         comment_form = AddCommentForm()
@@ -97,3 +98,13 @@ def add_upvotes(request, id):
         Like.objects.create(user=request.user, post=post)
     return redirect(request.META['HTTP_REFERER'])
     
+    
+def delete_bug(request, id):
+    """ Deletes the item and all related information (comments, likes and views)"""
+    bug = get_object_or_404(bug_item, id=id)
+    like = Like.objects.filter(post_id=bug.id)
+    view = Views.objects.filter(post_id=bug.id)
+    bug.delete()
+    like.delete()
+    view.delete()
+    return redirect(get_bugs)
