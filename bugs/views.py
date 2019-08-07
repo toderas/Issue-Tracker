@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .models import bug_item, BugComment, Like
+from .models import bug_item, BugComment, Like, Views
 from .forms import AddBugForm, AddCommentForm
 
 # Create your views here.
@@ -43,9 +43,9 @@ def add_new_bug(request):
 def get_current_bug(request, id):
     """
     Displays single item and related comments with option to insert new comment
+    Checks whether user viewed item and if not adds 1 to views
     """
     bug = get_object_or_404(bug_item, id=id)
-    print(bug)
     if request.method == 'POST':
         comment_form = AddCommentForm(request.POST)
         if comment_form.is_valid():
@@ -56,9 +56,13 @@ def get_current_bug(request, id):
         comment_form = AddCommentForm()
     
     comment = BugComment.objects.filter(post_id=bug.id).order_by('-date_reported')
+    views = Views.objects.filter(user=request.user, post_id=bug).count()
+    if views < 1:
+        Views.objects.create(user=request.user, post_id=bug.id)
 
     like = Like.objects.filter(post_id=bug.id).count()
-    print(like)
+    view = Views.objects.filter(post_id=bug.id).count()
+    print(view)
     page = request.GET.get('page', 1)
     paginator = Paginator(comment, 5)
     try:
@@ -68,7 +72,7 @@ def get_current_bug(request, id):
     except EmptyPage:
         comment = paginator.page(paginator.num_pages)
     comment_form = AddCommentForm()
-    return render(request, 'bug-details.html', {'bug': bug, 'comment': comment, 'comment_form': comment_form, 'like': like})
+    return render(request, 'bug-details.html', {'bug': bug, 'comment': comment, 'comment_form': comment_form, 'like': like, 'view': view})
     
     
 def remove_comment(request, BugComment_id):
