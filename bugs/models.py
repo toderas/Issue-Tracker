@@ -10,8 +10,6 @@ class bug_item(models.Model):
     description = models.TextField()
     date_reported = models.DateTimeField(auto_now_add=True)
     author = models.CharField(max_length=200)
-    upvotes = models.IntegerField(default=0)
-    views = models.IntegerField(default=0)
     last_updated = models.DateTimeField(auto_now_add=True)
     
     STATUS = (
@@ -30,7 +28,12 @@ class bug_item(models.Model):
 class Like(models.Model):
     user = models.ForeignKey(User, null=True)
     post = models.ForeignKey(bug_item, null=True)
+    
         
+class Views(models.Model):
+    user = models.ForeignKey(User, null=True)
+    post = models.ForeignKey(bug_item, null=True)
+
 
 class BugComment(models.Model):
     post = models.ForeignKey(bug_item, null=True)
