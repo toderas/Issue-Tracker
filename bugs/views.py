@@ -83,7 +83,7 @@ def remove_comment(request, BugComment_id):
     comment = get_object_or_404(BugComment, pk=BugComment_id)
     print(comment)
     comment.delete()
-    messages.error(request, "Comment has been removedq")
+    messages.error(request, "Comment has been removed")
     return redirect(request.META['HTTP_REFERER'])
     
 
@@ -101,10 +101,7 @@ def add_upvotes(request, id):
     
 def delete_bug(request, id):
     """ Deletes the item and all related information (comments, likes and views)"""
-    bug = get_object_or_404(bug_item, id=id)
-    like = Like.objects.filter(post_id=bug.id)
-    view = Views.objects.filter(post_id=bug.id)
-    bug.delete()
-    like.delete()
-    view.delete()
+    items = get_object_or_404(bug_item, id=id)
+    items.delete()
+  
     return redirect(get_bugs)
