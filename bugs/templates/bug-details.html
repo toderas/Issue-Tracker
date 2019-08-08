@@ -3,13 +3,19 @@
 <div class="card">
     {% if bug.status == "Pending-review" %}
     <div class="card-header bg-danger mt-2">
+        
         {% elif bug.status == "In-progress" %}
         <div class="card-header bg-info text-white mt-2">
+            
             {% elif bug.status == "Resolved" %}
             <div class="card-header bg-success text-white mt-2">
+                
                 {% else %}
                 <div>
-                    {% endif %} {{ bug.status }}
+                    {% endif %} 
+                    {{ bug.status }}
+                    <span class="float-right"><i class="fas fa-eye">{{ view }}</i></span>
+                    
                 </div>
                 <div class="card-body">
                     <blockquote class="blockquote mb-0">
@@ -17,11 +23,12 @@
                         <p>{{ bug.description }}</p>
                         <footer class="blockquote-footer"> Added {{ bug.date_reported | timesince}} ago by {{ bug.author }}</footer>
                     </blockquote>
-                    <a class="btn btn-sm btn-success" href="{% url 'add-upvote' bug.id %}" type="POST">I have This Too</a>
-
+                    <a class="btn btn-sm btn-success" href="{% url 'add-upvote' bug.id %}" type="POST">I have This Too <i class="fas fa-user mr-1 ml-1"> {{ like }}</i></a>
+                     {% if user.is_authenticated and user.username == bug.author %}
+                     <a class="btn btn-sm btn-danger" href="{% url 'delete-bug' bug.id %}" type="POST">Remove bug</a>
+                     {% endif %}
                 </div>
             </div>
-
             <!--Add comment Form-->
             <div class="card mt-2">
                 <div class="card-header" id="headingTwo">
