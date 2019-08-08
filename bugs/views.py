@@ -53,6 +53,7 @@ def get_current_bug(request, id):
             comment.post = bug
             comment.author = request.user
             comment.save()
+            return redirect(request.META['HTTP_REFERER'])
     else:
         comment_form = AddCommentForm()
     
@@ -103,5 +104,5 @@ def delete_bug(request, id):
     """ Deletes the item and all related information (comments, likes and views)"""
     items = get_object_or_404(bug_item, id=id)
     items.delete()
-  
+    messages.success(request, "Item has been successfully removed!")
     return redirect(get_bugs)
