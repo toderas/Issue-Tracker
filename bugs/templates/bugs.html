@@ -1,49 +1,55 @@
-{% extends 'base.html' %} 
-{% block search %}
+{% extends 'base.html' %} {% block search %}
 <form class="form-inline form-right text-right my-2 my-lg-0" action="{% url 'search-bugs' %}">
-                    <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-{% endblock %}
+    <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>
+{% endblock %} 
 
 {% block content %} 
 
 {% for bug in bugs %}
-
 <div class="card mt-3">
-    {% if bug.status == "Pending-review" %}
-    <div class="card-header bg-danger mt-2">
+    <div class="card-header">
+        <span class="custom-size font-weight-bold d-block d-sm-inline">{{ bug.name }}</span>
+        {% if bug.status == "Pending-review" %}
+        <span class="badge badge-pill badge-secondary float-left float-sm-right  custom-size">
+        <a title="Click to see all items from this category!" class="text-white" href="{% url 'Pending-review' %}">Pending Review</a></span>
         {% elif bug.status == "In-progress" %}
-        <div class="card-header bg-info text-white mt-2">
-            {% elif bug.status == "Resolved" %}
-            <div class="card-header bg-success text-white mt-2">
-                {% else %}
-                <div>
-                    {% endif %} {{ bug.status }}
-                </div>
-                <div class="card-body">
-                    <blockquote class="blockquote mb-0">
-                        <span><strong> {{ bug.name }} </strong></span>
+        <span class="badge badge-pill badge-info float-left float-sm-right custom-size">
+        <a title="Click to see all items from this category!" class="text-white" href="{% url 'in-progress-bugs' %}">In Progress</a> 
+        </span>
+        {% elif bug.status == "Resolved" %}
+        <span class="badge badge-pill badge-success float-left float-sm-right custom-size">
+        <a title="Click to see all items from this category!" class="text-white" href="{% url 'Resolved' %}">Resolved</a>
+        </span>
+        {% endif %}
+    </div>
+     <div class="card-body">
+                    <blockquote class="blockquote mb-1">
                         <p>{{ bug.description }}</p>
-                        <footer class="blockquote-footer"> Added {{ bug.date_reported | timesince}} ago by {{ bug.author }}</footer>
+                        <footer class="blockquote-footer"> Added {{ bug.date_reported | date}} by
+                            <form class="form-hidden" action="{% url 'author-bugs' %}">
+                                <input class="hidden-input list-inline" type="submit" name="bug-author" value="{{ bug.author }}" />
+                            </form>
+                        </footer>
                     </blockquote>
                     <a class="btn btn-sm btn-success" href="{% url 'get-bug' bug.id %}">See More</a>
                 </div>
-            </div>
-            {% endfor %}
-<!--Pagination-->
-<nav aria-label="Page navigation example">
-    <ul class="pagination">
-        {% if bugs.has_previous %}
-        <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{ bugs.previous_page_number }}">Previous</a></li>
-        {% endif %}
-        <li><a class="page-link"> Page {{ bugs.number }} of {{ bugs.paginator.num_pages }}. </a> </li>
-        {% if bugs.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{ bugs.next_page_number }}">Next</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{ bugs.paginator.num_pages }}">Last &raquo;</a></li>
-        {% endif %}
-    </ul>
-</nav>
-<!--END-->
-{% endblock %}
+                </div>
+                {% endfor %}
+      <!--Pagination-->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% if bugs.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ bugs.previous_page_number }}">Previous</a></li>
+                    {% endif %}
+                    <li><a class="page-link"> Page {{ bugs.number }} of {{ bugs.paginator.num_pages }}. </a> </li>
+                    {% if bugs.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ bugs.next_page_number }}">Next</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ bugs.paginator.num_pages }}">Last &raquo;</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            <!--END-->
+            {% endblock %}
