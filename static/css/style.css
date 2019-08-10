@@ -4,3 +4,19 @@ form {
 .form-right {
     width: auto!important;
 }
+
+.hidden-input {
+    border:none;
+    background-color: transparent;
+    color: #6c757d;
+    text-decoration: underline;
+    display: inline-block;
+    width: auto;
+}
+.form-hidden {
+    width: auto;
+    display: inline-block;
+}
+.custom-size {
+    font-size: large !important;
+}
