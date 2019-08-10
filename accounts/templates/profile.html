@@ -3,8 +3,17 @@
 {% block page_title %} {{user}}'s Profile {% endblock %}
 
 {% block page_heading %} {{user}}'s Profile {% endblock %}
+{% load bootstrap_tags %}
 
 {% block content %}
-{{ profile.email }}
+
+<!--Testing Grounds-->
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %} 
+    {{ u_form | as_bootstrap }}
+    {{ p_form | as_bootstrap }}
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+<!--END-->
 {% endblock %}
 
