@@ -25,7 +25,7 @@ SECRET_KEY = '_&l!(bq71y7nej_dy!-s)mbyeg%u5rkz5krjf$)8cvf21d!6-r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["df41bc185e864f3eb0af2a4f7ccde1b9.vfs.cloud9.us-east-1.amazonaws.com"]
+ALLOWED_HOSTS = ["df41bc185e864f3eb0af2a4f7ccde1b9.vfs.cloud9.us-east-1.amazonaws.com", "app-management-a.herokuapp.com"]
 
 
 # Application definition
