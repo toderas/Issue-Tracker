@@ -1,34 +1,46 @@
-{% extends 'base.html' %} {% load bootstrap_tags %} {% block content %}
+{% extends 'base.html' %} 
+{% load bootstrap_tags %}
+{% block search %}
+<form class="form-inline form-right text-right my-2 my-lg-0" action="{% url 'search-bugs' %}">
+                    <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+{% endblock %}
+{% block content %}
 <!--Bug-->
-<div class="card">
-    {% if bug.status == "Pending-review" %}
-    <div class="card-header bg-danger mt-2">
-        
+<div class="card mt-3">
+    <div class="card-header">
+        <span class="custom-size font-weight-bold d-block d-sm-inline">{{ bug.name }}</span>
+        <span class="float-right pl-2"><i class="fas fa-eye">{{ view }}</i></span>
+        {% if bug.status == "Pending-review" %}
+        <span class="badge badge-pill badge-secondary float-left float-sm-right  custom-size">
+        <a title="Click to see all items from this category!" class="text-white" href="{% url 'Pending-review' %}">Pending Review</a></span>
         {% elif bug.status == "In-progress" %}
-        <div class="card-header bg-info text-white mt-2">
-            
-            {% elif bug.status == "Resolved" %}
-            <div class="card-header bg-success text-white mt-2">
-                
-                {% else %}
-                <div>
-                    {% endif %} 
-                    {{ bug.status }}
-                    <span class="float-right"><i class="fas fa-eye">{{ view }}</i></span>
-                    
-                </div>
-                <div class="card-body">
-                    <blockquote class="blockquote mb-0">
-                        <span><strong> {{ bug.name }} </strong></span>
+        <span class="badge badge-pill badge-info float-left float-sm-right custom-size">
+        <a title="Click to see all items from this category!" class="text-white" href="{% url 'in-progress-bugs' %}">In Progress</a> 
+        </span>
+        {% elif bug.status == "Resolved" %}
+        <span class="badge badge-pill badge-success float-left float-sm-right custom-size">
+        <a title="Click to see all items from this category!" class="text-white" href="{% url 'Resolved' %}">Resolved</a>
+        </span>
+        {% endif %}
+    </div>
+     <div class="card-body">
+                    <blockquote class="blockquote mb-1">
                         <p>{{ bug.description }}</p>
-                        <footer class="blockquote-footer"> Added {{ bug.date_reported | timesince}} ago by {{ bug.author }}</footer>
+                        <footer class="blockquote-footer"> Added {{ bug.date_reported | date}} by
+                            <form class="form-hidden" action="{% url 'author-bugs' %}">
+                                <input class="hidden-input list-inline" type="submit" name="bug-author" value="{{ bug.author }}" />
+                            </form>
+                        </footer>
                     </blockquote>
                     <a class="btn btn-sm btn-success" href="{% url 'add-upvote' bug.id %}" type="POST">I have This Too <i class="fas fa-user mr-1 ml-1"> {{ like }}</i></a>
                      {% if user.is_authenticated and user.username == bug.author %}
                      <a class="btn btn-sm btn-danger" href="{% url 'delete-bug' bug.id %}" type="POST">Remove bug</a>
                      {% endif %}
                 </div>
-            </div>
+                </div>
+<!--END-->
             <!--Add comment Form-->
             <div class="card mt-2">
                 <div class="card-header" id="headingTwo">
@@ -52,8 +64,10 @@
             <div class="card mt-3">
                 <div class="card-header">
                     {% if user.is_authenticated and user.username == comment.author %}
-                    <p>You</p>
-                    {% else %} {{ comment.author }} Says.. {% endif %}
+                    <p>You...</p>
+                    {% else %}
+                    {{ comment.author }} Says.. 
+                    {% endif %}
                 </div>
                 <div class="card-body">
                     <blockquote class="blockquote mb-0">
