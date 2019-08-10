@@ -37,8 +37,8 @@
         </a>
                         <!--Navigation Items-->
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{% url 'show_bugs' %}">Current Bugs</a>
-                            <a class="dropdown-item" href="{% url 'add_new_bug' %}">Report Bug</a>
+                            <a class="dropdown-item" href="{% url 'show_bugs' %}">Current Issues</a>
+                            <a class="dropdown-item" href="{% url 'add_new_bug' %}">Report an Issue</a>
 
                         </div>
 
@@ -64,9 +64,6 @@
                     <li><a href="{% url 'registration' %}"><i class="fas fa-user-plus mr-1 ml-1"></i> Register</a></li>
                     <li><a href="{% url 'login' %}"><i class="fas fa-sign-in-alt mr-1 ml-1"></i> Log In</a></li>
                     {% endif %}
-                    <li>
-
-                    </li>
                 </ul>
 
                 <!--END-->
@@ -74,8 +71,8 @@
         </nav>
 
     </header>
-
     <section>
+        <!--<img src="{{ user.profile.image.url }}"></img>-->
         <div class="container">
             {% if messages %}
             <div class="alert alert-success">
