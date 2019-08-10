@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from bugs.models import bug_item
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
