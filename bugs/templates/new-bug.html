@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 {% load bootstrap_tags %}
+{% block search %}
+<form class="form-inline form-right text-right my-2 my-lg-0" action="{% url 'search-bugs' %}">
+                    <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+{% endblock %}
 {% block content %}
     <form action="" method="POST">{% csrf_token %}
     {{ item_form | as_bootstrap }}
