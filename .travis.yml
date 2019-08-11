@@ -2,3 +2,5 @@ language: python
 python:
 - "3.6.8"
 install: "pip3 install -r requirements.txt"
+script:
+- SECRET_KEY="supersecretkey" ./manage.py test
