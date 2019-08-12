@@ -22,6 +22,7 @@ from search import urls as urls_search
 from django.views import static
 from .settings import MEDIA_ROOT
 
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', get_bugs, name='index'),

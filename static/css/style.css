@@ -20,3 +20,8 @@ form {
 .custom-size {
     font-size: large !important;
 }
+
+.profile-image {
+    width: 40px!important;
+    height: 40px !important;
+}

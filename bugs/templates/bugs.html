@@ -1,4 +1,10 @@
-{% extends 'base.html' %} {% block search %}
+{% extends 'base.html' %}
+
+{% block page_title %} Current bugs {% endblock %}
+
+{% block page_heading %} All registered bugs {% endblock %}
+
+{% block search %}
 <form class="form-inline form-right text-right my-2 my-lg-0" action="{% url 'search-bugs' %}">
     <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -27,10 +33,12 @@
      <div class="card-body">
                     <blockquote class="blockquote mb-1">
                         <p>{{ bug.description }}</p>
-                        <footer class="blockquote-footer"> Added {{ bug.date_reported | date}} by
-                            <form class="form-hidden" action="{% url 'author-bugs' %}">
+                        <footer class="blockquote-footer list-inline"> Added {{ bug.date_reported | date}} by
+                        <li class="d-inline"><img class="rounded-circle profile-image" src="{{ bug.author_image.url  }}"></img>
+                        <form class="form-hidden" action="{% url 'author-bugs' %}">
                                 <input class="hidden-input list-inline" type="submit" name="bug-author" value="{{ bug.author }}" />
-                            </form>
+                            </form></li>
+                            
                         </footer>
                     </blockquote>
                     <a class="btn btn-sm btn-success" href="{% url 'get-bug' bug.id %}">See More</a>

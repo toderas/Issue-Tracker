@@ -31,7 +31,8 @@ def add_new_bug(request):
         if item_form.is_valid():
             bug = item_form.save(commit=False)
             bug.author = request.user
-            bug.upvoted_by = request.user
+            bug.author_image = request.user.profile.image
+           # bug.upvoted_by = request.user
             bug.save()
             return redirect(get_bugs)
     else:
@@ -52,6 +53,7 @@ def get_current_bug(request, id):
             comment = comment_form.save(commit=False)
             comment.post = bug
             comment.author = request.user
+            comment.author_image = request.user.profile.image
             comment.save()
             return redirect(request.META['HTTP_REFERER'])
     else:

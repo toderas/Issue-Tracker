@@ -29,9 +29,10 @@
                     <blockquote class="blockquote mb-1">
                         <p>{{ bug.description }}</p>
                         <footer class="blockquote-footer"> Added {{ bug.date_reported | date}} by
-                            <form class="form-hidden" action="{% url 'author-bugs' %}">
+                           <li class="d-inline"><img class="rounded-circle profile-image" src="{{ bug.author.image.url }}"></img>
+                        <form class="form-hidden" action="{% url 'author-bugs' %}">
                                 <input class="hidden-input list-inline" type="submit" name="bug-author" value="{{ bug.author }}" />
-                            </form>
+                            </form></li>
                         </footer>
                     </blockquote>
                     <a class="btn btn-sm btn-success" href="{% url 'add-upvote' bug.id %}" type="POST">I have This Too <i class="fas fa-user mr-1 ml-1"> {{ like }}</i></a>
@@ -63,11 +64,7 @@
             {% for comment in comment %}
             <div class="card mt-3">
                 <div class="card-header">
-                    {% if user.is_authenticated and user.username == comment.author %}
-                    <p>You...</p>
-                    {% else %}
-                    {{ comment.author }} Says.. 
-                    {% endif %}
+                    <img class="rounded-circle profile-image" src="{{ comment.author_image.url }}"></img> {{ comment.author }} </li>
                 </div>
                 <div class="card-body">
                     <blockquote class="blockquote mb-0">
