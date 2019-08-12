@@ -29,7 +29,7 @@
                     <blockquote class="blockquote mb-1">
                         <p>{{ bug.description }}</p>
                         <footer class="blockquote-footer"> Added {{ bug.date_reported | date}} by
-                           <li class="d-inline"><img class="rounded-circle profile-image" src="{{ bug.author.image.url }}"></img>
+                           <li class="d-inline"><img class="rounded-circle profile-image" src="{{ bug.author.profile.image.url }}"></img>
                         <form class="form-hidden" action="{% url 'author-bugs' %}">
                                 <input class="hidden-input list-inline" type="submit" name="bug-author" value="{{ bug.author }}" />
                             </form></li>
@@ -64,14 +64,14 @@
             {% for comment in comment %}
             <div class="card mt-3">
                 <div class="card-header">
-                    <img class="rounded-circle profile-image" src="{{ comment.author_image.url }}"></img> {{ comment.author }} </li>
+                    <img class="rounded-circle profile-image" src="{{ comment.author.profile.image.url }}"></img> {{ comment.author }} </li>
                 </div>
                 <div class="card-body">
                     <blockquote class="blockquote mb-0">
                         <p>{{ comment.comment }}</p>
                         <footer class="blockquote-footer">{{ comment.date_reported | timesince}} ago</footer>
                     </blockquote>
-                    {% if user.is_authenticated and user.username == comment.author %}
+                    {% if user.is_authenticated and user.id == comment.author_id %}
                     <a class="btn btn-sm btn-success" href="{% url 'delete-comment' comment.id %}">Remove Comment</a> {% endif %}
                 </div>
             </div>
