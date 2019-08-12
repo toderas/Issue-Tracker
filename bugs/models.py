@@ -9,8 +9,7 @@ class bug_item(models.Model):
     name = models.CharField(max_length=254, default="")
     description = models.TextField()
     date_reported = models.DateTimeField(auto_now_add=True)
-    author = models.CharField(max_length=200)
-    author_image = models.ImageField(default='default.jpeg', upload_to='profile_image')
+    author = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     
     STATUS = (
         ('Pending-review','Pending Review'),
@@ -37,8 +36,7 @@ class Views(models.Model):
 
 class BugComment(models.Model):
     post = models.ForeignKey(bug_item, null=True)
-    author = models.CharField(max_length=200)
-    author_image = models.ImageField(default='default.jpeg', upload_to='profile_image')
+    author = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     comment = models.TextField()
     date_reported = models.DateTimeField(auto_now_add=True)
     approved_comment = models.BooleanField(default=True)
