@@ -34,7 +34,7 @@
                     <blockquote class="blockquote mb-1">
                         <p>{{ bug.description }}</p>
                         <footer class="blockquote-footer list-inline"> Added {{ bug.date_reported | date}} by
-                        <li class="d-inline"><img class="rounded-circle profile-image" src="{{ bug.author_image.url  }}"></img>
+                        <li class="d-inline"><img class="rounded-circle profile-image" src="{{ bug.author.profile.image.url  }}"></img>
                         <form class="form-hidden" action="{% url 'author-bugs' %}">
                                 <input class="hidden-input list-inline" type="submit" name="bug-author" value="{{ bug.author }}" />
                             </form></li>
