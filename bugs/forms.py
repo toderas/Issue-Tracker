@@ -16,3 +16,9 @@ class AddCommentForm(forms.ModelForm):
         model = BugComment
         fields = ['comment',]
     comment = forms.Textarea()
+    
+class BugStatusForm(forms.ModelForm):
+    class Meta:
+        model = bug_item
+        fields = ['status']
+    status = forms.Textarea()

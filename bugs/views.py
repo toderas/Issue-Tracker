@@ -4,7 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import bug_item, BugComment, Like, Views
-from .forms import AddBugForm, AddCommentForm
+from .forms import AddBugForm, AddCommentForm, BugStatusForm
 
 # Create your views here.
 def get_bugs(request):
@@ -47,6 +47,12 @@ def get_current_bug(request, id):
     bug = get_object_or_404(bug_item, id=id)
     if request.method == 'POST':
         comment_form = AddCommentForm(request.POST)
+        status_form = BugStatusForm(request.POST)
+        if status_form.is_valid():
+            status = status_form.save(commit=False)
+            bug.status = status
+            status.save()
+            return redirect(request.META['HTTP_REFERER'])
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
             comment.post = bug
@@ -55,7 +61,6 @@ def get_current_bug(request, id):
             return redirect(request.META['HTTP_REFERER'])
     else:
         comment_form = AddCommentForm()
-    
     comment = BugComment.objects.filter(post_id=bug.id).order_by('-date_reported')
     views = Views.objects.filter(user=request.user, post_id=bug).count()
     if views < 1:
@@ -73,7 +78,8 @@ def get_current_bug(request, id):
     except EmptyPage:
         comment = paginator.page(paginator.num_pages)
     comment_form = AddCommentForm()
-    return render(request, 'bug-details.html', {'bug': bug, 'comment': comment, 'comment_form': comment_form, 'like': like, 'view': view})
+    status_form = BugStatusForm()
+    return render(request, 'bug-details.html', {'bug': bug, 'comment': comment, 'comment_form': comment_form, 'like': like, 'view': view, 'status_form': status_form})
     
     
 def remove_comment(request, BugComment_id):
