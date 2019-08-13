@@ -20,7 +20,7 @@ def search_bugs(request):
 
 def search_user_bugs(request):
     """ A view that returns the user's posted bugs """
-    bugs = bug_item.objects.filter(author__icontains=request.user.username)
+    bugs = bug_item.objects.filter(author__icontains=request.user.id)
     page = request.GET.get('page', 1)
 
     paginator = Paginator(bugs, 5)
@@ -35,7 +35,7 @@ def search_user_bugs(request):
     
 def search_author_bugs(request):
     """ A view that returns a certains's author posted bugs """
-    bugs = bug_item.objects.filter(author__icontains=request.GET['bug-author'])
+    bugs = bug_item.objects.filter(author_id=request.GET['bug-author'])
     page = request.GET.get('page', 1)
 
     paginator = Paginator(bugs, 5)
