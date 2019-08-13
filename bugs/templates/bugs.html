@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
-{% block page_title %} Current bugs {% endblock %}
+{% block page_title %} Current Issues {% endblock %}
 
-{% block page_heading %} All registered bugs {% endblock %}
+
 
 {% block search %}
 <form class="form-inline form-right text-right my-2 my-lg-0" action="{% url 'search-bugs' %}">
@@ -36,7 +36,7 @@
                         <footer class="blockquote-footer list-inline"> Added {{ bug.date_reported | date}} by
                         <li class="d-inline"><img class="rounded-circle profile-image" src="{{ bug.author.profile.image.url  }}"></img>
                         <form class="form-hidden" action="{% url 'author-bugs' %}">
-                                <input class="hidden-input list-inline" type="submit" name="bug-author" value="{{ bug.author }}" />
+                            <button title="click to see user's reported issues" class="hidden-input" type="submit" name="bug-author" value="{{ bug.author.id }}"> {{ bug.author }} </button>
                             </form></li>
                             
                         </footer>

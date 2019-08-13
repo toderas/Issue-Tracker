@@ -1,4 +1,9 @@
-{% extends 'base.html' %} {% block search %}
+{% extends 'base.html' %}
+
+{% block page_title %} Bugs by status {% endblock %}
+
+
+{% block search %}
 <form class="form-inline form-right text-right my-2 my-lg-0" action="{% url 'search-bugs' %}">
     <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -13,24 +18,26 @@
         <span class="custom-size font-weight-bold d-block d-sm-inline">{{ bug.name }}</span>
         {% if bug.status == "Pending-review" %}
         <span class="badge badge-pill badge-secondary float-left float-sm-right  custom-size">
-        {{ bug.status }}</span>
+        Pending Review</span>
         {% elif bug.status == "In-progress" %}
         <span class="badge badge-pill badge-info float-left float-sm-right custom-size">
-        {{ bug.status }}
+        In Progress
         </span>
         {% elif bug.status == "Resolved" %}
         <span class="badge badge-pill badge-success float-left float-sm-right custom-size">
-        {{ bug.status }}
+        Resolved
         </span>
         {% endif %}
     </div>
      <div class="card-body">
                     <blockquote class="blockquote mb-1">
                         <p>{{ bug.description }}</p>
-                        <footer class="blockquote-footer"> Added {{ bug.date_reported | date}} by
-                            <form class="form-hidden" action="{% url 'author-bugs' %}">
-                                <input class="hidden-input list-inline" type="submit" name="bug-author" value="{{ bug.author }}" />
-                            </form>
+                        <footer class="blockquote-footer list-inline"> Added {{ bug.date_reported | date}} by
+                        <li class="d-inline"><img class="rounded-circle profile-image" src="{{ bug.author.profile.image.url  }}"></img>
+                        <form class="form-hidden" action="{% url 'author-bugs' %}">
+                            <button title="click to see user's reported issues" class="hidden-input" type="submit" name="bug-author" value="{{ bug.author.id }}"> {{ bug.author }} </button>
+                            </form></li>
+                            
                         </footer>
                     </blockquote>
                     <a class="btn btn-sm btn-success" href="{% url 'get-bug' bug.id %}">See More</a>
