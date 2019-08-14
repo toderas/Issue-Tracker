@@ -3,6 +3,7 @@ dj-database-url==0.5.0
 Django==1.11
 django-forms-bootstrap==3.1.0
 django-messages==0.6.0
+django-storages==1.7.1
 gunicorn==19.9.0
 nltk==3.4.4
 Pillow==6.1.0
