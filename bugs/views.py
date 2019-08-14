@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from .models import bug_item, BugComment, Like, Views
 from .forms import AddBugForm, AddCommentForm
 
+
 # Create your views here.
 def get_bugs(request):
     bugs = bug_item.objects.filter().order_by('-date_reported')
@@ -60,7 +61,6 @@ def get_current_bug(request, id):
     views = Views.objects.filter(user=request.user, post_id=bug).count()
     if views < 1:
         Views.objects.create(user=request.user, post_id=bug.id)
-
     like = Like.objects.filter(post_id=bug.id).count()
     view = Views.objects.filter(post_id=bug.id).count()
     print(view)
@@ -86,7 +86,6 @@ def remove_comment(request, BugComment_id):
     messages.error(request, "Comment has been removed")
     return redirect(request.META['HTTP_REFERER'])
     
-
 
 def add_upvotes(request, id):
     """ Allows user to upvote an item and limits the number of likes to 1 """
