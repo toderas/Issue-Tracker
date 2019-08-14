@@ -113,6 +113,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'accounts.backends.EmailAuth']
 
 
 # Internationalization
@@ -131,13 +134,14 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
+AWS_QUERYSTRING_AUTH = False
 
 AWS_S3_OBJECT_PARAMETERS = {
     'Expires': 'Fri, 31 Dec 2099 20:00:00 GMT',
     'CacheControl': 'max-age=94608000',
 }
 
-
+AWS_DEFAULT_ACL = None
 AWS_STORAGE_BUCKET_NAME = 'issue-tracker-django.a.a'
 AWS_S3_REGION_NAME = 'eu-west-2'
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
