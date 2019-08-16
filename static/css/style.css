@@ -1,22 +1,36 @@
 form {
     width: 50%;
 }
+
 .form-right {
     width: auto!important;
 }
 
+.wrap-fields {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 3.0em;
+}
+
 .hidden-input {
-    border:none;
+    border: none;
     background-color: transparent;
     color: #6c757d;
     text-decoration: underline;
     display: inline-block;
     width: auto;
 }
+
 .form-hidden {
     width: auto;
     display: inline-block;
 }
+
 .custom-size {
     font-size: large !important;
 }
