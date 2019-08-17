@@ -1,0 +1,59 @@
+
+{% extends 'base.html' %}
+
+{% load bootstrap_tags %}
+
+{% block page_title %} Current Features {% endblock %} 
+
+{% block search %}
+<form class="form-inline form-right text-right my-2 my-lg-0" action="{% url 'search-bugs' %}">
+    <div class="wrap-fields">
+        <input class="form-control mr-sm-2 w-100" name="search" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn my-2 my-sm-0 search-icon" type="submit"><i class="fas fa-search"></i></button>
+    </div>
+</form>
+{% endblock %} {% block content %} {% for feature in features %}
+<div class="card mt-3">
+    <div class="card-header">
+        <span class="custom-size font-weight-bold d-block d-sm-inline">{{ feature.name }}</span> 
+        
+    </div>
+    <div class="card-body">
+        <blockquote class="blockquote mb-1">
+            <p>{{ feature.description }}</p>
+            <footer class="blockquote-footer list-inline"> Added {{ feature.date_reported | date}} by
+                <li class="d-inline"><img class="rounded-circle profile-image" src="{{ feature.author.profile.image.url  }}"></img>
+                   <span>{{ feature.author }}</span>
+                </li>
+                {{ feature.price }}
+                <form method="post" action="{% url 'add_to_cart' feature.id %}">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <input name="quantity" type="number" min="1" max="999" class="form-control" placeholder="Quantity">
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" type="submit">Add</button>
+                        </span>
+                    </div>
+                </form>
+            </footer>
+        </blockquote>
+        
+    </div>
+</div>
+{% endfor %}
+<!--Pagination-->
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        {% if bugs.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ bugs.previous_page_number }}">Previous</a></li>
+        {% endif %}
+        <li><a class="page-link"> Page {{ bugs.number }} of {{ bugs.paginator.num_pages }}. </a> </li>
+        {% if bugs.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ bugs.next_page_number }}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ bugs.paginator.num_pages }}">Last &raquo;</a></li>
+        {% endif %}
+    </ul>
+</nav>
+<!--END-->
+{% endblock %}
