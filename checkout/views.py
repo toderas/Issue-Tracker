@@ -5,7 +5,7 @@ from .forms import OrderForm, MakePaymentForm
 from .models import OrderLineItem
 from django.conf import settings
 from django.utils import timezone
-from products.models import Product
+from features.models import Feature
 import stripe
 
 # Create your views here.
@@ -27,7 +27,7 @@ def checkout(request):
             cart = request.session.get('cart', {})
             total = 0
             for id, quantity in cart.items():
-                product = get_object_or_404(Product, pk=id)
+                product = get_object_or_404(Feature, pk=id)
                 total += quantity * product.price
                 order_line_item = OrderLineItem(
                     order = order,
