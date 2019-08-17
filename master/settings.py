@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'accounts',
     'search',
     'features',
+    'cart',
+    'checkout',
     'storages',
 ]
 
@@ -71,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.contexts.cart_contents',
                 
             ],
         },
@@ -148,6 +151,9 @@ MEDIA_URL = '/media/'
 
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
+
+STRIPE_PUBLISHABLE = os.getenv('STRIPE_PUBLISHABLE')
+STRIPE_SECRET = os.getenv('STRIPE_SECRET')
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
