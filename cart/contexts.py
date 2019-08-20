@@ -10,13 +10,15 @@ def cart_contents(request):
     cart = request.session.get('cart', {})
 
     cart_items = []
-    total = 0
     feature_count = 0
+    total = 0
     
-    for id, quantity in cart.items():
+    for id, contribution in cart.items():
         feature = get_object_or_404(Feature, pk=id)
-        total += quantity * feature.price
-        feature_count += quantity
-        cart_items.append({'id': id, 'quantity': quantity, 'feature': feature})
+        total += contribution
+        print(total)
+        feature_count += 1
+        cart_items.append({'id': id, 'contribution': contribution, 'feature': feature})
     
-    return {'cart_items': cart_items, 'total': total, 'feature_count': feature_count}
+    return {'cart_items': cart_items, 'total': round(float(total),2), 'feature_count': feature_count}
+    
