@@ -56,14 +56,12 @@ def get_current_bug(request, id):
             return redirect(request.META['HTTP_REFERER'])
     else:
         comment_form = AddCommentForm()
-    
     comment = BugComment.objects.filter(post_id=bug.id).order_by('-date_reported')
     views = Views.objects.filter(user=request.user, post_id=bug).count()
     if views < 1:
         Views.objects.create(user=request.user, post_id=bug.id)
     like = Like.objects.filter(post_id=bug.id).count()
     view = Views.objects.filter(post_id=bug.id).count()
-    print(view)
     page = request.GET.get('page', 1)
     paginator = Paginator(comment, 5)
     try:
@@ -81,7 +79,6 @@ def remove_comment(request, BugComment_id):
     Removes comment and returns to the same page 
     """
     comment = get_object_or_404(BugComment, pk=BugComment_id)
-    print(comment)
     comment.delete()
     messages.error(request, "Comment has been removed")
     return redirect(request.META['HTTP_REFERER'])
