@@ -5,7 +5,7 @@ from .models import Order, OrderLineItem
 class OrderLineAdminInline(admin.TabularInline):
     model = OrderLineItem
     
-class OrderAmin(admin.ModelAdmin):
-    inlines = (OrderLineAdminInline, )
+class OrderAdmin(admin.ModelAdmin):
+    inlines = (OrderLineAdminInline,)
     
-admin.site.register(Order, OrderAmin)
+admin.site.register(Order, OrderAdmin)
