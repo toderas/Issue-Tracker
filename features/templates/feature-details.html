@@ -1,0 +1,77 @@
+{% extends 'base.html' %} {% load bootstrap_tags %} {% block page_title %} Current Features {% endblock %} {% block search %}
+<form class="form-inline form-right text-right my-2 my-lg-0" action="{% url 'search-bugs' %}">
+    <div class="wrap-fields">
+        <input class="form-control mr-sm-2 w-100" name="search" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn my-2 my-sm-0 search-icon" type="submit"><i class="fas fa-search"></i></button>
+    </div>
+</form>
+{% endblock %} {% block content %}
+<div class="card mt-3">
+    <div class="card-header">
+        <span class="custom-size font-weight-bold d-block d-sm-inline">{{ feature.name }}</span>
+
+    </div>
+    <div class="card-body">
+        <blockquote class="blockquote mb-1">
+            <p>{{ feature.description }}</p>
+            <footer class="blockquote-footer list-inline"> Added {{ feature.date_reported | date}} by
+                <li class="d-inline"><img class="rounded-circle profile-image" src="{{ feature.author.profile.image.url  }}"></img>
+                    <span>{{ feature.author }}</span>
+                </li>
+                <div>
+                    <span class="float-left"><strong>{{ feature.value_collected}}£ </strong>Collected</span>
+                    <span>.</span>
+                    <span class="float-right"><strong>{{ feature.target_value }}£</strong> Required</span>
+                    
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{ progress }}%" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100">
+                           
+                            {% if remaining < 1 %}
+                            Completed
+                            {% else %}
+                             {{ progress|floatformat:2 }}% 
+                            {{ remaining }}£ Required
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!--Contribute form-->
+                 <div class="card mt-2">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn btn-sm btn-info collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Contribute
+        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                        <form class="w-25" method="post" action="{% url 'add_to_cart' feature.id %}">
+                            {% csrf_token %} {{ contribute_form | as_bootstrap }}
+                            <button type="submit" class="float-right btn btn-sm btn-success">Contribute</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+                <!--END-->
+            </footer>
+        </blockquote>
+    </div>
+</div>
+
+<!--Pagination-->
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        {% if bugs.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ bugs.previous_page_number }}">Previous</a></li>
+        {% endif %}
+        <li><a class="page-link"> Page {{ bugs.number }} of {{ bugs.paginator.num_pages }}. </a> </li>
+        {% if bugs.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ bugs.next_page_number }}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ bugs.paginator.num_pages }}">Last &raquo;</a></li>
+        {% endif %}
+    </ul>
+</nav>
+<!--END-->
+{% endblock %}
