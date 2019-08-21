@@ -26,20 +26,20 @@ def checkout(request):
             
             cart = request.session.get('cart', {})
             total = 0
-            for id, quantity in cart.items():
+            for id, contribution in cart.items():
                 product = get_object_or_404(Feature, pk=id)
-                total += quantity * product.price
+                total += contribution 
                 order_line_item = OrderLineItem(
                     order = order,
                     product = product,
-                    quantity = quantity
+                    quantity = contribution
                     )
                 order_line_item.save()
                 
             try:
                 customer = stripe.Charge.create(
                     amount = int(total * 100),
-                    currency = "EUR",
+                    currency = "GBP",
                     description = request.user.email,
                     card = payment_form.cleaned_data['stripe_id'],
                 )
@@ -48,8 +48,12 @@ def checkout(request):
             
             if customer.paid:
                 messages.error(request, "You have succesfully paid")
+                for id, contribution in cart.items():
+                    feature = get_object_or_404(Feature, pk=id)
+                    feature.value_collected += contribution
+                    feature.save()
                 request.session['cart'] = {}
-                return redirect(reverse('products'))
+                return redirect(reverse('features'))
             else:
                 messages.error(request, "Unable tot take payment")
         else:
