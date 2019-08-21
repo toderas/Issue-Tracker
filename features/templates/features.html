@@ -16,25 +16,33 @@
 <div class="card mt-3">
     <div class="card-header">
         <span class="custom-size font-weight-bold d-block d-sm-inline">{{ feature.name }}</span> 
-        
+        {% if feature.target_value == 0 %}
+        <span class="badge badge-pill badge-secondary float-left float-sm-right  custom-size">
+        Pending Asessment</span> 
+        {% elif feature.target_value <= feature.value_collected %}
+        <span class="badge badge-pill badge-success float-left float-sm-right custom-size">
+        Implementation in progress
+        </span> 
+        {% elif feature.target_value != 0 %}
+        <span class="badge badge-pill badge-info float-left float-sm-right custom-size">
+        Funding required
+        </span> 
+        {% endif %}
+    
     </div>
     <div class="card-body">
+        target
+        {{ feature.target_value }}
+        collected
+        {{ feature.value_collected }}
+        
         <blockquote class="blockquote mb-1">
             <p>{{ feature.description }}</p>
             <footer class="blockquote-footer list-inline"> Added {{ feature.date_reported | date}} by
                 <li class="d-inline"><img class="rounded-circle profile-image" src="{{ feature.author.profile.image.url  }}"></img>
                    <span>{{ feature.author }}</span>
                 </li>
-                {{ feature.price }}
-                <form method="post" action="{% url 'add_to_cart' feature.id %}">
-                    {% csrf_token %}
-                    <div class="input-group">
-                        <input name="quantity" type="number" min="1" max="999" class="form-control" placeholder="Quantity">
-                        <span class="input-group-btn">
-                            <button class="btn btn-success" type="submit">Add</button>
-                        </span>
-                    </div>
-                </form>
+                 <a class="btn btn-sm btn-success" href="{% url 'get-feature' feature.id %}">See More</a>
             </footer>
         </blockquote>
         
