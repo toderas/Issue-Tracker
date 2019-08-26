@@ -1,8 +1,8 @@
 {% extends 'base.html' %} {% block page_title %} Current Issues {% endblock %} {% block search %}
 <form class="form-inline form-right text-right my-2 my-lg-0" action="{% url 'search-bugs' %}">
     <div class="wrap-fields">
-        <input class="form-control mr-sm-2 w-100" name="search" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn my-2 my-sm-0 search-icon" type="submit"><i class="fas fa-search"></i></button>
+        <input class="form-control my-0 mr-sm-2 w-100" name="search" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn my-0  search-icon" type="submit"><i class="fas fa-search"></i></button>
     </div>
 </form>
 {% endblock %} {% block content %} {% for bug in bugs %}
@@ -10,12 +10,12 @@
     <div class="card-header">
         <span class="custom-size font-weight-bold d-block d-sm-inline">{{ bug.name }}</span> {% if bug.status == "Pending-review" %}
         <span class="badge badge-pill badge-secondary float-left float-sm-right  custom-size">
-        <a title="Click to see all items from this category!" class="text-white" href="{% url 'Pending-review' %}">Pending Review</a></span> {% elif bug.status == "In-progress" %}
+        <a title="Click to see all items from this category!" class="text-white" href="{% url 'Pending-review' %}"><i class="fas fa-link"></i> Pending Review</a></span> {% elif bug.status == "In-progress" %}
         <span class="badge badge-pill badge-info float-left float-sm-right custom-size">
-        <a title="Click to see all items from this category!" class="text-white" href="{% url 'in-progress-bugs' %}">In Progress</a> 
+        <a title="Click to see all items from this category!" class="text-white" href="{% url 'in-progress-bugs' %}"><i class="fas fa-link"></i> In Progress</a> 
         </span> {% elif bug.status == "Resolved" %}
         <span class="badge badge-pill badge-success float-left float-sm-right custom-size">
-        <a title="Click to see all items from this category!" class="text-white" href="{% url 'Resolved' %}">Resolved</a>
+        <a title="Click to see all items from this category!" class="text-white" href="{% url 'Resolved' %}"><i class="fas fa-link"></i> Resolved</a>
         </span> {% endif %}
     </div>
     <div class="card-body">
