@@ -5,7 +5,7 @@ from .forms import OrderForm, MakePaymentForm
 from .models import OrderLineItem
 from django.conf import settings
 from django.utils import timezone
-from features.models import Feature
+from features.models import Feature, FeatureContributors
 import stripe
 
 # Create your views here.
@@ -23,7 +23,6 @@ def checkout(request):
             order = order_form.save(commit=False)
             order.date = timezone.now()
             order.save()
-            
             cart = request.session.get('cart', {})
             total = 0
             for id, contribution in cart.items():
@@ -52,6 +51,8 @@ def checkout(request):
                     feature = get_object_or_404(Feature, pk=id)
                     feature.value_collected += contribution
                     feature.save()
+                    FeatureContributors.objects.create(post=feature, user=request.user, amount=contribution)
+                    
                 request.session['cart'] = {}
                 return redirect(reverse('features'))
             else:
