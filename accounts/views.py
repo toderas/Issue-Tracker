@@ -24,12 +24,9 @@ def login(request):
         return redirect(reverse('index'))
     if request.method == "POST":
         login_form = UserLoginForm(request.POST)
-        
         if login_form.is_valid():
             user = auth.authenticate(username=request.POST['username'],
                                      password=request.POST['password'])
-            
-        
         if user:
             auth.login(user=user, request=request)
             messages.success(request, "You have successfully logged in!")
