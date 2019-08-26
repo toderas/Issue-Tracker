@@ -8,8 +8,12 @@ class AddFeatureForm(forms.ModelForm):
         fields = ['name', 'description']
     name = forms.CharField()
     description = forms.Textarea()
-    
+
+
 class ContributeFeatureForm(forms.ModelForm):
+    
     class Meta:
         model = Feature
-        fields = ['price']
+        fields = ['amount']
+    amount = forms.DecimalField(required=False,label= "Enter desired amount (min £5)", widget=forms.NumberInput(attrs={'placeholder': '£££'}), min_value=5)
+    
