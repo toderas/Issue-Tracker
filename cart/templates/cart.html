@@ -4,6 +4,14 @@
 
 {% load bootstrap_tags %} 
 
+{% block page_title %}
+Cart
+{% endblock %}
+
+{% block page_heading %}
+    <div class="row mt-2"><i class="fas fa-shopping-cart"></i>Cart:</div>
+{% endblock %}
+
 {% block content %}
 <div class="row">
     {% for item in cart_items %}
@@ -19,19 +27,22 @@
                 <li class="d-inline"><img class="rounded-circle profile-image" src="{{ item.feature.author.profile.image.url  }}"></img>
                    <span>{{ item.feature.author }}</span>
                 </li>
-                 <div class="input-group-addon">Your Contribution: <strong>£{{ item.contribution }}</strong></div>
+                 <div class="input-group-addon">Your Contribution: <strong class="text-dark">£ {{ item.contribution }}</strong></div>
                 <form class="form-inline" method="post" action="{% url 'adjust_cart' item.id %}">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="exampleInputAmount" class="sr-onl">Adjust Contribution</label>
                         <div class="input-group">
-                            <input name="price" type="number" min="5" max="999" class="form-control ml-1" placeholder="£££" required>
+                            <input name="price" type="number" default="0" min="5" max="999" class="form-control ml-1" placeholder="£££" required>
                         </div>
                     </div>
-                    <div class="col-12">
+                    <div class="col-12 mt-2">
                         <button type="submit" class="btn btn-primary"><span class="fas fa-sync-alt" aria-hidden="true"></span> Update</button>
+                        <button class="btn btn-primary"><a class="text-white" href="{% url 'remove_item' item.id %}"><i class="fas fa-trash"></i> Delete</a></button>
+                       
                     </div>
                 </form>
+                 
                 
             </footer>
         </blockquote>
@@ -40,11 +51,11 @@
     <!--END-->
     {% endfor %}
 </div>
-{% if total > 5 %}
+{% if total >= 5 %}
 <div class="row mt-3">
     <p>Total</p>
     <p><span class="ml-2" aria-hidden="true"></span><i class="fas fa-pound-sign">{{ total }}</i></p>
-    <a href="{% url 'checkout' %}" class="btn btn-success ml-3" role="button"><span class="fas fa-paper-plane" aria-hidden="true"></span> Checkout</a>
+    <a href="{% url 'checkout' %}" class="btn btn-success ml-3 mb-3" role="button"><span class="fas fa-paper-plane" aria-hidden="true"></span> Checkout</a>
 </div>
 {% else %}
 <p>Products you have contributed to will appear here</p>
