@@ -11,6 +11,6 @@
 </form>
 {% endblock %} {% block content %}
 <form action="" method="POST">{% csrf_token %} {{ feature_form | as_bootstrap }}
-    <input type="submit" value="Submit" />
+    <input class="btn alert-success" type="submit" value="Submit" />
 </form>
 {% endblock %}
