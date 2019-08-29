@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 
 # Create your views here.
 
@@ -24,5 +24,12 @@ def adjust_cart(request, id):
         cart[id] = contribution
     else:
         cart.pop(id)
+    request.session['cart'] = cart
+    return redirect(reverse('view_cart'))
+
+
+def remove_item_cart(request, id):
+    cart = request.session.get('cart', {})
+    cart.pop(id)
     request.session['cart'] = cart
     return redirect(reverse('view_cart'))
