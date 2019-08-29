@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
 {% load bootstrap_tags %}
-
 {% block head_js %}
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script type="text/javascript">
@@ -10,6 +9,13 @@
     //]]>
 </script>
 <script type="text/javascript" src="{% static 'js/stripe.js' %}"></script>
+{% endblock %}
+
+{% block page_title %}
+Checkout
+{% endblock %}
+{% block page_heading %}
+    <div class="row mt-2"><i class="fas fa-paper-plane"></i>Checkout:</div>
 {% endblock %}
 
 {% block content %}
@@ -26,7 +32,7 @@
                 <li class="d-inline"><img class="rounded-circle profile-image" src="{{ item.feature.author.profile.image.url  }}"></img>
                    <span>{{ item.feature.author }}</span>
                 </li>
-                 <div class="input-group-addon">Your Contribution: <strong>£{{ item.contribution }}</strong></div>
+                 <div class="card-header">Your Contribution: <strong class="text-dark">£{{ item.contribution }}</strong></div>
             </footer>
         </blockquote>
     </div>
