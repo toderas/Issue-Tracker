@@ -10,7 +10,6 @@ import stripe
 
 # Create your views here.
 
-
 stripe.api_key = settings.STRIPE_SECRET
 
 @login_required()
@@ -18,7 +17,6 @@ def checkout(request):
     if request.method=="POST":
         order_form = OrderForm(request.POST)
         payment_form = MakePaymentForm(request.POST)
-        
         if order_form.is_valid() and payment_form.is_valid():
             order = order_form.save(commit=False)
             order.date = timezone.now()
@@ -58,7 +56,6 @@ def checkout(request):
             else:
                 messages.error(request, "Unable tot take payment")
         else:
-            print(payment_form.errors)
             messages.error(request, "We were unable to take a payment with that card")
     else:
         payment_form = MakePaymentForm()
