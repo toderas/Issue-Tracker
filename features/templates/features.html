@@ -6,16 +6,24 @@
 {% block page_title %} Current Features {% endblock %} 
 
 {% block search %}
-<form class="form-inline form-right text-right my-2 my-lg-0" action="{% url 'search-bugs' %}">
+<form class="form-inline form-right text-right my-2 my-lg-0" action="{% url 'search-features' %}">
     <div class="wrap-fields">
         <input class="form-control mr-sm-2 w-100" name="search" type="search" placeholder="Search" aria-label="Search">
         <button class="btn my-2 my-sm-0 search-icon" type="submit"><i class="fas fa-search"></i></button>
     </div>
 </form>
-{% endblock %} {% block content %} {% for feature in features %}
+{% endblock %} 
+
+{% block content %}
+
+{% if query %}
+
+<div class="row"><span>Displaying <strong>{{ count }}</strong>, result(s) for: <strong>"{{ query }}"</strong></span> </div> 
+{% endif %}
+{% for feature in features %}
 <div class="card mt-3">
     <div class="card-header">
-        <span class="custom-size font-weight-bold d-block d-sm-inline">{{ feature.name }}</span> 
+        <span class="custom-size font-weight-bold d-block d-sm-inline">{{ feature.name }} {{ views }}</span>
         {% if feature.target_value == 0 %}
         <span class="badge badge-pill badge-secondary float-left float-sm-right  custom-size">
         Pending Asessment</span> 
@@ -28,40 +36,36 @@
         Funding required
         </span> 
         {% endif %}
-    
     </div>
     <div class="card-body">
-        target
-        {{ feature.target_value }}
-        collected
-        {{ feature.value_collected }}
-        
         <blockquote class="blockquote mb-1">
             <p>{{ feature.description }}</p>
             <footer class="blockquote-footer list-inline"> Added {{ feature.date_reported | date}} by
                 <li class="d-inline"><img class="rounded-circle profile-image" src="{{ feature.author.profile.image.url  }}"></img>
                    <span>{{ feature.author }}</span>
                 </li>
-                 <a class="btn btn-sm btn-success" href="{% url 'get-feature' feature.id %}">See More</a>
             </footer>
+        <a class="btn btn-sm btn-success" href="{% url 'get-feature' feature.id %}">See More</a>
         </blockquote>
         
     </div>
 </div>
 {% endfor %}
 <!--Pagination-->
+{% if count > 5 %}
 <nav aria-label="Page navigation example">
     <ul class="pagination">
-        {% if bugs.has_previous %}
-        <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{ bugs.previous_page_number }}">Previous</a></li>
+        {% if features.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1 {% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">&laquo; First</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ features.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Previous</a></li>
         {% endif %}
-        <li><a class="page-link"> Page {{ bugs.number }} of {{ bugs.paginator.num_pages }}. </a> </li>
-        {% if bugs.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{ bugs.next_page_number }}">Next</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{ bugs.paginator.num_pages }}">Last &raquo;</a></li>
+        <li><a class="page-link"> Page {{ features.number }} of {{ features.paginator.num_pages }}. </a> </li>
+        {% if features.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ features.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ features.paginator.num_pages }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Last &raquo;</a></li>
         {% endif %}
     </ul>
 </nav>
+{% endif %}
 <!--END-->
 {% endblock %}
