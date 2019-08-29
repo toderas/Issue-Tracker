@@ -10,6 +10,7 @@ from .forms import AddBugForm, AddCommentForm
 # Create your views here.
 def get_bugs(request):
     bugs = bug_item.objects.filter().order_by('-date_reported')
+    count = bugs.count()
     page = request.GET.get('page', 1)
 
     paginator = Paginator(bugs, 5)
@@ -19,7 +20,7 @@ def get_bugs(request):
         bugs = paginator.page(1)
     except EmptyPage:
         bugs = paginator.page(paginator.num_pages)
-    return render(request, "bugs.html", {"bugs": bugs})
+    return render(request, "bugs.html", {"bugs": bugs, 'count': count})
 
 
 @login_required()
