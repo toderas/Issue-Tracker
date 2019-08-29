@@ -3,14 +3,24 @@ from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .models import Feature
+from .models import Feature, FeatureContributors, FeatureViews
 from .forms import AddFeatureForm, ContributeFeatureForm
 
 
 # Create your views here.
 def all_features(request):
-    features = Feature.objects.all()
-    return render(request, "features.html", {"features": features})
+    """ Returns all registered features and displays 5 per page  """
+    features = Feature.objects.filter().order_by('-date_reported')
+    count = features.count()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(features, 5)
+    try:
+        features = paginator.page(page)
+    except PageNotAnInteger:
+        features = paginator.page(1)
+    except EmptyPage:
+        features = paginator.page(paginator.num_pages)
+    return render(request, "features.html", {"features": features, 'count': count})
     
 
 @login_required()
@@ -35,13 +45,15 @@ def get_current_feature(request, id):
     Displays single item  with option to contribute with desired amount
     """
     feature = get_object_or_404(Feature, id=id)
-    if feature.target_value == feature.value_collected:
-        progress = 100.0
-    try:
-        progress = (abs(int(feature.value_collected)) / int(feature.target_value)) * 100.0
-        remaining = (abs(int(feature.target_value)) - int(feature.value_collected))
-    except ZeroDivisionError:
+    if feature.target_value > 0:
+        progress = int(feature.value_collected) / int(feature.target_value) * 100
+        remaining = int(feature.target_value) - int(feature.value_collected)
+    elif feature.value_collected >= feature.target_value:
+        progress = 100
+        remaining = 0
+    else:
         progress = 0
+        remaining = 0
     if request.method == 'POST':
         contribute_form = ContributeFeatureForm(request.POST)
         if contribute_form.is_valid():
@@ -52,6 +64,11 @@ def get_current_feature(request, id):
             return redirect(request.META['HTTP_REFERER'])
     else:
         contribute_form = ContributeFeatureForm()
-    
-    return render(request, 'feature-details.html', {'feature': feature, 'contribute_form': contribute_form, 'progress': progress, 'remaining': remaining})
+    views = FeatureViews.objects.filter(post_id=feature).count()
+    if views < 1:
+        FeatureViews.objects.create(user=request.user, post_id=feature.id)
+        feature.save()
+    contributors = FeatureContributors.objects.filter(post_id=feature.id).count()
+    contributor = FeatureContributors.objects.filter(post=feature.id).order_by('-date_contributed')
+    return render(request, 'feature-details.html', {'feature': feature, 'contribute_form': contribute_form, 'contributor': contributor, 'contributors': contributors, 'remaining': remaining, 'progress': progress, 'views': views})
     
