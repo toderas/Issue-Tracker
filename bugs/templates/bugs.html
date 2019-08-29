@@ -5,7 +5,15 @@
         <button class="btn my-0  search-icon" type="submit"><i class="fas fa-search"></i></button>
     </div>
 </form>
-{% endblock %} {% block content %} {% for bug in bugs %}
+{% endblock %} {% block content %}
+
+{% if query %}
+<span>Displaying Results for: <strong>"{{ query }}"</strong></span> 
+  <strong>({{ count }})</strong>
+{% endif %}
+
+
+{% for bug in bugs %}
 <div class="card mt-3">
     <div class="card-header">
         <span class="custom-size font-weight-bold d-block d-sm-inline">{{ bug.name }}</span> {% if bug.status == "Pending-review" %}
@@ -35,6 +43,7 @@
 </div>
 {% endfor %}
 <!--Pagination-->
+{% if count > 5 %}
 <nav aria-label="Page navigation example">
     <ul class="pagination">
         {% if bugs.has_previous %}
@@ -48,5 +57,6 @@
         {% endif %}
     </ul>
 </nav>
+{% endif %}
 <!--END-->
 {% endblock %}
