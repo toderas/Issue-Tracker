@@ -1,4 +1,10 @@
-{% extends 'base.html' %} {% load bootstrap_tags %} {% block page_title %} Current Features {% endblock %} {% block search %}
+{% extends 'base.html' %}
+
+{% load bootstrap_tags %} 
+
+{% block page_title %} Current Features {% endblock %} 
+
+{% block search %}
 <form class="form-inline form-right text-right my-2 my-lg-0" action="{% url 'search-bugs' %}">
     <div class="wrap-fields">
         <input class="form-control mr-sm-2 w-100" name="search" type="search" placeholder="Search" aria-label="Search">
@@ -6,15 +12,45 @@
     </div>
 </form>
 {% endblock %} {% block content %}
-<div class="card mt-3">
+<!--NEW CARD-->
+<div class="card mt-3 mb-4">
     <div class="card-header">
-        <div class="float-left">
-        <li class="custom-size font-weight-bold d-inline ">{{ feature.name }}</li>
-        <li class="list-unstyled"></li>
+        <span class="custom-size font-weight-bold d-inline">{{ feature.name }}</span>
+        
+        {% if feature.target_value == 0 %}
+        <div class="col-12 col-sm-5 d-sm-inline p-0">
+        <span class="float-right pl-2"><i class="fas fa-eye">{{ views }}</i></span>
+        <span class="badge badge-pill badge-secondary d-inline d-sm-auto float-sm-right  custom-size">
+        Pending Asessment</span>
         </div>
-        <div class=" float-right">
+        
+        {% elif feature.target_value <= feature.value_collected %}
+        <span class="badge badge-pill badge-success float-left float-sm-right custom-size">
+        Implementation in progress
+        </span>
+        <span class="pl-2"> <i class="fas fa-eye pr-2"> {{ views }}</i></span>
+        {% elif feature.target_value != 0 %}
+        <span class="badge badge-pill badge-info float-left float-sm-right custom-size">
+        Funding required
+        </span>
+        {% endif %}
+        
+    </div>
+    
+    <div class="card-body">
+        <div class="row">
+        <blockquote class="blockquote mb-1 col-lg-9">
+            <p>{{ feature.description }}</p>
+            <footer class="blockquote-footer list-inline"> Added {{ feature.date_reported | date}} by
+                <li class="d-inline"><img class="rounded-circle profile-image" src="{{ feature.author.profile.image.url  }}"></img>
+                   <span>{{ feature.author }}</span>
+                </li>
+            </footer>
+            </blockquote>
+        <!---->
+         <div class="float-left float-lg-right">
             <span class="float-left"><strong>{{ feature.value_collected}}£ </strong>Collected</span>
-            <span class="pl-2"> <i class="fas fa-eye pr-2"> {{ views }}</i></span>
+            <span>.</span>
             <span class="float-right"><strong>{{ feature.target_value }}£</strong> Required</span>
             <div class="progress">
                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{ progress }}%" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100">
@@ -27,26 +63,17 @@
                     <p class="d-inline ml-4 float-right"> <strong>{{ remaining|floatformat:2 }}</strong>£ Remaining </p>
                 </div>
             </div>
-            </div>
-        
-        <div class="card-body mt-4">
-            <p>{{ feature.description }}</p>
-            <footer class="blockquote-footer list-inline">
-                <blockquote class="blockquote mb-1">
-                    <small>
-                    Added {{ feature.date_reported | date}} by
-                    <li class="d-inline"><img class="rounded-circle profile-image" src="{{ feature.author.profile.image.url  }}"></img>
-                        <span>{{ feature.author }}</span>
-                    </li>
-                    </small>
-                </blockquote>
-                <!--Contribute form-->
-                <div class="card mt-2 ">
-                    <div class="card-header" id="headingTwo">
+        <!---->
+        </div>
+        </div>
+        </div>
+        <div class="mt-2 mb-3">
+                    <div class="ml-2" id="headingTwo">
                         <h5 class="mb-0">
                             <button class="btn btn-sm btn-info collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                               Contribute <i class="fas fa-user pl-2"> {{ contributors }}</i>
                             </button>
+                            <hr>
                         </h5>
                     </div>
                 </div>
@@ -58,11 +85,8 @@
                         </form>
                     </div>
                 </div>
-        </div>
-        </div>
-        <!--END-->
-        </footer>
-        </div>
+    </div>
+
     <!--Contributions-->
     <div class="container mt-4">
         <div class="row">
