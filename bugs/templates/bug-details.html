@@ -10,7 +10,8 @@
 <div class="card mt-3">
     <div class="card-header">
         <span class="custom-size font-weight-bold d-block d-sm-inline">{{ bug.name }}</span>
-        <span class="float-right pl-2"><i class="fas fa-eye">{{ view }}</i></span> {% if bug.status == "Pending-review" %}
+        <span class="float-right pl-2"><i class="fas fa-eye">{{ view }}</i></span> 
+        {% if bug.status == "Pending-review" %}
         <span class="badge badge-pill badge-secondary float-left float-sm-right  custom-size">
         <a title="Click to see all items from this category!" class="text-white" href="{% url 'Pending-review' %}">Pending Review</a></span> {% elif bug.status == "In-progress" %}
         <span class="badge badge-pill badge-info float-left float-sm-right custom-size">
