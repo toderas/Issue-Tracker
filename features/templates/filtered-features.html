@@ -1,0 +1,73 @@
+
+{% extends 'base.html' %}
+
+{% load bootstrap_tags %}
+
+{% block page_title %} Current Features {% endblock %} 
+
+{% block search %}
+<form class="form-inline form-right text-right my-2 my-lg-0" action="{% url 'search-features' %}">
+    <div class="wrap-fields">
+        <input class="form-control mr-sm-2 w-100" name="search" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn my-2 my-sm-0 search-icon" type="submit"><i class="fas fa-search"></i></button>
+    </div>
+</form>
+{% endblock %} 
+
+{% block content %}
+
+{% if query %}
+
+<div class="row"><span>Displaying <strong>{{ count }}</strong>, feature(s) for: <strong>"{{ query }}"</strong></span> </div> 
+{% endif %}
+{% for feature in features %}
+<div class="card mt-3">
+     <div class="card-header">
+        <span class="custom-size font-weight-bold d-block d-sm-inline">{{ feature.name }}</span>
+        {% if feature.target_value == 0 %}
+        <span class="badge badge-pill badge-secondary float-left float-sm-right  custom-size">
+        <a title="Click to see all features from this category!" class="text-white" href="{% url 'Pending-assesment' %}"><i class="fas fa-link"></i>
+        Pending Assesment </a></span>
+        {% elif feature.target_value <= feature.value_collected %}
+        <span class="badge badge-pill badge-success float-left float-sm-right custom-size">
+        <a title="Click to see all features from this category!" class="text-white" href="{% url 'Funding-complete' %}"><i class="fas fa-link"></i>
+        Implementation in progress</a></span>
+        {% elif feature.target_value != 0 %}
+        <span class="badge badge-pill badge-info float-left float-sm-right custom-size">
+        <a title="Click to see all features from this category!" class="text-white" href="{% url 'Funding-required' %}"><i class="fas fa-link"></i>
+        Funding required</a></span>
+        {% endif %}
+    </div>
+    <div class="card-body">
+        <blockquote class="blockquote mb-1">
+            <p>{{ feature.description }}</p>
+            <footer class="blockquote-footer list-inline"><small>Added {{ feature.date_reported | date}} by</small>
+                 <li class="d-block d-sm-inline"><img class="rounded-circle profile-image" src="{{ feature.author.profile.image.url  }}"></img>
+                    <form class="form-hidden" action="{% url 'author-features' %}">
+                        <button title="Click to see user's requested features" class="hidden-input p-0" type="submit" name="author-features" value="{{ feature.author.id }}">{{ feature.author }} </button>
+                    </form>
+                </li>
+            </footer>
+        <a class="btn btn-sm btn-success" href="{% url 'get-feature' feature.id %}">See More</a>
+        </blockquote>
+    </div>
+</div>
+{% endfor %}
+<!--Pagination-->
+{% if count > 5 %}
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        {% if features.has_previous %}
+        <li class="page-item"><a class="page-link" href="{{ request.get_full_path }}&page=1">&laquo; First</a></li>
+        <li class="page-item"><a class="page-link" href="{{ request.get_full_path }}&page={{ features.previous_page_number }}">Previous</a></li>
+        {% endif %}
+        <li><a class="page-link"> Page {{ features.number }} of {{ features.paginator.num_pages }}. </a> </li>
+        {% if features.has_next %}
+        <li class="page-item"><a class="page-link" href="{{ request.get_full_path }}&page={{ features.next_page_number }}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="{{ request.get_full_path }}&page={{ features.paginator.num_pages }}">Last &raquo;</a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+<!--END-->
+{% endblock %}
