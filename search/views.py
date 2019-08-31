@@ -41,7 +41,7 @@ def search_author_bugs(request):
 
 
 def search_pending_review(request):
-    """ A view that returns all bugs which are 'Pending review' """
+    """ A view that returns all bugs with status 'Pending review' """
     bugs = bug_item.objects.filter(status__icontains='Pending-review')
     count = bugs.count()
     query = 'Pending review'
@@ -58,7 +58,7 @@ def search_pending_review(request):
 
 
 def search_in_progress(request):
-    """ A view that returns all bugs which are 'In progress' """
+    """ A view that returns all bugs with status 'In progress' """
     bugs = bug_item.objects.filter(status__icontains='In-progress')
     count = bugs.count()
     query = 'In Progress'
@@ -75,7 +75,7 @@ def search_in_progress(request):
     
 
 def search_resolved(request):
-    """ A view that returns all bugs which are 'Resolved' """
+    """ A view that returns all bugs with status 'Resolved' """
     bugs = bug_item.objects.filter(status__icontains='Resolved')
     count = bugs.count()
     query = 'Resolved'
@@ -92,7 +92,7 @@ def search_resolved(request):
 
 
 def search_features(request):
-    """ A views that returns a list of Features based on search criteria """
+    """ A views that returns a list of features based on search criteria """
     features = Feature.objects.filter(name__icontains=request.GET['search'])
     count = features.count()
     print(features)
@@ -106,3 +106,73 @@ def search_features(request):
     except EmptyPage:
         features = paginator.page(paginator.num_pages)
     return render(request, "features.html", {'features': features, 'query': request.GET['search'], 'count': count})
+
+
+def search_author_features(request):
+    """ A view that returns a certains's author requested features """
+    features = Feature.objects.filter(author_id=request.GET['author-features']).order_by('-date_reported')
+    count = features.count()
+    user = User.objects.get(id=request.GET['author-features']).username
+    
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(features, 5)
+    try:
+        features = paginator.page(page)
+    except PageNotAnInteger:
+        features = paginator.page(1)
+    except EmptyPage:
+        features = paginator.page(paginator.num_pages)
+    return render(request, "filtered-features.html", {'features': features, 'query': user, 'count': count})
+
+
+def search_pending_assesment(request):
+    """ A view that returns all features in course of assesment """
+    features = Feature.objects.filter(target_value=0)
+    count = features.count()
+    query = 'Pending assesment'
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(features, 5)
+    try:
+        features = paginator.page(page)
+    except PageNotAnInteger:
+        features = paginator.page(1)
+    except EmptyPage:
+        features = paginator.page(paginator.num_pages)
+    return render(request, "features.html", {'features': features, 'query': query, 'count': count})
+
+
+def search_funding_required(request):
+    """ A view that returns all features which require funding """
+    features = Feature.objects.filter(target_value__gt=0)
+    count = features.count()
+    query = 'Funding Required'
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(features, 5)
+    try:
+        features = paginator.page(page)
+    except PageNotAnInteger:
+        features = paginator.page(1)
+    except EmptyPage:
+        features = paginator.page(paginator.num_pages)
+    return render(request, "features.html", {'features': features, 'query': query, 'count': count})
+
+
+def search_funding_complete(request):
+    """ A view that returns all features where funding is completed"""
+    targetValue = Feature.objects.filter(target_value__gt=5)
+    features = Feature.objects.filter(value_collected__gte=targetValue, target_value__gte=5)
+    count = features.count()
+    query = 'Implementation in Progress'
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(features, 5)
+    try:
+        features = paginator.page(page)
+    except PageNotAnInteger:
+        features = paginator.page(1)
+    except EmptyPage:
+        features = paginator.page(paginator.num_pages)
+    return render(request, "features.html", {'features': features, 'query': query, 'count': count})
