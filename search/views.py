@@ -3,17 +3,16 @@ from django.contrib.auth.models import User
 from bugs.models import bug_item
 from features.models import Feature
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import F
-from django.db.models import Q
+from django.db.models import F, Q
 
 # Create your views here.
+
 
 def search_bugs(request):
     """ A views that returns a list of bugs based on search criteria """
     bugs = bug_item.objects.filter(Q(name__icontains=request.GET['search']) | Q(description__icontains=request.GET['search'])).order_by('-date_reported')
     count = bugs.count()
     page = request.GET.get('page', 1)
-
     paginator = Paginator(bugs, 5)
     try:
         bugs = paginator.page(page)
@@ -29,9 +28,7 @@ def search_author_bugs(request):
     bugs = bug_item.objects.filter(author_id=request.GET['bug-author']).order_by('-date_reported')
     count = bugs.count()
     user = User.objects.get(id=request.GET['bug-author']).username
-    
     page = request.GET.get('page', 1)
-
     paginator = Paginator(bugs, 5)
     try:
         bugs = paginator.page(page)
@@ -48,7 +45,6 @@ def search_pending_review(request):
     count = bugs.count()
     query = 'Pending review'
     page = request.GET.get('page', 1)
-
     paginator = Paginator(bugs, 5)
     try:
         bugs = paginator.page(page)
@@ -65,7 +61,6 @@ def search_in_progress(request):
     count = bugs.count()
     query = 'In Progress'
     page = request.GET.get('page', 1)
-
     paginator = Paginator(bugs, 5)
     try:
         bugs = paginator.page(page)
@@ -74,7 +69,7 @@ def search_in_progress(request):
     except EmptyPage:
         bugs = paginator.page(paginator.num_pages)
     return render(request, "bugs.html", {'bugs': bugs, 'query': query, 'count': count})
-    
+
 
 def search_resolved(request):
     """ A view that returns all bugs with status 'Resolved' """
@@ -82,7 +77,6 @@ def search_resolved(request):
     count = bugs.count()
     query = 'Resolved'
     page = request.GET.get('page', 1)
-
     paginator = Paginator(bugs, 5)
     try:
         bugs = paginator.page(page)
@@ -97,9 +91,7 @@ def search_features(request):
     """ A views that returns a list of features based on search criteria """
     features = Feature.objects.filter(Q(name__icontains=request.GET['search']) | Q(description__icontains=request.GET['search'])).order_by('-date_reported')
     count = features.count()
-    print(features)
     page = request.GET.get('page', 1)
-
     paginator = Paginator(features, 5)
     try:
         features = paginator.page(page)
@@ -115,9 +107,7 @@ def search_author_features(request):
     features = Feature.objects.filter(author_id=request.GET['author-features']).order_by('-date_reported')
     count = features.count()
     user = User.objects.get(id=request.GET['author-features']).username
-    
     page = request.GET.get('page', 1)
-
     paginator = Paginator(features, 5)
     try:
         features = paginator.page(page)
@@ -134,7 +124,6 @@ def search_pending_assesment(request):
     count = features.count()
     query = 'Pending assesment'
     page = request.GET.get('page', 1)
-
     paginator = Paginator(features, 5)
     try:
         features = paginator.page(page)
@@ -151,7 +140,6 @@ def search_funding_required(request):
     count = features.count()
     query = 'Funding Required'
     page = request.GET.get('page', 1)
-
     paginator = Paginator(features, 5)
     try:
         features = paginator.page(page)
@@ -168,7 +156,6 @@ def search_funding_complete(request):
     count = features.count()
     query = 'Implementation in Progress'
     page = request.GET.get('page', 1)
-
     paginator = Paginator(features, 5)
     try:
         features = paginator.page(page)
