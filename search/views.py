@@ -3,12 +3,14 @@ from django.contrib.auth.models import User
 from bugs.models import bug_item
 from features.models import Feature
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import F
+from django.db.models import Q
 
 # Create your views here.
 
 def search_bugs(request):
     """ A views that returns a list of bugs based on search criteria """
-    bugs = bug_item.objects.filter(name__icontains=request.GET['search']).order_by('-date_reported')
+    bugs = bug_item.objects.filter(Q(name__icontains=request.GET['search']) | Q(description__icontains=request.GET['search'])).order_by('-date_reported')
     count = bugs.count()
     page = request.GET.get('page', 1)
 
@@ -93,7 +95,7 @@ def search_resolved(request):
 
 def search_features(request):
     """ A views that returns a list of features based on search criteria """
-    features = Feature.objects.filter(name__icontains=request.GET['search'])
+    features = Feature.objects.filter(Q(name__icontains=request.GET['search']) | Q(description__icontains=request.GET['search'])).order_by('-date_reported')
     count = features.count()
     print(features)
     page = request.GET.get('page', 1)
@@ -162,8 +164,7 @@ def search_funding_required(request):
 
 def search_funding_complete(request):
     """ A view that returns all features where funding is completed"""
-    targetValue = Feature.objects.filter(target_value__gt=5)
-    features = Feature.objects.filter(value_collected__gte=targetValue, target_value__gte=5)
+    features = Feature.objects.filter(target_value__gte=5, value_collected__gte= F('target_value'))
     count = features.count()
     query = 'Implementation in Progress'
     page = request.GET.get('page', 1)
