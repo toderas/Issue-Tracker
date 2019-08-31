@@ -5,11 +5,16 @@
         <button class="btn my-0  search-icon" type="submit"><i class="fas fa-search"></i></button>
     </div>
 </form>
-{% endblock %} {% block content %}
+{% endblock %}
+
+{% block add_bug %}
+<a class="nav-link" href="{% url 'add_new_bug' %}"><i class="fas fa-plus-circle"></i> Report bug</a>
+{% endblock %}
+
+{% block content %}
 
 {% if query %}
-<span>Displaying Results for: <strong>"{{ query }}"</strong></span> 
-  <strong>({{ count }})</strong>
+<div class="row"><span>Displaying <strong>{{ count }}</strong>, bug(s) for: <strong>"{{ query }}"</strong></span> </div> 
 {% endif %}
 
 
