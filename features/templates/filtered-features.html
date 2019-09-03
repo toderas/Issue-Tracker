@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 
 {% load bootstrap_tags %}
@@ -8,11 +7,15 @@
 {% block search %}
 <form class="form-inline form-right text-right my-2 my-lg-0" action="{% url 'search-features' %}">
     <div class="wrap-fields">
-        <input class="form-control mr-sm-2 w-100" name="search" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn my-2 my-sm-0 search-icon" type="submit"><i class="fas fa-search"></i></button>
+        <input class="form-control mr-sm-2 w-100" name="search" type="search" placeholder="Search features" aria-label="Search">
+        <button class="btn my-0 search-icon" type="submit"><i class="fas fa-search"></i></button>
     </div>
 </form>
-{% endblock %} 
+{% endblock %}
+
+{% block request_feature %}
+<a class="nav-link" href="{% url 'add_new_feature' %}"><i class="fas fa-plus-circle"></i>Request a new Feature</a>
+{% endblock %}
 
 {% block content %}
 
