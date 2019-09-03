@@ -45,12 +45,13 @@ def get_current_feature(request, id):
     Displays single item  with option to contribute with desired amount
     """
     feature = get_object_or_404(Feature, id=id)
-    if feature.target_value > 0:
-        progress = int(feature.value_collected) / int(feature.target_value) * 100
-        remaining = int(feature.target_value) - int(feature.value_collected)
-    elif feature.value_collected >= feature.target_value:
+    
+    if feature.value_collected >= feature.target_value:
         progress = 100
         remaining = 0
+    elif feature.target_value > 0:
+        progress = int(feature.value_collected) / int(feature.target_value) * 100
+        remaining = int(feature.target_value) - int(feature.value_collected)
     else:
         progress = 0
         remaining = 0
@@ -71,4 +72,4 @@ def get_current_feature(request, id):
     contributors = FeatureContributors.objects.filter(post_id=feature.id).count()
     contributor = FeatureContributors.objects.filter(post=feature.id).order_by('-date_contributed')
     return render(request, 'feature-details.html', {'feature': feature, 'contribute_form': contribute_form, 'contributor': contributor, 'contributors': contributors, 'remaining': remaining, 'progress': progress, 'views': views})
-    
+
