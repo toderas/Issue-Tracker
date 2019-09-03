@@ -1,8 +1,9 @@
 {% extends 'base.html' %} {% block page_title %} {{user}}'s Profile {% endblock %} {% block page_heading %} {{user}}'s Profile {% endblock %} {% load bootstrap_tags %} {% block content %}
 <!--User Profile Display-->
 <div class="card">
-  <img class="card-img-top rounded d-block w-25" src="{{ user.profile.image.url }}" alt="Card image cap">
+  <img class="card-img-top rounded w-50 ml-auto mr-auto" src="{{ user.profile.image.url }}" alt="User Profile Image">
   <div class="card-body">
+    <hr>
     <h5 class="card-title">Username: {{ user.username }}</h5>
     <p class="card-text">E-mail : {{ user.email }}</p>
     <p class="card-text">First Name : {{ user.first_name }}</p>
