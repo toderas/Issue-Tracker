@@ -29,7 +29,7 @@ def checkout(request):
                 order_line_item = OrderLineItem(
                     order = order,
                     product = product,
-                    quantity = contribution
+                    amount = contribution
                     )
                 order_line_item.save()
                 
