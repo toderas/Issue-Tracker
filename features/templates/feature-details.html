@@ -7,11 +7,17 @@
 {% block search %}
 <form class="form-inline form-right text-right my-2 my-lg-0" action="{% url 'search-bugs' %}">
     <div class="wrap-fields">
-        <input class="form-control mr-sm-2 w-100" name="search" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn my-2 my-sm-0 search-icon" type="submit"><i class="fas fa-search"></i></button>
+        <input class="form-control mr-sm-2 w-100" name="search" type="search" placeholder="Search features" aria-label="Search">
+        <button class="btn my-0 search-icon" type="submit"><i class="fas fa-search"></i></button>
     </div>
 </form>
-{% endblock %} {% block content %}
+{% endblock %}
+
+{% block request_feature %}
+<a class="nav-link" href="{% url 'add_new_feature' %}"><i class="fas fa-plus-circle"></i>Request a new Feature</a>
+{% endblock %}
+
+{% block content %}
 <!--NEW CARD-->
 <div class="card mt-3 mb-4">
     <div class="card-header">
@@ -26,23 +32,41 @@
         </div>
         {% elif feature.target_value <= feature.value_collected %}
         <div class="col-12 col-sm-5 d-sm-inline p-0">
-            <span class="float-right pl-2"> <i class="fas fa-eye"> {{ views }}</i></span>
-        <span class="badge badge-pill badge-success float-left float-sm-right custom-size">
-        Implementation in progress
-        </span>
+            <span class="float-right pl-2"><i class="fas fa-eye">{{ views }}</i></span>
+            <span class="badge badge-pill badge-success float-left float-sm-right custom-size">
+        <a title="Click to see all features from this category!" class="text-white" href="{% url 'Funding-complete' %}"><i class="fas fa-link"></i>
+        Implementation in progress</a></span>
         </div>
         {% elif feature.target_value != 0 %}
         <div class="col-12 col-sm-5 d-sm-inline p-0">
-        <span class="float-right pl-2"> <i class="fas fa-eye"> {{ views }}</i></span>
+            <span class="float-right pl-2"><i class="fas fa-eye">{{ views }}</i></span>
         <span class="badge badge-pill badge-info float-left float-sm-right custom-size">
-        Funding required
-        </span>
+        <a title="Click to see all features from this category!" class="text-white" href="{% url 'Funding-required' %}"><i class="fas fa-link"></i>
+        Funding required</a></span>
         </div>
         {% endif %}
     </div>
     <div class="card-body">
         <div class="row">
-        <blockquote class="blockquote mb-1 col-lg-9">
+            <!---->
+         <div class="col-6 offset-6 d-md-none">
+            <div class="text-right text-muted"><small>£{{ remaining|floatformat:2 }} Remaining </small></div>
+            <div class="progress" style="height: 1.5rem;">
+                <div class="progress-bar pl-2" role="progressbar" style="width: {{ progress|floatformat:2 }}%;" aria-valuenow="{{ progress|floatformat:2 }}" aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
+                <div class="text-center" style="margin-top: -24px">
+                    <small>
+                {% if remaining <= 0 %}
+                    Completed 
+                    {% else %}
+                    £{{ feature.value_collected }} of £{{ feature.target_value }} 
+                    {% endif %}
+                    </small>
+            </div>
+            </div>
+        <!---->
+        <blockquote class="blockquote mb-1 col-md-9 float-left">
             <p>{{ feature.description }}</p>
             <footer class="blockquote-footer list-inline"><small>Added {{ feature.date_reported | date}} by</small>
                 <li class="d-block d-sm-inline"><img class="rounded-circle profile-image" src="{{ feature.author.profile.image.url  }}"></img>
@@ -52,24 +76,24 @@
                 </li>
             </footer>
             </blockquote>
-        <!---->
-         <div class="float-left float-lg-right">
-            <span class="float-left"><strong>{{ feature.value_collected}}£ </strong>Collected</span>
-            <span>.</span>
-            <span class="float-right"><strong>{{ feature.target_value }}£</strong> Required</span>
-            <div class="progress">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{ progress }}%" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100">
-                    {% if remaining <= 0 %}
-                    Completed 
-                    {% else %} 
-                    {{ progress|floatformat:1}}% 
+            <!---->
+         <div class="float-right d-none d-md-inline col-md-3">
+            <div class="text-right text-muted"><small>£{{ remaining|floatformat:2 }} Remaining </small></div>
+            <div class="progress" style="height: 1.5rem;">
+                <div class="progress-bar pl-4" role="progressbar" style="width: {{ progress|floatformat:2 }}%;" aria-valuenow="{{ progress|floatformat:2 }}" aria-valuemin="0" aria-valuemax="100">
                     </div>
-                    {% endif %}
-                    <p class="d-inline ml-4 float-right"> <strong>{{ remaining|floatformat:2 }}</strong>£ Remaining </p>
                 </div>
+                <div class="text-center" style="margin-top: -24px">
+                    <small>
+                {% if remaining <= 0 %}
+                    Completed 
+                    {% else %}
+                    £{{ feature.value_collected }} of £{{ feature.target_value }} 
+                    {% endif %}
+                    </small>
+            </div>
             </div>
         <!---->
-        </div>
         </div>
         </div>
         <div class="mt-2 mb-3">
@@ -84,7 +108,7 @@
                 </div>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                     <div class="card-body">
-                        <form class="w-25" method="post" action="{% url 'add_to_cart' feature.id %}">
+                        <form class="w-25 width-75" method="post" action="{% url 'add_to_cart' feature.id %}">
                             {% csrf_token %} {{ contribute_form | as_bootstrap }}
                             <button type="submit" class="float-left btn btn-sm btn-success mb-2">Add to cart</button>
                         </form>
@@ -100,11 +124,10 @@
     <div class="card col-md-4 d-inline">
   <div class="card-body">
     <h5 class="card-header"><img class="rounded-circle profile-image" src="{{ contributor.user.profile.image.url  }}"></img>{{ contributor.user }}</h5>
-    <p class="card-text">Supported This feature with {{ contributor.amount }}</p>
+    <p class="card-text">Supported This feature with <strong>£{{ contributor.amount }}</strong></p>
     <blockquote class="blockquote mb-1">
-                    <small>
-                    Contribution registered on {{ contributor.date_contributed | date}}
-                    </small>
+                    <hr>
+                    <em><small>{{ contributor.date_contributed | date}}</small></em>
                 </blockquote>
   </div>
 </div>
@@ -112,7 +135,7 @@
     </div>
     </div>
     <!--END-->
-    {% if contributors > 5 %}
+    {% if contributors > 9 %}
     <!--Pagination-->
     <nav aria-label="Page navigation example">
         <ul class="pagination mt-3">
