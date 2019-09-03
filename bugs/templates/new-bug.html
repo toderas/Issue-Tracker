@@ -1,12 +1,14 @@
 {% extends "base.html" %} {% block page_title %} New Bug {% endblock %} {% block page_heading %} Report Bug {% endblock %} {% load bootstrap_tags %} {% block search %}
 <form class="form-inline form-right text-right my-2 my-lg-0" action="{% url 'search-bugs' %}">
     <div class="wrap-fields">
-        <input class="form-control my-0 mr-sm-2 w-100" name="search" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control my-0 mr-sm-2 w-100" name="search" type="search" placeholder="Search bugs" aria-label="Search">
         <button class="btn my-0  search-icon" type="submit"><i class="fas fa-search"></i></button>
     </div>
 </form>
 {% endblock %} {% block content %}
-<form action="" method="POST">{% csrf_token %} {{ item_form | as_bootstrap }}
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ item_form | as_bootstrap }}
     <input class="btn alert-success" type="submit" value="Submit" />
 </form>
 {% endblock %}
