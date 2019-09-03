@@ -136,7 +136,7 @@ def search_pending_assesment(request):
 
 def search_funding_required(request):
     """ A view that returns all features which require funding """
-    features = Feature.objects.filter(target_value__gt=0)
+    features = Feature.objects.filter(target_value__gt=0, value_collected__lt=F('target_value'))
     count = features.count()
     query = 'Funding Required'
     page = request.GET.get('page', 1)
