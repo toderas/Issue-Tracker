@@ -1,53 +1,63 @@
-{% extends 'base.html' %} 
-
-{% load static from staticfiles %}
-
-{% load bootstrap_tags %} 
-
-{% block page_title %}
-Cart
-{% endblock %}
-
-{% block page_heading %}
-    <div class="row mt-2"><i class="fas fa-shopping-cart"></i>Cart:</div>
-{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% load static from staticfiles %} {% load bootstrap_tags %} {% block page_title %} Cart {% endblock %} {% block page_heading %}
+<div class="row mt-2"><i class="fas fa-shopping-cart"></i>Cart:</div>
+{% endblock %} {% block content %}
 <div class="row">
     {% for item in cart_items %}
     <!--Card-->
     <div class="card col-md-6 mt-3 ">
-    <div class="card-header">
-        <span class="custom-size font-weight-bold d-block d-sm-inline">{{ item.feature.name }}</span> 
-    </div>
-    <div class="card-body">
-        <blockquote class="blockquote mb-1">
-            <p>{{ item.feature.description }}</p>
-            <footer class="blockquote-footer list-inline"> Added {{ item.feature.date_reported | date}} by
-                <li class="d-inline"><img class="rounded-circle profile-image" src="{{ item.feature.author.profile.image.url  }}"></img>
-                   <span>{{ item.feature.author }}</span>
-                </li>
-                 <div class="input-group-addon">Your Contribution: <strong class="text-dark">£ {{ item.contribution }}</strong></div>
-                <form class="form-inline" method="post" action="{% url 'adjust_cart' item.id %}">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="exampleInputAmount" class="sr-onl">Adjust Contribution</label>
-                        <div class="input-group">
-                            <input name="price" type="number" default="0" min="5" max="999" class="form-control ml-1" placeholder="£££" required>
+        <div class="card-header">
+            <span class="custom-size font-weight-bold d-block d-sm-inline">{{ item.feature.name }}</span>
+        </div>
+        <div class="card-body">
+            <blockquote class="blockquote mb-1">
+                <p>{{ item.feature.description }}</p>
+                <footer class="blockquote-footer list-inline"><small>Added {{ item.feature.date_reported | date}} by</small>
+                    <li class="d-block d-sm-inline"><img class="rounded-circle profile-image" src="{{ item.feature.author.profile.image.url  }}"></img>
+                        <form class="form-hidden" action="{% url 'author-features' %}">
+                            <button title="Click to see user's requested features" class="hidden-input p-0" type="submit" name="author-features" value="{{ item.feature.author.id }}">{{ item.feature.author }} </button>
+                        </form>
+                    </li>
+                    <div class="input-group-addon mt-2">Your Contribution: <strong class="text-dark">£ {{ item.contribution }}</strong></div>
+                    <form class="form-inline w-100 mt-2" method="post" action="{% url 'adjust_cart' item.id %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="exampleInputAmount" class="sr-onl">Adjust Contribution:</label>
+                            <div class="input-group">
+                                <input name="price" type="number" default="0" min="5" max="999" class="form-control ml-1" placeholder="£££" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-12 mt-2">
-                        <button type="submit" class="btn btn-primary"><span class="fas fa-sync-alt" aria-hidden="true"></span> Update</button>
-                        <button class="btn btn-primary"><a class="text-white" href="{% url 'remove_item' item.id %}"><i class="fas fa-trash"></i> Delete</a></button>
-                       
-                    </div>
-                </form>
-                 
-                
-            </footer>
-        </blockquote>
+                        <div class="col-12 mt-4 ">
+                            <button type="submit" class="btn btn-primary"><span class="fas fa-sync-alt" aria-hidden="true"></span> Update</button>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#remove-item"><i class="fas fa-trash"></i> Remove</button>
+                            
+                        </div>
+                        <!-- Modal Remove item from cart-->
+                        <div class="modal fade" id="remove-item" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"><strong>{{ item.feature.name }}</strong></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are You sure you want to remove <strong>"{{ item.feature.name }}"</strong> from your cart?
+                                    
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-danger"><a class="text-white" href="{% url 'remove_item' item.id %}" type="POST">Remove</a></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--END-->
+                    </form>
+                </footer>
+            </blockquote>
+        </div>
     </div>
-</div>
     <!--END-->
     {% endfor %}
 </div>
@@ -58,6 +68,6 @@ Cart
     <a href="{% url 'checkout' %}" class="btn btn-success ml-3 mb-3" role="button"><span class="fas fa-paper-plane" aria-hidden="true"></span> Checkout</a>
 </div>
 {% else %}
+<p>Your cart is empty</p>
 <p>Products you have contributed to will appear here</p>
-{% endif %}
-{% endblock %}
+{% endif %} {% endblock %}
