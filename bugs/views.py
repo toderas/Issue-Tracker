@@ -58,6 +58,7 @@ def get_current_bug(request, id):
     else:
         comment_form = AddCommentForm()
     comment = BugComment.objects.filter(post_id=bug.id).order_by('-date_reported')
+    comment_count = comment.count()
     views = Views.objects.filter(user=request.user, post_id=bug).count()
     if views < 1:
         Views.objects.create(user=request.user, post_id=bug.id)
@@ -72,7 +73,7 @@ def get_current_bug(request, id):
     except EmptyPage:
         comment = paginator.page(paginator.num_pages)
     comment_form = AddCommentForm()
-    return render(request, 'bug-details.html', {'bug': bug, 'comment': comment, 'comment_form': comment_form, 'like': like, 'view': view})
+    return render(request, 'bug-details.html', {'bug': bug, 'comment': comment, 'comment_form': comment_form, 'like': like, 'view': view, 'comment_count': comment_count})
     
     
 def remove_comment(request, BugComment_id):
