@@ -28,9 +28,11 @@ Checkout
     <div class="card-body">
         <blockquote class="blockquote mb-1">
             <p>{{ item.feature.description }}</p>
-            <footer class="blockquote-footer list-inline"> Added {{ item.feature.date_reported | date}} by
-                <li class="d-inline"><img class="rounded-circle profile-image" src="{{ item.feature.author.profile.image.url  }}"></img>
-                   <span>{{ item.feature.author }}</span>
+            <footer class="blockquote-footer list-inline"> <small>Added {{ item.feature.date_reported | date}} by</small>
+                 <li class="d-block d-sm-inline"><img class="rounded-circle profile-image" src="{{ item.feature.author.profile.image.url  }}"></img>
+                    <form class="form-hidden" action="{% url 'author-features' %}">
+                        <button title="Click to see user's requested features" class="hidden-input p-0" type="submit" name="author-features" value="{{ item.feature.author.id }}">{{ item.feature.author }} </button>
+                    </form>
                 </li>
                  <div class="card-header">Your Contribution: <strong class="text-dark">£{{ item.contribution }}</strong></div>
             </footer>
@@ -65,4 +67,5 @@ Checkout
     </div>
     
 </form>
+
 {% endblock %}
