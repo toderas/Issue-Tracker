@@ -43,7 +43,15 @@
 
             </footer>
         </blockquote>
+        <div class="d-flex">
         <a class="btn btn-sm btn-success" href="{% url 'get-bug' bug.id %}">See More</a>
+        <div class="blockquote-footer ml-2">
+                 <li class="d-inline">
+                    <span class="mr-2">{{ bug.like }} <i class="fas fa-thumbs-up"></i></span>
+                    <span>{{ bug.comments }} <i class="far fa-comments"></i></span>
+                </li>
+            </div>
+            </div>
     </div>
 </div>
 {% endfor %}
