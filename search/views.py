@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from bugs.models import bug_item
-from features.models import Feature
+from bugs.models import bug_item, BugComment, Like
+from features.models import Feature, FeatureContributors, FeatureViews
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import F, Q
 
@@ -12,6 +12,11 @@ def search_bugs(request):
     """ A views that returns a list of bugs based on search criteria """
     bugs = bug_item.objects.filter(Q(name__icontains=request.GET['search']) | Q(description__icontains=request.GET['search'])).order_by('-date_reported')
     count = bugs.count()
+    comments = BugComment.objects.all()
+    likes = Like.objects.all()
+    for bug in bugs:
+        bug.comments = comments.filter(post=bug.pk).count()
+        bug.like = likes.filter(post=bug.pk).count()
     page = request.GET.get('page', 1)
     paginator = Paginator(bugs, 5)
     try:
@@ -27,6 +32,11 @@ def search_author_bugs(request):
     """ A view that returns a certains's author posted bugs """
     bugs = bug_item.objects.filter(author_id=request.GET['bug-author']).order_by('-date_reported')
     count = bugs.count()
+    comments = BugComment.objects.all()
+    likes = Like.objects.all()
+    for bug in bugs:
+        bug.comments = comments.filter(post=bug.pk).count()
+        bug.like = likes.filter(post=bug.pk).count()
     user = User.objects.get(id=request.GET['bug-author']).username
     page = request.GET.get('page', 1)
     paginator = Paginator(bugs, 5)
@@ -44,6 +54,11 @@ def search_pending_review(request):
     bugs = bug_item.objects.filter(status__icontains='Pending-review')
     count = bugs.count()
     query = 'Pending review'
+    comments = BugComment.objects.all()
+    likes = Like.objects.all()
+    for bug in bugs:
+        bug.comments = comments.filter(post=bug.pk).count()
+        bug.like = likes.filter(post=bug.pk).count()
     page = request.GET.get('page', 1)
     paginator = Paginator(bugs, 5)
     try:
@@ -60,6 +75,11 @@ def search_in_progress(request):
     bugs = bug_item.objects.filter(status__icontains='In-progress')
     count = bugs.count()
     query = 'In Progress'
+    comments = BugComment.objects.all()
+    likes = Like.objects.all()
+    for bug in bugs:
+        bug.comments = comments.filter(post=bug.pk).count()
+        bug.like = likes.filter(post=bug.pk).count()
     page = request.GET.get('page', 1)
     paginator = Paginator(bugs, 5)
     try:
@@ -76,6 +96,11 @@ def search_resolved(request):
     bugs = bug_item.objects.filter(status__icontains='Resolved')
     count = bugs.count()
     query = 'Resolved'
+    comments = BugComment.objects.all()
+    likes = Like.objects.all()
+    for bug in bugs:
+        bug.comments = comments.filter(post=bug.pk).count()
+        bug.like = likes.filter(post=bug.pk).count()
     page = request.GET.get('page', 1)
     paginator = Paginator(bugs, 5)
     try:
@@ -91,6 +116,11 @@ def search_features(request):
     """ A views that returns a list of features based on search criteria """
     features = Feature.objects.filter(Q(name__icontains=request.GET['search']) | Q(description__icontains=request.GET['search'])).order_by('-date_reported')
     count = features.count()
+    contributors = FeatureContributors.objects.all()
+    views = FeatureViews.objects.all()
+    for feature in features:
+        feature.contributors = contributors.filter(post=feature.pk).count()
+        feature.views = views.filter(post=feature.pk).count()
     page = request.GET.get('page', 1)
     paginator = Paginator(features, 5)
     try:
@@ -106,6 +136,11 @@ def search_author_features(request):
     """ A view that returns a certains's author requested features """
     features = Feature.objects.filter(author_id=request.GET['author-features']).order_by('-date_reported')
     count = features.count()
+    contributors = FeatureContributors.objects.all()
+    views = FeatureViews.objects.all()
+    for feature in features:
+        feature.contributors = contributors.filter(post=feature.pk).count()
+        feature.views = views.filter(post=feature.pk).count()
     user = User.objects.get(id=request.GET['author-features']).username
     page = request.GET.get('page', 1)
     paginator = Paginator(features, 5)
@@ -123,6 +158,11 @@ def search_pending_assesment(request):
     features = Feature.objects.filter(target_value=0)
     count = features.count()
     query = 'Pending assesment'
+    contributors = FeatureContributors.objects.all()
+    views = FeatureViews.objects.all()
+    for feature in features:
+        feature.contributors = contributors.filter(post=feature.pk).count()
+        feature.views = views.filter(post=feature.pk).count()
     page = request.GET.get('page', 1)
     paginator = Paginator(features, 5)
     try:
@@ -139,6 +179,11 @@ def search_funding_required(request):
     features = Feature.objects.filter(target_value__gt=0, value_collected__lt=F('target_value'))
     count = features.count()
     query = 'Funding Required'
+    contributors = FeatureContributors.objects.all()
+    views = FeatureViews.objects.all()
+    for feature in features:
+        feature.contributors = contributors.filter(post=feature.pk).count()
+        feature.views = views.filter(post=feature.pk).count()
     page = request.GET.get('page', 1)
     paginator = Paginator(features, 5)
     try:
@@ -155,6 +200,11 @@ def search_funding_complete(request):
     features = Feature.objects.filter(target_value__gte=5, value_collected__gte= F('target_value'))
     count = features.count()
     query = 'Implementation in Progress'
+    contributors = FeatureContributors.objects.all()
+    views = FeatureViews.objects.all()
+    for feature in features:
+        feature.contributors = contributors.filter(post=feature.pk).count()
+        feature.views = views.filter(post=feature.pk).count()
     page = request.GET.get('page', 1)
     paginator = Paginator(features, 5)
     try:
