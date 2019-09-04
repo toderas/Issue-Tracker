@@ -11,6 +11,11 @@ from .forms import AddBugForm, AddCommentForm
 def get_bugs(request):
     bugs = bug_item.objects.filter().order_by('-date_reported')
     count = bugs.count()
+    comments = BugComment.objects.all()
+    likes = Like.objects.all()
+    for bug in bugs:
+        bug.comments = comments.filter(post=bug.pk).count()
+        bug.like = likes.filter(post=bug.pk).count()
     page = request.GET.get('page', 1)
 
     paginator = Paginator(bugs, 5)
