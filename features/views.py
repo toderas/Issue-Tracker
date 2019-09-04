@@ -12,6 +12,11 @@ def all_features(request):
     """ Returns all registered features and displays 5 per page  """
     features = Feature.objects.filter().order_by('-date_reported')
     count = features.count()
+    contributors = FeatureContributors.objects.all()
+    views = FeatureViews.objects.all()
+    for feature in features:
+        feature.contributors = contributors.filter(post=feature.pk).count()
+        feature.views = views.filter(post=feature.pk).count()
     page = request.GET.get('page', 1)
     paginator = Paginator(features, 5)
     try:
@@ -45,7 +50,6 @@ def get_current_feature(request, id):
     Displays single item  with option to contribute with desired amount
     """
     feature = get_object_or_404(Feature, id=id)
-    
     if feature.value_collected >= feature.target_value:
         progress = 100
         remaining = 0
