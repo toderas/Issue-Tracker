@@ -1,70 +1,57 @@
-{% extends 'base.html' %}
-
-{% load bootstrap_tags %} 
-
-{% block page_title %} Current Features {% endblock %} 
-
-{% block search %}
+{% extends 'base.html' %} {% load bootstrap_tags %} {% block page_title %} Current Features {% endblock %} {% block search %}
 <form class="form-inline form-right text-right my-2 my-lg-0" action="{% url 'search-bugs' %}">
     <div class="wrap-fields">
         <input class="form-control mr-sm-2 w-100" name="search" type="search" placeholder="Search features" aria-label="Search">
         <button class="btn my-0 search-icon" type="submit"><i class="fas fa-search"></i></button>
     </div>
 </form>
-{% endblock %}
-
-{% block request_feature %}
-<a class="nav-link" href="{% url 'add_new_feature' %}"><i class="fas fa-plus-circle"></i>Request a new Feature</a>
-{% endblock %}
-
-{% block content %}
+{% endblock %} {% block request_feature %}
+<a class="nav-link" href="{% url 'add_new_feature' %}"><i class="fas fa-plus-circle"></i>Request a new Feature</a> {% endblock %} {% block content %}
 <!--NEW CARD-->
 <div class="card mt-3 mb-4">
     <div class="card-header">
-        <span class="custom-size font-weight-bold d-inline">{{ feature.name }}</span>
-        
-        {% if feature.target_value == 0 %}
+        <span class="custom-size font-weight-bold d-inline">{{ feature.name }}</span> {% if feature.target_value == 0 %}
         <div class="col-12 col-sm-5 d-sm-inline p-0">
-        <span class="float-right pl-2"><i class="fas fa-eye">{{ views }}</i></span>
-         <span class="badge badge-pill badge-secondary float-left float-sm-right  custom-size">
+            <span class="float-right pl-2"><i class="fas fa-eye">{{ views }}</i></span>
+            <span class="badge badge-pill badge-secondary float-left float-sm-right  custom-size">
         <a title="Click to see all features from this category!" class="text-white" href="{% url 'Pending-assesment' %}"><i class="fas fa-link"></i>
         Pending Assesment </a></span>
         </div>
-        {% elif feature.target_value <= feature.value_collected %}
-        <div class="col-12 col-sm-5 d-sm-inline p-0">
+        {% elif feature.target_value
+        <=f eature.value_collected %} <div class="col-12 col-sm-5 d-sm-inline p-0">
             <span class="float-right pl-2"><i class="fas fa-eye">{{ views }}</i></span>
             <span class="badge badge-pill badge-success float-left float-sm-right custom-size">
         <a title="Click to see all features from this category!" class="text-white" href="{% url 'Funding-complete' %}"><i class="fas fa-link"></i>
         Implementation in progress</a></span>
-        </div>
-        {% elif feature.target_value != 0 %}
-        <div class="col-12 col-sm-5 d-sm-inline p-0">
-            <span class="float-right pl-2"><i class="fas fa-eye">{{ views }}</i></span>
+    </div>
+    {% elif feature.target_value != 0 %}
+    <div class="col-12 col-sm-5 d-sm-inline p-0">
+        <span class="float-right pl-2"><i class="fas fa-eye">{{ views }}</i></span>
         <span class="badge badge-pill badge-info float-left float-sm-right custom-size">
         <a title="Click to see all features from this category!" class="text-white" href="{% url 'Funding-required' %}"><i class="fas fa-link"></i>
         Funding required</a></span>
-        </div>
-        {% endif %}
     </div>
-    <div class="card-body">
-        <div class="row">
-            <!---->
-         <div class="col-6 offset-6 d-md-none">
+    {% endif %}
+</div>
+<div class="card-body">
+    <div class="row">
+        <!---->
+        <div class="col-6 offset-6 d-md-none">
             <div class="text-right text-muted"><small>£{{ remaining|floatformat:2 }} Remaining </small></div>
             <div class="progress" style="height: 1.5rem;">
                 <div class="progress-bar pl-2" role="progressbar" style="width: {{ progress|floatformat:2 }}%;" aria-valuenow="{{ progress|floatformat:2 }}" aria-valuemin="0" aria-valuemax="100">
-                    </div>
                 </div>
-                <div class="text-center" style="margin-top: -24px">
-                    <small>
+            </div>
+            <div class="text-center" style="margin-top: -24px">
+                <small>
                 {% if remaining <= 0 %}
-                    Completed 
+                    <strong>£{{ feature.value_collected }}</strong> Completed 
                     {% else %}
                     £{{ feature.value_collected }} of £{{ feature.target_value }} 
                     {% endif %}
                     </small>
             </div>
-            </div>
+        </div>
         <!---->
         <blockquote class="blockquote mb-1 col-md-9 float-left">
             <p>{{ feature.description }}</p>
@@ -75,81 +62,79 @@
                     </form>
                 </li>
             </footer>
-            </blockquote>
-            <!---->
-         <div class="float-right d-none d-md-inline col-md-3">
+        </blockquote>
+        <!---->
+        <div class="float-right d-none d-md-inline col-md-3">
             <div class="text-right text-muted"><small>£{{ remaining|floatformat:2 }} Remaining </small></div>
             <div class="progress" style="height: 1.5rem;">
                 <div class="progress-bar pl-4" role="progressbar" style="width: {{ progress|floatformat:2 }}%;" aria-valuenow="{{ progress|floatformat:2 }}" aria-valuemin="0" aria-valuemax="100">
-                    </div>
                 </div>
-                <div class="text-center" style="margin-top: -24px">
-                    <small>
+            </div>
+            <div class="text-center" style="margin-top: -24px">
+                <small>
                 {% if remaining <= 0 %}
-                    Completed 
+                    <strong>£{{ feature.value_collected }}</strong> Completed  
                     {% else %}
                     £{{ feature.value_collected }} of £{{ feature.target_value }} 
                     {% endif %}
                     </small>
             </div>
-            </div>
+        </div>
         <!---->
-        </div>
-        </div>
-        <div class="mt-2 mb-3">
-                    <div class="ml-2" id="headingTwo">
-                        <h5 class="mb-0">
-                            <button class="btn btn-sm btn-info collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+    </div>
+</div>
+<div class="mt-2 mb-3">
+    <div class="ml-2" id="headingTwo">
+        <h5 class="mb-0">
+            <button class="btn btn-sm btn-info collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                               Contribute <i class="fas fa-user pl-2"> {{ contributors }}</i>
                             </button>
-                            <hr>
-                        </h5>
-                    </div>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                    <div class="card-body">
-                        <form class="w-25 width-75" method="post" action="{% url 'add_to_cart' feature.id %}">
-                            {% csrf_token %} {{ contribute_form | as_bootstrap }}
-                            <button type="submit" class="float-left btn btn-sm btn-success mb-2">Add to cart</button>
-                        </form>
-                    </div>
-                </div>
+            <hr>
+        </h5>
     </div>
+</div>
+<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+    <div class="card-body">
+        <form class="w-25 width-75" method="post" action="{% url 'add_to_cart' feature.id %}">
+            {% csrf_token %} {{ contribute_form | as_bootstrap }}
+            <button type="submit" class="float-left btn btn-sm btn-success mb-2">Add to cart</button>
+        </form>
+    </div>
+</div>
+</div>
+<!--Contributions-->
+<div class="container mt-4">
+    <div class="row ">
+        {% for contributor in contributor %}
 
-    <!--Contributions-->
-    <div class="container mt-4">
-        <div class="row">
-    {% for contributor in contributor %}
-    
-    <div class="card col-md-4 d-inline">
-  <div class="card-body">
-    <h5 class="card-header"><img class="rounded-circle profile-image" src="{{ contributor.user.profile.image.url  }}"></img>{{ contributor.user }}</h5>
-    <p class="card-text">Supported This feature with <strong>£{{ contributor.amount }}</strong></p>
-    <blockquote class="blockquote mb-1">
+        <div class="card col-md-4 mt-2 d-inline">
+            <div class="card-body">
+                <h5 class="card-header"><img class="rounded-circle profile-image" src="{{ contributor.user.profile.image.url  }}"></img>{{ contributor.user }}</h5>
+                <p class="card-text">Supported This feature with <strong>£{{ contributor.amount }}</strong></p>
+                <blockquote class="blockquote mb-1">
                     <hr>
                     <em><small>{{ contributor.date_contributed | date}}</small></em>
                 </blockquote>
-  </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
-    {% endfor %}
-    </div>
-    </div>
-    <!--END-->
-    {% if contributors > 9 %}
-    <!--Pagination-->
-    <nav aria-label="Page navigation example">
-        <ul class="pagination mt-3">
-            {% if bugs.has_previous %}
-            <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
-            <li class="page-item"><a class="page-link" href="?page={{ bugs.previous_page_number }}">Previous</a></li>
-            {% endif %}
-            <li><a class="page-link"> Page {{ bugs.number }} of {{ bugs.paginator.num_pages }}. </a> </li>
-            {% if bugs.has_next %}
-            <li class="page-item"><a class="page-link" href="?page={{ bugs.next_page_number }}">Next</a></li>
-            <li class="page-item"><a class="page-link" href="?page={{ bugs.paginator.num_pages }}">Last &raquo;</a></li>
-            {% endif %}
-        </ul>
-    </nav>
-    <!--END-->
-    {% endif %}
-    {% endblock %}
+<!--END-->
+{% if contributors > 9 %}
+<!--Pagination-->
+<nav aria-label="Page navigation example">
+    <ul class="pagination mt-3">
+        {% if bugs.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ bugs.previous_page_number }}">Previous</a></li>
+        {% endif %}
+        <li><a class="page-link"> Page {{ bugs.number }} of {{ bugs.paginator.num_pages }}. </a> </li>
+        {% if bugs.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ bugs.next_page_number }}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ bugs.paginator.num_pages }}">Last &raquo;</a></li>
+        {% endif %}
+    </ul>
+</nav>
+<!--END-->
+{% endif %} {% endblock %}
