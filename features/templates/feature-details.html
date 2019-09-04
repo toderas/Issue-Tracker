@@ -17,8 +17,7 @@
         <a title="Click to see all features from this category!" class="text-white" href="{% url 'Pending-assesment' %}"><i class="fas fa-link"></i>
         Pending Assesment </a></span>
         </div>
-        {% elif feature.target_value
-        <=f eature.value_collected %} <div class="col-12 col-sm-5 d-sm-inline p-0">
+        {% elif feature.target_value <= feature.value_collected %} <div class="col-12 col-sm-5 d-sm-inline p-0">
             <span class="float-right pl-2"><i class="fas fa-eye">{{ views }}</i></span>
             <span class="badge badge-pill badge-success float-left float-sm-right custom-size">
         <a title="Click to see all features from this category!" class="text-white" href="{% url 'Funding-complete' %}"><i class="fas fa-link"></i>
@@ -44,11 +43,14 @@
             </div>
             <div class="text-center" style="margin-top: -24px">
                 <small>
-                {% if remaining <= 0 %}
+                {% if feature.target_value == 0 %}
+                    Pending assesment
+                {% elif remaining <= 0 %}
                     <strong>£{{ feature.value_collected }}</strong> Completed 
-                    {% else %}
+                    
+                {% else %}
                     £{{ feature.value_collected }} of £{{ feature.target_value }} 
-                    {% endif %}
+                {% endif %}
                     </small>
             </div>
         </div>
@@ -72,11 +74,14 @@
             </div>
             <div class="text-center" style="margin-top: -24px">
                 <small>
-                {% if remaining <= 0 %}
-                    <strong>£{{ feature.value_collected }}</strong> Completed  
-                    {% else %}
+                 {% if feature.target_value == 0 %}
+                    Pending assesment
+                {% elif remaining <= 0 %}
+                    <strong>£{{ feature.value_collected }}</strong> Completed 
+                    
+                {% else %}
                     £{{ feature.value_collected }} of £{{ feature.target_value }} 
-                    {% endif %}
+                {% endif %}
                     </small>
             </div>
         </div>
