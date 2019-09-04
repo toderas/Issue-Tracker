@@ -51,8 +51,16 @@
                     </form>
                 </li>
             </footer>
+            </blockquote>
+        <div class="d-flex">
         <a class="btn btn-sm btn-success" href="{% url 'get-feature' feature.id %}">See More</a>
-        </blockquote>
+        <div class="blockquote-footer ml-2">
+                 <li class="d-inline">
+                    <span class="mr-2">{{ feature.contributors }} <i class="fas fa-hand-holding-usd"></i></span>
+                    <span>{{ feature.views }} <i class="far fa-eye"></i></span>
+                </li>
+            </div>
+            </div>
     </div>
 </div>
 {% endfor %}
