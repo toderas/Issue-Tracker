@@ -38,8 +38,10 @@
                 </li>
             </footer>
         </blockquote>
-        <a class="btn btn-sm btn-success" href="{% url 'add-upvote' bug.id %}" type="POST">I have This Too <i class="fas fa-user mr-1 ml-1"> {{ like }}</i></a> {% if user.is_authenticated and user.id == bug.author_id %}
+        <a class="btn btn-sm btn-success" href="{% url 'add-upvote' bug.id %}" type="POST">I have This Too <i class="fas fa-user mr-1 ml-1"> {{ like }}</i></a> 
+        {% if user.is_authenticated and user.id == bug.author_id %}
        <!-- Button trigger modal -->
+       <button type="button" class="btn btn-sm btn-info"><a class="text-white" href="{% url 'edit-bug' bug.id %}">Edit</a></button>
 <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#Delete-bug">
   Remove Bug
 </button>

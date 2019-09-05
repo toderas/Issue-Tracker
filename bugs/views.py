@@ -4,7 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import bug_item, BugComment, Like, Views
-from .forms import AddBugForm, AddCommentForm
+from .forms import AddBugForm, AddCommentForm, EditBugForm
 
 
 # Create your views here.
@@ -108,3 +108,13 @@ def delete_bug(request, id):
     items.delete()
     messages.success(request, "Item has been successfully removed!")
     return redirect(get_bugs)
+
+
+def edit_bug(request, id): 
+    instance = bug_item.objects.get(id=id)
+    edit_form = EditBugForm(request.POST or None, instance=instance)
+    if edit_form.is_valid():
+          edit_form.save()
+          messages.success(request, "Item has been updated!")
+          return redirect(get_current_bug, id)
+    return render(request, 'edit-bug.html', {'instance': instance, 'edit_form': edit_form})

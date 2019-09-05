@@ -16,3 +16,12 @@ class AddCommentForm(forms.ModelForm):
         model = BugComment
         fields = ['comment',]
     comment = forms.Textarea()
+
+
+class EditBugForm(forms.ModelForm):
+
+    class Meta:
+        model = bug_item
+        fields = ['name', 'description']
+    name = forms.CharField()
+    description = forms.Textarea()
