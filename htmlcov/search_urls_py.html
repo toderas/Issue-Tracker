@@ -36,6 +36,8 @@
             <span class="exc shortkey_x button_toggle_exc">0 excluded</span>
 
             
+                <span class="par run hide_run shortkey_p button_toggle_par">0 partial</span>
+            
         </h2>
     </div>
 </div>
@@ -70,8 +72,8 @@
 <p id="n1" class="stm run hide_run"><a href="#n1">1</a></p>
 <p id="n2" class="stm run hide_run"><a href="#n2">2</a></p>
 <p id="n3" class="pln"><a href="#n3">3</a></p>
-<p id="n4" class="stm run hide_run"><a href="#n4">4</a></p>
-<p id="n5" class="pln"><a href="#n5">5</a></p>
+<p id="n4" class="pln"><a href="#n4">4</a></p>
+<p id="n5" class="stm run hide_run"><a href="#n5">5</a></p>
 <p id="n6" class="pln"><a href="#n6">6</a></p>
 <p id="n7" class="pln"><a href="#n7">7</a></p>
 <p id="n8" class="pln"><a href="#n8">8</a></p>
@@ -79,21 +81,29 @@
 <p id="n10" class="pln"><a href="#n10">10</a></p>
 <p id="n11" class="pln"><a href="#n11">11</a></p>
 <p id="n12" class="pln"><a href="#n12">12</a></p>
+<p id="n13" class="pln"><a href="#n13">13</a></p>
+<p id="n14" class="pln"><a href="#n14">14</a></p>
+<p id="n15" class="pln"><a href="#n15">15</a></p>
+<p id="n16" class="pln"><a href="#n16">16</a></p>
 
             </td>
             <td class="text">
 <p id="t1" class="stm run hide_run"><span class="key">from</span> <span class="nam">django</span><span class="op">.</span><span class="nam">conf</span><span class="op">.</span><span class="nam">urls</span> <span class="key">import</span> <span class="nam">url</span><span class="strut">&nbsp;</span></p>
-<p id="t2" class="stm run hide_run"><span class="key">from</span> <span class="op">.</span><span class="nam">views</span> <span class="key">import</span> <span class="nam">search_bugs</span><span class="op">,</span> <span class="nam">search_user_bugs</span><span class="op">,</span> <span class="nam">search_in_progress</span><span class="op">,</span> <span class="nam">search_author_bugs</span><span class="op">,</span> <span class="nam">search_pending_review</span><span class="op">,</span> <span class="nam">search_resolved</span><span class="strut">&nbsp;</span></p>
+<p id="t2" class="stm run hide_run"><span class="key">from</span> <span class="op">.</span><span class="nam">views</span> <span class="key">import</span> <span class="nam">search_bugs</span><span class="op">,</span> <span class="nam">search_in_progress</span><span class="op">,</span> <span class="nam">search_author_bugs</span><span class="op">,</span> <span class="nam">search_pending_review</span><span class="op">,</span> <span class="nam">search_resolved</span><span class="op">,</span> <span class="nam">search_features</span><span class="op">,</span> <span class="nam">search_author_features</span><span class="op">,</span> <span class="nam">search_pending_assesment</span><span class="op">,</span> <span class="nam">search_funding_required</span><span class="op">,</span> <span class="nam">search_funding_complete</span><span class="strut">&nbsp;</span></p>
 <p id="t3" class="pln"><span class="strut">&nbsp;</span></p>
-<p id="t4" class="stm run hide_run"><span class="nam">urlpatterns</span> <span class="op">=</span> <span class="op">[</span><span class="strut">&nbsp;</span></p>
-<p id="t5" class="pln"><span class="com">#    url(r'^$', do_search, name='search'),</span><span class="strut">&nbsp;</span></p>
+<p id="t4" class="pln"><span class="strut">&nbsp;</span></p>
+<p id="t5" class="stm run hide_run"><span class="nam">urlpatterns</span> <span class="op">=</span> <span class="op">[</span><span class="strut">&nbsp;</span></p>
 <p id="t6" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^search-bugs/$'</span><span class="op">,</span> <span class="nam">search_bugs</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">'search-bugs'</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
-<p id="t7" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^search-user-bugs/$'</span><span class="op">,</span> <span class="nam">search_user_bugs</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">'search-user-bugs'</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
-<p id="t8" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^search-pending-review/$'</span><span class="op">,</span> <span class="nam">search_pending_review</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">'Pending-review'</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
-<p id="t9" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^search-in-progress/$'</span><span class="op">,</span> <span class="nam">search_in_progress</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">'in-progress-bugs'</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
-<p id="t10" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^search-resolved/$'</span><span class="op">,</span> <span class="nam">search_resolved</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">'Resolved'</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
-<p id="t11" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^search-author-bugs/$'</span><span class="op">,</span> <span class="nam">search_author_bugs</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">'author-bugs'</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
-<p id="t12" class="pln">    <span class="op">]</span><span class="strut">&nbsp;</span></p>
+<p id="t7" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^search-pending-review/$'</span><span class="op">,</span> <span class="nam">search_pending_review</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">'Pending-review'</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t8" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^search-in-progress/$'</span><span class="op">,</span> <span class="nam">search_in_progress</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">'in-progress-bugs'</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t9" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^search-resolved/$'</span><span class="op">,</span> <span class="nam">search_resolved</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">'Resolved'</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t10" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^search-author-bugs/$'</span><span class="op">,</span> <span class="nam">search_author_bugs</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">'author-bugs'</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t11" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^search-features/$'</span><span class="op">,</span> <span class="nam">search_features</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">'search-features'</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t12" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^author-features/$'</span><span class="op">,</span> <span class="nam">search_author_features</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">'author-features'</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t13" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^search-pending-assesment/$'</span><span class="op">,</span> <span class="nam">search_pending_assesment</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">'Pending-assesment'</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t14" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^search-funding-required/$'</span><span class="op">,</span> <span class="nam">search_funding_required</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">'Funding-required'</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t15" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^search-funding-complete/$'</span><span class="op">,</span> <span class="nam">search_funding_complete</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">'Funding-complete'</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t16" class="pln">    <span class="op">]</span><span class="strut">&nbsp;</span></p>
 
             </td>
         </tr>
@@ -104,7 +114,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v4.5.4</a>,
-            created at 2019-08-11 07:25
+            created at 2019-09-10 05:07
         </p>
     </div>
 </div>

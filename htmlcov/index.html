@@ -22,7 +22,7 @@
 <div id="header">
     <div class="content">
         <h1>Coverage report:
-            <span class="pc_cov">39%</span>
+            <span class="pc_cov">50%</span>
         </h1>
 
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
@@ -43,6 +43,9 @@
         <span class="key">m</span>
         <span class="key">x</span>
         
+        <span class="key">b</span>
+        <span class="key">p</span>
+        
         <span class="key">c</span> &nbsp; change column sorting
     </p>
     </div>
@@ -58,6 +61,9 @@
                 <th class="shortkey_m">missing</th>
                 <th class="shortkey_x">excluded</th>
                 
+                <th class="shortkey_b">branches</th>
+                <th class="shortkey_p">partial</th>
+                
                 <th class="right shortkey_c">coverage</th>
             </tr>
         </thead>
@@ -65,11 +71,14 @@
         <tfoot>
             <tr class="total">
                 <td class="name left">Total</td>
-                <td>604</td>
-                <td>366</td>
+                <td>877</td>
+                <td>392</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="238 604">39%</td>
+                <td>132</td>
+                <td>11</td>
+                
+                <td class="right" data-ratio="506 1009">50%</td>
             </tr>
         </tfoot>
         <tbody>
@@ -77,6 +86,9 @@
             <tr class="file">
                 <td class="name left"><a href="accounts___init___py.html">accounts/__init__.py</a></td>
                 <td>1</td>
+                <td>0</td>
+                <td>0</td>
+                
                 <td>0</td>
                 <td>0</td>
                 
@@ -89,6 +101,9 @@
                 <td>0</td>
                 <td>0</td>
                 
+                <td>0</td>
+                <td>0</td>
+                
                 <td class="right" data-ratio="3 3">100%</td>
             </tr>
             
@@ -98,43 +113,34 @@
                 <td>0</td>
                 <td>0</td>
                 
+                <td>0</td>
+                <td>0</td>
+                
                 <td class="right" data-ratio="5 5">100%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="accounts_backends_py.html">accounts/backends.py</a></td>
                 <td>18</td>
-                <td>18</td>
+                <td>10</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 18">0%</td>
+                <td>4</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="8 22">36%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="accounts_forms_py.html">accounts/forms.py</a></td>
                 <td>36</td>
-                <td>12</td>
+                <td>3</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="24 36">67%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="accounts_migrations_0001_initial_py.html">accounts/migrations/0001_initial.py</a></td>
-                <td>8</td>
-                <td>0</td>
-                <td>0</td>
+                <td>6</td>
+                <td>3</td>
                 
-                <td class="right" data-ratio="8 8">100%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="accounts_migrations___init___py.html">accounts/migrations/__init__.py</a></td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                
-                <td class="right" data-ratio="0 0">100%</td>
+                <td class="right" data-ratio="36 42">86%</td>
             </tr>
             
             <tr class="file">
@@ -143,21 +149,42 @@
                 <td>1</td>
                 <td>0</td>
                 
+                <td>0</td>
+                <td>0</td>
+                
                 <td class="right" data-ratio="6 7">86%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="accounts_signals_py.html">accounts/signals.py</a></td>
                 <td>9</td>
-                <td>3</td>
+                <td>0</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="6 9">67%</td>
+                <td>2</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="11 11">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="accounts_tests_py.html">accounts/tests.py</a></td>
+                <td>59</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="59 59">100%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="accounts_url_reset_py.html">accounts/url_reset.py</a></td>
                 <td>4</td>
+                <td>0</td>
+                <td>0</td>
+                
                 <td>0</td>
                 <td>0</td>
                 
@@ -170,21 +197,30 @@
                 <td>0</td>
                 <td>0</td>
                 
+                <td>0</td>
+                <td>0</td>
+                
                 <td class="right" data-ratio="4 4">100%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="accounts_views_py.html">accounts/views.py</a></td>
                 <td>53</td>
-                <td>43</td>
+                <td>28</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="10 53">19%</td>
+                <td>20</td>
+                <td>4</td>
+                
+                <td class="right" data-ratio="33 73">45%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="bugs___init___py.html">bugs/__init__.py</a></td>
                 <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                
                 <td>0</td>
                 <td>0</td>
                 
@@ -197,120 +233,78 @@
                 <td>0</td>
                 <td>0</td>
                 
+                <td>0</td>
+                <td>0</td>
+                
                 <td class="right" data-ratio="4 4">100%</td>
             </tr>
             
             <tr class="file">
-                <td class="name left"><a href="bugs_apps_py.html">bugs/apps.py</a></td>
-                <td>3</td>
-                <td>3</td>
-                <td>0</td>
-                
-                <td class="right" data-ratio="0 3">0%</td>
-            </tr>
-            
-            <tr class="file">
                 <td class="name left"><a href="bugs_forms_py.html">bugs/forms.py</a></td>
-                <td>13</td>
+                <td>19</td>
                 <td>0</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="13 13">100%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="bugs_migrations_0001_initial_py.html">bugs/migrations/0001_initial.py</a></td>
-                <td>7</td>
                 <td>0</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="7 7">100%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="bugs_migrations_0002_auto_20190806_0356_py.html">bugs/migrations/0002_auto_20190806_0356.py</a></td>
-                <td>7</td>
-                <td>0</td>
-                <td>0</td>
-                
-                <td class="right" data-ratio="7 7">100%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="bugs_migrations_0003_bug_item_upvoted_by_py.html">bugs/migrations/0003_bug_item_upvoted_by.py</a></td>
-                <td>7</td>
-                <td>0</td>
-                <td>0</td>
-                
-                <td class="right" data-ratio="7 7">100%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="bugs_migrations_0004_like_py.html">bugs/migrations/0004_like.py</a></td>
-                <td>7</td>
-                <td>0</td>
-                <td>0</td>
-                
-                <td class="right" data-ratio="7 7">100%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="bugs_migrations_0005_auto_20190807_0230_py.html">bugs/migrations/0005_auto_20190807_0230.py</a></td>
-                <td>7</td>
-                <td>0</td>
-                <td>0</td>
-                
-                <td class="right" data-ratio="7 7">100%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="bugs_migrations___init___py.html">bugs/migrations/__init__.py</a></td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                
-                <td class="right" data-ratio="0 0">100%</td>
+                <td class="right" data-ratio="19 19">100%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="bugs_models_py.html">bugs/models.py</a></td>
-                <td>27</td>
+                <td>26</td>
                 <td>1</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="26 27">96%</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="25 26">96%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="bugs_tests_py.html">bugs/tests.py</a></td>
-                <td>15</td>
+                <td>29</td>
                 <td>0</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="15 15">100%</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="29 29">100%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="bugs_urls_py.html">bugs/urls.py</a></td>
-                <td>3</td>
+                <td>5</td>
                 <td>0</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="3 3">100%</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="5 5">100%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="bugs_views_py.html">bugs/views.py</a></td>
-                <td>75</td>
-                <td>62</td>
+                <td>87</td>
+                <td>63</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="13 75">17%</td>
+                <td>20</td>
+                <td>1</td>
+                
+                <td class="right" data-ratio="25 107">23%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="cart___init___py.html">cart/__init__.py</a></td>
                 <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                
                 <td>0</td>
                 <td>0</td>
                 
@@ -320,78 +314,81 @@
             <tr class="file">
                 <td class="name left"><a href="cart_admin_py.html">cart/admin.py</a></td>
                 <td>1</td>
-                <td>1</td>
+                <td>0</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 1">0%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="cart_apps_py.html">cart/apps.py</a></td>
-                <td>3</td>
-                <td>3</td>
+                <td>0</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 3">0%</td>
+                <td class="right" data-ratio="1 1">100%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="cart_contexts_py.html">cart/contexts.py</a></td>
-                <td>13</td>
-                <td>13</td>
+                <td>14</td>
+                <td>5</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 13">0%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="cart_migrations___init___py.html">cart/migrations/__init__.py</a></td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
+                <td>2</td>
+                <td>1</td>
                 
-                <td class="right" data-ratio="0 0">100%</td>
+                <td class="right" data-ratio="10 16">62%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="cart_models_py.html">cart/models.py</a></td>
                 <td>1</td>
-                <td>1</td>
+                <td>0</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 1">0%</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="1 1">100%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="cart_tests_py.html">cart/tests.py</a></td>
                 <td>1</td>
-                <td>1</td>
+                <td>0</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 1">0%</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="1 1">100%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="cart_urls_py.html">cart/urls.py</a></td>
                 <td>3</td>
-                <td>3</td>
+                <td>0</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 3">0%</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="3 3">100%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="cart_views_py.html">cart/views.py</a></td>
-                <td>17</td>
+                <td>22</td>
                 <td>17</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 17">0%</td>
+                <td>2</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="5 24">21%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="checkout___init___py.html">checkout/__init__.py</a></td>
                 <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                
                 <td>0</td>
                 <td>0</td>
                 
@@ -401,82 +398,85 @@
             <tr class="file">
                 <td class="name left"><a href="checkout_admin_py.html">checkout/admin.py</a></td>
                 <td>7</td>
-                <td>7</td>
+                <td>0</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 7">0%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="checkout_apps_py.html">checkout/apps.py</a></td>
-                <td>3</td>
-                <td>3</td>
+                <td>0</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 3">0%</td>
+                <td class="right" data-ratio="7 7">100%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="checkout_forms_py.html">checkout/forms.py</a></td>
                 <td>14</td>
-                <td>14</td>
-                <td>0</td>
-                
-                <td class="right" data-ratio="0 14">0%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="checkout_migrations_0001_initial_py.html">checkout/migrations/0001_initial.py</a></td>
-                <td>7</td>
-                <td>7</td>
-                <td>0</td>
-                
-                <td class="right" data-ratio="0 7">0%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="checkout_migrations___init___py.html">checkout/migrations/__init__.py</a></td>
-                <td>0</td>
                 <td>0</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 0">100%</td>
+                <td>4</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="18 18">100%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="checkout_models_py.html">checkout/models.py</a></td>
-                <td>19</td>
-                <td>19</td>
+                <td>20</td>
+                <td>2</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 19">0%</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="18 20">90%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="checkout_tests_py.html">checkout/tests.py</a></td>
                 <td>1</td>
-                <td>1</td>
+                <td>0</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 1">0%</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="1 1">100%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="checkout_urls_py.html">checkout/urls.py</a></td>
                 <td>3</td>
-                <td>3</td>
+                <td>0</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 3">0%</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="3 3">100%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="checkout_views_py.html">checkout/views.py</a></td>
-                <td>39</td>
-                <td>39</td>
+                <td>43</td>
+                <td>32</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 39">0%</td>
+                <td>10</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="11 53">21%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="env_py.html">env.py</a></td>
+                <td>8</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="8 8">100%</td>
             </tr>
             
             <tr class="file">
@@ -485,124 +485,82 @@
                 <td>0</td>
                 <td>0</td>
                 
+                <td>0</td>
+                <td>0</td>
+                
                 <td class="right" data-ratio="0 0">100%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="features_admin_py.html">features/admin.py</a></td>
-                <td>1</td>
-                <td>1</td>
+                <td>3</td>
+                <td>0</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 1">0%</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="3 3">100%</td>
             </tr>
             
             <tr class="file">
-                <td class="name left"><a href="features_apps_py.html">features/apps.py</a></td>
-                <td>3</td>
-                <td>3</td>
-                <td>0</td>
-                
-                <td class="right" data-ratio="0 3">0%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="features_migrations___init___py.html">features/migrations/__init__.py</a></td>
-                <td>0</td>
+                <td class="name left"><a href="features_forms_py.html">features/forms.py</a></td>
+                <td>13</td>
                 <td>0</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 0">100%</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="13 13">100%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="features_models_py.html">features/models.py</a></td>
-                <td>1</td>
-                <td>1</td>
+                <td>23</td>
+                <td>2</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 1">0%</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="21 23">91%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="features_tests_py.html">features/tests.py</a></td>
                 <td>1</td>
-                <td>1</td>
+                <td>0</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 1">0%</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="1 1">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="features_urls_py.html">features/urls.py</a></td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="3 3">100%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="features_views_py.html">features/views.py</a></td>
-                <td>1</td>
-                <td>1</td>
+                <td>60</td>
+                <td>50</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 1">0%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="home___init___py.html">home/__init__.py</a></td>
-                <td>0</td>
-                <td>0</td>
+                <td>18</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 0">100%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="home_admin_py.html">home/admin.py</a></td>
-                <td>1</td>
-                <td>1</td>
-                <td>0</td>
-                
-                <td class="right" data-ratio="0 1">0%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="home_apps_py.html">home/apps.py</a></td>
-                <td>3</td>
-                <td>3</td>
-                <td>0</td>
-                
-                <td class="right" data-ratio="0 3">0%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="home_migrations___init___py.html">home/migrations/__init__.py</a></td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                
-                <td class="right" data-ratio="0 0">100%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="home_models_py.html">home/models.py</a></td>
-                <td>1</td>
-                <td>1</td>
-                <td>0</td>
-                
-                <td class="right" data-ratio="0 1">0%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="home_tests_py.html">home/tests.py</a></td>
-                <td>1</td>
-                <td>1</td>
-                <td>0</td>
-                
-                <td class="right" data-ratio="0 1">0%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="home_views_py.html">home/views.py</a></td>
-                <td>3</td>
-                <td>3</td>
-                <td>0</td>
-                
-                <td class="right" data-ratio="0 3">0%</td>
+                <td class="right" data-ratio="10 78">13%</td>
             </tr>
             
             <tr class="file">
@@ -611,7 +569,10 @@
                 <td>6</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="7 13">54%</td>
+                <td>2</td>
+                <td>1</td>
+                
+                <td class="right" data-ratio="8 15">53%</td>
             </tr>
             
             <tr class="file">
@@ -620,39 +581,42 @@
                 <td>0</td>
                 <td>0</td>
                 
+                <td>0</td>
+                <td>0</td>
+                
                 <td class="right" data-ratio="0 0">100%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="master_settings_py.html">master/settings.py</a></td>
-                <td>29</td>
+                <td>38</td>
                 <td>1</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="28 29">97%</td>
+                <td>2</td>
+                <td>1</td>
+                
+                <td class="right" data-ratio="38 40">95%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="master_urls_py.html">master/urls.py</a></td>
-                <td>9</td>
+                <td>13</td>
                 <td>0</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="9 9">100%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="master_wsgi_py.html">master/wsgi.py</a></td>
-                <td>4</td>
-                <td>4</td>
+                <td>0</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 4">0%</td>
+                <td class="right" data-ratio="13 13">100%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="search___init___py.html">search/__init__.py</a></td>
                 <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                
                 <td>0</td>
                 <td>0</td>
                 
@@ -665,25 +629,10 @@
                 <td>0</td>
                 <td>0</td>
                 
+                <td>0</td>
+                <td>0</td>
+                
                 <td class="right" data-ratio="1 1">100%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="search_apps_py.html">search/apps.py</a></td>
-                <td>3</td>
-                <td>3</td>
-                <td>0</td>
-                
-                <td class="right" data-ratio="0 3">0%</td>
-            </tr>
-            
-            <tr class="file">
-                <td class="name left"><a href="search_migrations___init___py.html">search/migrations/__init__.py</a></td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                
-                <td class="right" data-ratio="0 0">100%</td>
             </tr>
             
             <tr class="file">
@@ -692,16 +641,22 @@
                 <td>0</td>
                 <td>0</td>
                 
+                <td>0</td>
+                <td>0</td>
+                
                 <td class="right" data-ratio="1 1">100%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="search_tests_py.html">search/tests.py</a></td>
-                <td>1</td>
-                <td>1</td>
+                <td>14</td>
+                <td>3</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="0 1">0%</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="11 14">79%</td>
             </tr>
             
             <tr class="file">
@@ -710,16 +665,22 @@
                 <td>0</td>
                 <td>0</td>
                 
+                <td>0</td>
+                <td>0</td>
+                
                 <td class="right" data-ratio="3 3">100%</td>
             </tr>
             
             <tr class="file">
                 <td class="name left"><a href="search_views_py.html">search/views.py</a></td>
-                <td>69</td>
-                <td>60</td>
+                <td>184</td>
+                <td>168</td>
                 <td>0</td>
                 
-                <td class="right" data-ratio="9 69">13%</td>
+                <td>40</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="16 224">7%</td>
             </tr>
             
         </tbody>
@@ -734,7 +695,7 @@
     <div class="content">
         <p>
             <a class="nav" href="https://coverage.readthedocs.io">coverage.py v4.5.4</a>,
-            created at 2019-08-11 07:25
+            created at 2019-09-10 05:07
         </p>
     </div>
 </div>
