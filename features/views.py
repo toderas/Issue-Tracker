@@ -39,6 +39,7 @@ def add_new_feature(request):
             feature = feature_form.save(commit=False)
             feature.author = request.user
             feature.save()
+            messages.error(request, "Feature registered succesfully!")
             return redirect(all_features)
     else:
         feature_form = AddFeatureForm()
@@ -66,7 +67,7 @@ def get_current_feature(request, id):
             amount.post = feature
             amount.author = request.user
             amount.save()
-            return redirect(request.META['HTTP_REFERER'])
+            return redirect(all_features)
     else:
         contribute_form = ContributeFeatureForm()
     views = FeatureViews.objects.filter(post_id=feature).count()
