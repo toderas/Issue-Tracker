@@ -130,14 +130,14 @@
 <!--Pagination-->
 <nav aria-label="Page navigation example">
     <ul class="pagination mt-3">
-        {% if bugs.has_previous %}
+        {% if contributor.has_previous %}
         <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{ bugs.previous_page_number }}">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ contributor.previous_page_number }}">Previous</a></li>
         {% endif %}
-        <li><a class="page-link"> Page {{ bugs.number }} of {{ bugs.paginator.num_pages }}. </a> </li>
-        {% if bugs.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{ bugs.next_page_number }}">Next</a></li>
-        <li class="page-item"><a class="page-link" href="?page={{ bugs.paginator.num_pages }}">Last &raquo;</a></li>
+        <li><a class="page-link"> Page {{ contributor.number }} of {{ contributor.paginator.num_pages }}. </a> </li>
+        {% if contributor.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ contributor.next_page_number }}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ contributor.paginator.num_pages }}">Last &raquo;</a></li>
         {% endif %}
     </ul>
 </nav>
