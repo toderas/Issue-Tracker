@@ -75,5 +75,14 @@ def get_current_feature(request, id):
         feature.save()
     contributors = FeatureContributors.objects.filter(post_id=feature.id).count()
     contributor = FeatureContributors.objects.filter(post=feature.id).order_by('-date_contributed')
+    
+    page = request.GET.get('page', 1)
+    paginator = Paginator(contributor, 9)
+    try:
+        contributor = paginator.page(page)
+    except PageNotAnInteger:
+        contributor = paginator.page(1)
+    except EmptyPage:
+        contributor = paginator.page(paginator.num_pages)
     return render(request, 'feature-details.html', {'feature': feature, 'contribute_form': contribute_form, 'contributor': contributor, 'contributors': contributors, 'remaining': remaining, 'progress': progress, 'views': views})
 
