@@ -70,13 +70,13 @@ def get_current_feature(request, id):
             return redirect(all_features)
     else:
         contribute_form = ContributeFeatureForm()
-    views = FeatureViews.objects.filter(post_id=feature).count()
-    if views < 1:
+    view = FeatureViews.objects.filter(user=request.user, post_id=feature).count()
+    if view < 1:
         FeatureViews.objects.create(user=request.user, post_id=feature.id)
         feature.save()
     contributors = FeatureContributors.objects.filter(post_id=feature.id).count()
     contributor = FeatureContributors.objects.filter(post=feature.id).order_by('-date_contributed')
-    
+    views = FeatureViews.objects.filter(post_id=feature.id).count()
     page = request.GET.get('page', 1)
     paginator = Paginator(contributor, 9)
     try:
