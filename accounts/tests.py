@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect, reverse
 from .forms import UserLoginForm, UserRegistrationForm
 from django.contrib.auth.views import PasswordResetForm
 from django.contrib.auth.models import User
+from bugs.views import get_bugs
+
 
 # Create your tests here.
 
@@ -30,9 +32,8 @@ class TestUserLogin(TestCase):
         self.client = Client()
         self.user = User.objects.create_user('user', 'email@gmail.com', 'password')
         self.client.login(username='user', password='password')
-        response = self.client.get(reverse('login'))
-        self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse('index'))
+        response = self.client.get('/bugscurrent-bugs/', follow=True)
+        self.assertEqual(response.status_code, 200)
         self.client.logout()
     
     
