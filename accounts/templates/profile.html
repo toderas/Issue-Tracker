@@ -1,37 +1,45 @@
-{% extends 'base.html' %} {% block page_title %} {{user}}'s Profile {% endblock %} {% block page_heading %} {{user}}'s Profile {% endblock %} {% load bootstrap_tags %} {% block content %}
+{% extends 'base.html' %}
+
+{% block page_title %} {{user|title}}'s Profile {% endblock %}
+
+{% block page_heading %} {{user|title}}'s Profile {% endblock %}
+
+{% load bootstrap_tags %}
+
+{% block content %}
+
 <!--User Profile Display-->
 <div class="card">
-  <img class="card-img-top rounded w-50 ml-auto mr-auto" src="{{ user.profile.image.url }}" alt="User Profile Image">
-  <div class="card-body">
-    <hr>
-    <h5 class="card-title">Username: {{ user.username }}</h5>
-    <p class="card-text">E-mail : {{ user.email }}</p>
-    <p class="card-text">First Name : {{ user.first_name }}</p>
-    <p class="card-text">Last Name : {{ user.last_name }}</p>
-    <p class="card-text">Member since: {{ user.date_joined | date }}</p>
-    <p class="card-text">Last login: {{ user.last_login | date }}</p>
-    <!--User Edit -->
-    <hr/>
-<div class="card mt-2">
-  <div class="card-header" id="headingTwo">
-    <h5 class="mb-0">
+  <div class="row mb-2">
+    <div class="col-sm-12 col-md-6 d-flex align-items-center justify-content-center">
+      <img src="{{ user.profile.image.url }}" alt="User Profile Image">
+    </div>
+    <div class="col-sm-12 col-md-6 pt-3">
+      <h5 class="card-title pl-2">Username: {{ user.username }}</h5>
+      <p class="card-text pl-2">E-mail : {{ user.email }}</p>
+      <p class="card-text pl-2">First Name : {{ user.first_name }}</p>
+      <p class="card-text pl-2">Last Name : {{ user.last_name }}</p>
+      <p class="card-text pl-2">Member since: {{ user.date_joined | date }}</p>
+      <p class="card-text pl-2">Last login: {{ user.last_login | date }}</p>
       <button class="btn btn-sm btn-info collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Edit Profile
+         <i class="fas fa-edit"></i> Edit Profile
         </button>
-    </h5>
-  </div>
-  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-    <div class="card-body">
-      <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %} {{ u_form | as_bootstrap }} {{ p_form | as_bootstrap }}
-        <button type="submit" class="btn btn-primary">Update</button>
-      </form>
     </div>
   </div>
 </div>
 <!--END-->
+<!--Edit Profile -->
+<div id="collapseTwo" class="collapse mt-2 pb-4" aria-labelledby="headingTwo" data-parent="#accordion">
+  <div class="card">
+    <div class="row">
+      <div class="card-body">
+        <form class="w-100" method="POST" enctype="multipart/form-data">
+          {% csrf_token %} {{ u_form | as_bootstrap }} {{ p_form | as_bootstrap }}
+          <button type="submit" class="btn btn-primary"><i class="fas fa-pen"></i> Update</button>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
 <!--END-->
-
 {% endblock %}
