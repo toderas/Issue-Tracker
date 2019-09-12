@@ -34,8 +34,8 @@
     <div class="card-body">
         <blockquote class="blockquote mb-1">
             <p>{{ bug.description }}</p>
-            <footer class="blockquote-footer list-inline"> Added {{ bug.date_reported | date}} by
-                <li class="d-inline"><img class="rounded-circle profile-image" src="{{ bug.author.profile.image.url  }}"></img>
+            <footer class="blockquote-footer list-inline"><small> Added {{ bug.date_reported | date}} by</small>
+                <li class="d-block d-sm-inline"><img class="rounded-circle profile-image" src="{{ bug.author.profile.image.url  }}"></img>
                     <form class="form-hidden" action="{% url 'author-bugs' %}">
                         <button title="Click to see user's reported issues" class="hidden-input" type="submit" name="bug-author" value="{{ bug.author.id }}"> {{ bug.author }} </button>
                     </form>
@@ -45,7 +45,7 @@
         </blockquote>
         <div class="d-flex">
         <a class="btn btn-sm btn-success" href="{% url 'get-bug' bug.id %}">See More</a>
-        <div class="blockquote-footer ml-2">
+        <div class="text-muted ml-4">
                  <li class="d-inline">
                     <span class="mr-2">{{ bug.like }} <i class="fas fa-thumbs-up"></i></span>
                     <span>{{ bug.comments }} <i class="far fa-comments"></i></span>
