@@ -51,21 +51,12 @@
 <!--END-->
 <!--Add comment Form-->
 <div class="card mt-2">
-    <div class="card-header" id="headingTwo">
-        <h5 class="mb-0">
-            <button class="btn btn-sm btn-info collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Leave a Comment
-        </button>
-        </h5>
-    </div>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
         <div class="card-body">
             <form class="w-100" action="" method="POST">
                 {% csrf_token %} {{ comment_form | as_bootstrap }}
-                <button type="submit" class="float-right btn btn-sm btn-success">Add Comment</button>
+                <button type="submit" class="float-right btn btn-sm btn-success"> <i class="far fa-comment"></i> Add Comment</button>
             </form>
         </div>
-    </div>
 </div>
 <!--Comments-->
 {% for comment in comment %}

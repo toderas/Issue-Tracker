@@ -15,7 +15,10 @@ class AddCommentForm(forms.ModelForm):
     class Meta:
         model = BugComment
         fields = ['comment',]
-    comment = forms.Textarea()
+        widgets = {
+            'comment': forms.Textarea(attrs={'cols': 80, 'rows': 5}),
+        }
+    
 
 
 class EditBugForm(forms.ModelForm):
