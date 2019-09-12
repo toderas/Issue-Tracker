@@ -3,11 +3,13 @@ from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from accounts.forms import UserLoginForm, UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
-
+from bugs.views import get_bugs
 
 # Create your views here.
 def index(request):
     """ Return The index.html file """
+    if request.user.is_authenticated:
+        return redirect(get_bugs)
     return render(request, 'index.html')
     
 @login_required
