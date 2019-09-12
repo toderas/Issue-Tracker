@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% load bootstrap_tags %} {% block page_title %} Current Features {% endblock %} {% block search %}
+{% extends 'base.html' %}{% load bootstrap_tags %} {% block page_title %} Current Features {% endblock %} {% block search %}
 <form class="form-inline form-right text-right my-2 my-lg-0" action="{% url 'search-bugs' %}">
     <div class="wrap-fields">
         <input class="form-control mr-sm-2 w-100" name="search" type="search" placeholder="Search features" aria-label="Search">
@@ -6,11 +6,12 @@
     </div>
 </form>
 {% endblock %} {% block request_feature %}
-<a class="nav-link" href="{% url 'add_new_feature' %}"><i class="fas fa-plus-circle"></i>Request a new Feature</a> {% endblock %} {% block content %}
+<a class="nav-link text-white" href="{% url 'add_new_feature' %}"><i class="fas fa-plus-circle"></i>Request a new Feature</a> {% endblock %} {% block content %}
 <!--NEW CARD-->
 <div class="card mt-3 mb-4">
     <div class="card-header">
-        <span class="custom-size font-weight-bold d-inline">{{ feature.name }}</span> {% if feature.target_value == 0 %}
+        <span class="custom-size font-weight-bold d-inline">{{ feature.name }}</span>
+        {% if feature.target_value == 0 %}
         <div class="col-12 col-sm-5 d-sm-inline p-0">
             <span class="float-right pl-2"><i class="fas fa-eye">{{ views }}</i></span>
             <span class="badge badge-pill badge-secondary float-left float-sm-right  custom-size">
@@ -34,7 +35,7 @@
 </div>
 <div class="card-body">
     <div class="row">
-        <!---->
+        <!--Progress Small Screen Devices-->
         <div class="col-6 offset-6 d-md-none">
             <div class="text-right text-muted"><small>£{{ remaining|floatformat:2 }} Remaining </small></div>
             <div class="progress" style="height: 1.5rem;">
@@ -47,7 +48,6 @@
                     Pending assesment
                 {% elif remaining <= 0 %}
                     <strong>£{{ feature.value_collected }}</strong> Completed 
-                    
                 {% else %}
                     £{{ feature.value_collected }} of £{{ feature.target_value }} 
                 {% endif %}
@@ -65,7 +65,7 @@
                 </li>
             </footer>
         </blockquote>
-        <!---->
+        <!--Progress Medium Screen Size -->
         <div class="float-right d-none d-md-inline col-md-3">
             <div class="text-right text-muted"><small>£{{ remaining|floatformat:2 }} Remaining </small></div>
             <div class="progress" style="height: 1.5rem;">
@@ -78,7 +78,6 @@
                     Pending assesment
                 {% elif remaining <= 0 %}
                     <strong>£{{ feature.value_collected }}</strong> Completed 
-                    
                 {% else %}
                     £{{ feature.value_collected }} of £{{ feature.target_value }} 
                 {% endif %}
