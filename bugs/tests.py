@@ -1,6 +1,6 @@
 from django.test import TestCase
 from .models import bug_item
-from .forms import AddBugForm
+from .forms import AddBugForm, AddCommentForm
 from django.contrib.auth.models import User
 from django.shortcuts import reverse
 
@@ -39,3 +39,11 @@ class bug_itemTests(TestCase):
         page = self.client.get(reverse('show_bugs'))
         self.assertEqual(page.status_code, 200)
         self.assertTemplateUsed(page, "bugs.html")
+
+class BugCommentTests(TestCase):
+    
+    def test_submit_empty_form(self):
+        form = AddCommentForm(
+           {'comment': ''})
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors['comment'], [u'This field is required.'])
