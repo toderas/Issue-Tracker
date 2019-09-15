@@ -35,7 +35,7 @@
   <!--User Large display-->
                 <ul class="navbar navbar-light pl-0 list-inline mb-0 d-none d-lg-flex justify-content-end">
                     {% if user.is_authenticated %}
-                    <li class="col-sm-12 col-lg-auto pl-2 pr-0"><a class="text-white" href="{% url 'profile' %}"><img class="rounded-circle profile-image" src="{{ user.profile.image.url }}"></img> Profile</a></li>
+                    <li class="col-sm-12 col-lg-auto pl-2 pr-0"><a class="text-white" href="{% url 'profile' %}"><img class="rounded-circle profile-image" src="{{ user.profile.image.url }}" alt="User Profile image"></img> Profile</a></li>
                     <li class="col-sm-12 col-lg-auto pl-2 pr-0"><a class="text-white" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt mr-1 ml-1"></i> Log Out</a></li>
                     <li class="col-sm-12 col-lg-auto pl-2 pr-0">
                         <a class="text-white" href="{% url 'view_cart' %}">
