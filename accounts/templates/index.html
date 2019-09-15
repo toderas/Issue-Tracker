@@ -2,10 +2,65 @@
 
 {% block page_title %} Home Page {% endblock %}
 
-{% block page_heading %} Welcome page {% endblock %}
+{% block page_heading %} Welcome {% endblock %}
 
 {% block content %}
 <div class="container">
-    <span>Description for app goes here :)</span>
+    <div class="card card-style">
+        <div class="card-header">
+     <div class="card-title text-center">
+         <span><strong><i class="fas fa-horse text-dark"></i> Unicorn Attractor</strong></span>
+     </div>
+     </div>
+  <div class="card-body bg-light">
+    <p class="card-text"> This app has been built for support on our main app <strong> Unicorn Attractor</strong> </p>
+    <hr>
+    <p class="card-text info-text"> In Here you can report any issues encountered or request new features </p>
+    <p class="card-text info-text">Bug Fixes are for free however new features require payment which goes towards development time and maintenance of our system</p>
+  </div>
+</div>
+<div class="row m-0 mt-4 mb-4">
+    <div class="card card-style">
+        <div class="card-header">
+     <div class="card-title text-center">
+         <span><strong>Bugs</strong></span>
+     </div>
+     </div>
+  <div class="card-body bg-light">
+    <p class="card-text info-text"> In <strong>Bugs</strong> Section of this app you will have the opportunity to register a new bug, upvote existing ones and add comments as well as edit your registered bugs or delete them if neccesary </p>
+     <span class="card-title">How It Works:</span>
+     <p class="card-text">
+         Go to 'Current bugs' where you can browse trough registered bugs and see their properties.
+     </p>
+     <p class="card-text">
+        Click 'See more' and here you can leave comments or let us know that you encountered this issue as well (I have This Too)
+     </p>
+     <p class="card-text">
+       You will also have the options to edit or delete your reported bugs
+     </p>
+     <button class="btn"><a class="text-dark" href="{% url 'show_bugs' %}"><i class="fas fa-book-open"></i> Current bugs</a></button>
+     
+  </div>
+</div>
+<div class="card mt-3 card-style">
+        <div class="card-header">
+     <div class="card-title text-center">
+         <span><strong>Features</strong></span>
+     </div>
+     </div>
+  <div class="card-body bg-light">
+    <p class="card-text info-text"> In <strong>Features</strong> Section of this app you will the opportuniy to request a new feature, see other users requested features and contribute towards them </p>
+     <p class="card-text info-text">As soon as  target amount has been reached we will start developing it as soon as possible </p>
+     <span class="card-title">How It Works:</span>
+      <p class="card-text">
+         Go to 'Requested Features' where you can browse trough currently requested features and see their properties.
+     </p>
+      <p class="card-text">
+         Click 'See More' and here you can find out more about this feature like it's progress , contributors, and have the option to contribute towards implementing it
+     </p>
+     <button class="btn"><a class="text-dark" href="{% url 'features' %}"><i class="fas fa-user-cog"></i> Requested Features</a></button>
+  </div>
+</div>
+</div>
 </div>
 {% endblock %}
