@@ -6,8 +6,13 @@ from accounts.forms import UserLoginForm, UserRegistrationForm, UserUpdateForm, 
 from bugs.views import get_bugs
 
 # Create your views here.
+def info(request):
+    """Returns index.html file """
+    return render(request, 'index.html')
+
+
 def index(request):
-    """ Return The index.html file """
+    """ Return The index.html file if user is not authenticated and redirects to bugs if user is authenticated """
     if request.user.is_authenticated:
         return redirect(get_bugs)
     return render(request, 'index.html')

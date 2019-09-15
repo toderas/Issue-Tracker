@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from bugs import urls as urls_bugs
 from accounts import urls as urls_accounts
-from accounts.views import index
+from accounts.views import index, info
 from bugs.views import get_bugs, add_new_bug
 from search import urls as urls_search
 from features import urls as urls_features
@@ -33,6 +33,7 @@ handler400, handler403, handler404, handler500
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name='index'),
+    url(r'^info', info, name='info'),
     url(r'^bugs', include(urls_bugs)),
     url(r'^features', include(urls_features)),
     url(r'^cart', include(urls_cart)),
