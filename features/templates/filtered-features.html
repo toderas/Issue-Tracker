@@ -45,7 +45,7 @@
         <blockquote class="blockquote mb-1">
             <p>{{ feature.description }}</p>
             <footer class="blockquote-footer list-inline"><small>Added {{ feature.date_reported | date}} by</small>
-                 <li class="d-block d-sm-inline"><img class="rounded-circle profile-image" src="{{ feature.author.profile.image.url  }}"></img>
+                 <li class="d-block d-sm-inline"><img class="rounded-circle profile-image" src="{{ feature.author.profile.image.url }}" alt="User Profile image"></img>
                     <form class="form-hidden" action="{% url 'author-features' %}">
                         <button title="Click to see user's requested features" class="hidden-input p-0" type="submit" name="author-features" value="{{ feature.author.id }}">{{ feature.author }} </button>
                     </form>
