@@ -38,8 +38,15 @@ class Feature_items_Tests(TestCase):
 
 class FeatureContributorsTests(TestCase):
     
-    def test_submit_empty_contribute_form(self):
+    def test_submit_contribute_form_with_wrong_input(self):
         form = ContributeFeatureForm(
            {'amount': 'john'})
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['amount'], [u'Enter a number.'])
+    
+    
+    def test_submit_empty_contribute_form(self):
+        form = ContributeFeatureForm(
+           {'amount': ''})
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors['amount'], [u'This field is required.'])
