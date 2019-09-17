@@ -26,12 +26,12 @@ def all_features(request):
     except EmptyPage:
         features = paginator.page(paginator.num_pages)
     return render(request, "features.html", {"features": features, 'count': count})
-    
+
 
 @login_required()
 def add_new_feature(request):
     """
-    Renders AddFeatureForm saves its contents and returns to main page 
+    Renders AddFeatureForm saves its contents and returns to main page
     """
     if request.method == 'POST':
         feature_form = AddFeatureForm(request.POST)
@@ -44,7 +44,8 @@ def add_new_feature(request):
     else:
         feature_form = AddFeatureForm()
     return render(request, 'request-feature.html', {"feature_form": feature_form})
-    
+
+
 @login_required
 def get_current_feature(request, id):
     """
@@ -85,5 +86,6 @@ def get_current_feature(request, id):
         contributor = paginator.page(1)
     except EmptyPage:
         contributor = paginator.page(paginator.num_pages)
-    return render(request, 'feature-details.html', {'feature': feature, 'contribute_form': contribute_form, 'contributor': contributor, 'contributors': contributors, 'remaining': remaining, 'progress': progress, 'views': views})
-
+    return render(request, 'feature-details.html', {'feature': feature, 'contribute_form': contribute_form,
+                                                    'contributor': contributor, 'contributors': contributors,
+                                                    'remaining': remaining, 'progress': progress, 'views': views})
