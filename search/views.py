@@ -197,7 +197,7 @@ def search_funding_required(request):
 
 def search_funding_complete(request):
     """ A view that returns all features where funding is completed"""
-    features = Feature.objects.filter(target_value__gte=5, value_collected__gte= F('target_value'))
+    features = Feature.objects.filter(target_value__gte=5, value_collected__gte=F('target_value'))
     count = features.count()
     query = 'Implementation in Progress'
     contributors = FeatureContributors.objects.all()

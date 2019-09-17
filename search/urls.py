@@ -1,5 +1,7 @@
 from django.conf.urls import url
-from .views import search_bugs, search_in_progress, search_author_bugs, search_pending_review, search_resolved, search_features, search_author_features, search_pending_assesment, search_funding_required, search_funding_complete     
+from .views import search_bugs, search_in_progress, search_author_bugs, search_pending_review, search_resolved,\
+                    search_features, search_author_features, search_pending_assesment, search_funding_required,\
+                    search_funding_complete
 
 
 urlpatterns = [
