@@ -25,9 +25,7 @@ from cart import urls as urls_cart
 from checkout import urls as urls_checkout
 from django.views import static
 from .settings import MEDIA_ROOT
-from django.conf.urls import (
-handler400, handler403, handler404, handler500
-)
+from django.conf.urls import (handler400, handler403, handler404, handler500)
 
 
 urlpatterns = [
@@ -40,5 +38,5 @@ urlpatterns = [
     url(r'^checkout/', include(urls_checkout)),
     url(r'^accounts/', include(urls_accounts)),
     url(r'^search/', include(urls_search)),
-    url(r'^media/(?P<path>.*)$', static.serve,{'document_root': MEDIA_ROOT}),
+    url(r'^media/(?P<path>.*)$', static.serve, {'document_root': MEDIA_ROOT}),
 ]
