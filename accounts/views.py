@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from accounts.forms import UserLoginForm, UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 from bugs.views import get_bugs
 
+
 # Create your views here.
 def info(request):
     """Returns index.html file """
@@ -16,7 +17,8 @@ def index(request):
     if request.user.is_authenticated:
         return redirect(get_bugs)
     return render(request, 'index.html')
-    
+
+
 @login_required
 def logout(request):
     """ Log the user out """
@@ -43,19 +45,19 @@ def login(request):
     else:
         login_form = UserLoginForm()
     return render(request, 'login.html', {"login_form": login_form})
-    
-    
+
+
 def registration(request):
     """Render the registration page"""
     if request.user.is_authenticated:
         return redirect(reverse('index'))
-        
+
     if request.method == "POST":
         registration_form = UserRegistrationForm(request.POST)
-    
+
         if registration_form.is_valid():
             registration_form.save()
-            
+
             user = auth.authenticate(username=request.POST['username'],
                                      password=request.POST['password1'])
             if user:
@@ -64,14 +66,14 @@ def registration(request):
                 return redirect(reverse('index'))
             else:
                 messages.error(request, "Unable to register your account at this time!")
-    else:    
-        registration_form = UserRegistrationForm()                             
-        
+    else:
+        registration_form = UserRegistrationForm()
+
     return render(request, 'registration.html', {
         "registration_form": registration_form})
 
 
-@login_required    
+@login_required
 def user_profile(request):
     """The user profile page"""
     if request.method == 'POST':
@@ -89,5 +91,5 @@ def user_profile(request):
         'u_form': u_form,
         'p_form': p_form,
     }
-    
+
     return render(request, 'profile.html', context)

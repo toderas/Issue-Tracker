@@ -7,14 +7,13 @@ class EmailAuth:
         """ Get an instance of 'User' based on the email and verify password"""
         try:
             user = User.objects.get(email=username)
-            
+
             if user.check_password(password):
                 return user
             return None
         except User.DoesNotExist:
             return None
-            
-            
+
     def get_user(self, user_id):
         """Used by django authentication system to retrieve a user instance"""
         try:
@@ -22,6 +21,6 @@ class EmailAuth:
             if user.is_active:
                 return user
             return None
-            
+
         except User.DoesNotExist:
             return None
