@@ -4,16 +4,15 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 
-
 class bug_item(models.Model):
     name = models.CharField(max_length=254, default="")
     description = models.TextField()
     date_reported = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
-    
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
     STATUS = (
-        ('Pending-review','Pending Review'),
-        ('In-progress','In Progress'),
+        ('Pending-review', 'Pending Review'),
+        ('In-progress', 'In Progress'),
         ('Resolved', 'Resolved'),
         )
     status = models.CharField(
@@ -21,14 +20,16 @@ class bug_item(models.Model):
              choices=STATUS,
              default='Pending-review'
              )
+
     def __str__(self):
         return self.name
-        
+
+
 class Like(models.Model):
     user = models.ForeignKey(User, null=True)
     post = models.ForeignKey(bug_item, null=True)
-    
-        
+
+
 class Views(models.Model):
     user = models.ForeignKey(User, null=True)
     post = models.ForeignKey(bug_item, null=True)
@@ -36,7 +37,7 @@ class Views(models.Model):
 
 class BugComment(models.Model):
     post = models.ForeignKey(bug_item, null=True)
-    author = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     comment = models.TextField()
     date_reported = models.DateTimeField(auto_now_add=True)
     approved_comment = models.BooleanField(default=True)

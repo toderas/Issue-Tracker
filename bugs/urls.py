@@ -12,5 +12,5 @@ urlpatterns = [
     url(r'^add-upvote/(?P<id>\d+)', add_upvotes, name="add-upvote"),
     url(r'^delete-bug/(\d+)/$', delete_bug, name="delete-bug"),
     url(r'^edit-bug/(?P<id>\d+)', edit_bug, name="edit-bug"),
-    url(r'^media/(?P<path>.*)$', static.serve,{'document_root': MEDIA_ROOT}),
+    url(r'^media/(?P<path>.*)$', static.serve, {'document_root': MEDIA_ROOT}),
 ]

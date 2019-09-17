@@ -31,7 +31,7 @@ def get_bugs(request):
 @login_required()
 def add_new_bug(request):
     """
-    Renders AddBugForm saves its contents and returns to main page 
+    Renders AddBugForm saves its contents and returns to main page
     """
     if request.method == 'POST':
         item_form = AddBugForm(request.POST)
@@ -78,18 +78,20 @@ def get_current_bug(request, id):
     except EmptyPage:
         comment = paginator.page(paginator.num_pages)
     comment_form = AddCommentForm()
-    return render(request, 'bug-details.html', {'bug': bug, 'comment': comment, 'comment_form': comment_form, 'like': like, 'view': view, 'comment_count': comment_count})
-    
-    
+    return render(request, 'bug-details.html',
+                           {'bug': bug, 'comment': comment, 'comment_form': comment_form,
+                            'like': like, 'view': view, 'comment_count': comment_count})
+
+
 def remove_comment(request, BugComment_id):
     """
-    Removes comment and returns to the same page 
+    Removes comment and returns to the same page
     """
     comment = get_object_or_404(BugComment, pk=BugComment_id)
     comment.delete()
     messages.error(request, "Comment has been removed")
     return redirect(request.META['HTTP_REFERER'])
-    
+
 
 def add_upvotes(request, id):
     """ Allows user to upvote an item and limits the number of likes to 1 """
@@ -100,8 +102,8 @@ def add_upvotes(request, id):
     else:
         Like.objects.create(user=request.user, post=post)
     return redirect(request.META['HTTP_REFERER'])
-    
-    
+
+
 def delete_bug(request, id):
     """ Deletes the item and all related information (comments, likes and views)"""
     items = get_object_or_404(bug_item, id=id)
@@ -110,11 +112,11 @@ def delete_bug(request, id):
     return redirect(get_bugs)
 
 
-def edit_bug(request, id): 
+def edit_bug(request, id):
     instance = bug_item.objects.get(id=id)
     edit_form = EditBugForm(request.POST or None, instance=instance)
     if edit_form.is_valid():
-          edit_form.save()
-          messages.success(request, "Item has been updated!")
-          return redirect(get_current_bug, id)
+        edit_form.save()
+        messages.success(request, "Item has been updated!")
+        return redirect(get_current_bug, id)
     return render(request, 'edit-bug.html', {'instance': instance, 'edit_form': edit_form})
