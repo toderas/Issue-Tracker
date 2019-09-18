@@ -28,25 +28,23 @@ Checkout
     <div class="card-body">
         <blockquote class="blockquote mb-1">
             <p>{{ item.feature.description }}</p>
-            <footer class="blockquote-footer list-inline"> <small>Added {{ item.feature.date_reported | date}} by</small>
-                 <li class="d-block d-sm-inline"><img class="rounded-circle profile-image" src="{{ item.feature.author.profile.image.url  }}"></img>
+            <ul class="blockquote-footer list-inline"> 
+            <li class="d-inline"><small>Added {{ item.feature.date_reported | date}} by</small></li>
+                 <li class="d-block d-sm-inline"><img class="rounded-circle profile-image" src="{{ item.feature.author.profile.image.url }}" alt="Author Profile Image">
                     <form class="form-hidden" action="{% url 'author-features' %}">
                         <button title="Click to see user's requested features" class="hidden-input p-0" type="submit" name="author-features" value="{{ item.feature.author.id }}">{{ item.feature.author }} </button>
                     </form>
                 </li>
-                 <div class="card-header">Your Contribution: <strong class="text-dark">£{{ item.contribution }}</strong></div>
-            </footer>
+            </ul>
+             <div class="card-header">Your Contribution: <strong class="text-dark">£{{ item.contribution }}</strong></div>
         </blockquote>
     </div>
 </div>
     {% endfor %}
 </div>
-<form class="w-100 mt-4" role="form" method="post" id="payment-form" action="{% url 'checkout' %}">
+
+<form class="w-100 mt-4" method="post" id="payment-form" action="{% url 'checkout' %}">
     <legend>Payment Details</legend>
-    
-    <div id="credit-card-errors" style="display: none;">
-        <div id="alert-message block-message error" id="stripe-error-message"></div>
-    </div>
     <div class="container m-0 p-0 d-inline">
     <div class="form-control col-md-5 float-left mb-4 mr-1">
         {{ order_form | as_bootstrap }}
