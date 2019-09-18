@@ -30,24 +30,25 @@
     <div class="card-body">
         <blockquote class="blockquote mb-1">
             <p>{{ bug.description }}</p>
-            <footer class="blockquote-footer"> <small> Added {{ bug.date_reported | date}} by</small>
-                <li class="d-block d-sm-inline"><img class="rounded-circle profile-image" src="{{ bug.author.profile.image.url  }}" alt="User Profile image"></img>
+            <ul class="blockquote-footer pl-0">
+                    <li class="d-inline"><small> Added {{ bug.date_reported | date}} by</small></li> 
+                    <li class="d-block d-sm-inline"><img class="rounded-circle profile-image" src="{{ bug.author.profile.image.url  }}" alt="User Profile image">
                     <form class="form-hidden" action="{% url 'author-bugs' %}">
                         <button title="click to see user's reported issues" class="hidden-input" type="submit" name="bug-author" value="{{ bug.author.id }}"> {{ bug.author }} </button>
                     </form>
                 </li>
-            </footer>
+            </ul>
         </blockquote>
         
         {% if user.is_authenticated and user.id == bug.author_id %}
         <span class="btn btn-sm disabled btn-info">I have This Too <i class="fas fa-user mr-1 ml-1"> {{ like }}</i></span>
-       <button type="button" class="btn btn-sm btn-info"><a class="text-white" href="{% url 'edit-bug' bug.id %}">Edit</a></button>
+        <a class="btn btn-sm btn-info text-white" href="{% url 'edit-bug' bug.id %}">Edit</a>
        <!-- Button trigger modal -->
 <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#Delete-bug">
   Remove Bug
 </button>
     {% else %}
-    <a class="btn btn-sm btn-success" href="{% url 'add-upvote' bug.id %}" type="POST">I have This Too <i class="fas fa-user mr-1 ml-1"> {{ like }}</i></a> 
+    <a class="btn btn-sm btn-success" href="{% url 'add-upvote' bug.id %}">I have This Too <i class="fas fa-user mr-1 ml-1"> {{ like }}</i></a> 
  {% endif %}
     </div>
 </div>
@@ -65,7 +66,7 @@
 {% for comment in comment %}
 <div class="card mt-3">
     <div class="card-header">
-        <img class="rounded-circle profile-image" src="{{ comment.author.profile.image.url }}"></img> {{ comment.author }} </li>
+        <img class="rounded-circle profile-image" src="{{ comment.author.profile.image.url }}" alt="Author Profile Image"> {{ comment.author }}
     </div>
     <div class="card-body">
         <blockquote class="blockquote mb-0">
@@ -79,11 +80,11 @@
             </div>
         
 <!--Modal remove comment-->
-<div class="modal fade" id="remove-comment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="remove-comment" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><strong>{{ comment.comment }}</strong></h5>
+                <h5 class="modal-title"><strong>{{ comment.comment }}</strong></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -97,9 +98,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                 <button type="button" class="btn btn-danger"><a class="text-white" href="{% url 'delete-comment' comment.id %}" type="POST">Delete</a></button>
-                
-        </div>
+                <a class="btn btn-danger text-white" href="{% url 'delete-comment' comment.id %}">Delete</a>
+            </div>
     </div>
 </div>
 <!--END-->
@@ -129,11 +129,11 @@
 
 
 <!-- Modal Bug Delete-->
-<div class="modal fade" id="Delete-bug" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="Delete-bug" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><strong>{{ bug.name }}</strong></h5>
+                <h5 class="modal-title"><strong>{{ bug.name }}</strong></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -147,7 +147,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger"><a class="text-white" href="{% url 'delete-bug' bug.id %}" type="POST">Delete</a></button>
+                <a class="btn btn-danger text-white" href="{% url 'delete-bug' bug.id %}">Delete</a>
             </div>
         </div>
     </div>
