@@ -83,7 +83,7 @@
  **5.2   Manual Testing**
     
 -   Manual testing has been carried out thoroughly for each new piece of functionality at the time of implementation
-- Some scenarios can be found <a target="_blank" href="[https://github.com/toderas/Issue-Tracker/blob/master/tests/manual-tests/README.md](https://github.com/toderas/Issue-Tracker/blob/master/tests/manual-tests/README.md)">Here<a/>
+- Some scenarios can be found  [Here](https://github.com/toderas/Issue-Tracker/blob/master/tests/manual-tests/README.md)
     
 
 The app looks as intended and operates accordingly on all popular browsers (Google Chrome, Mozilla Firefox, Opera , Safari , Internet Explorer
@@ -106,12 +106,14 @@ Deployment steps:
 -   Create new superuser (using heroku cli)
 
 **7 Code Validators:**
-<a href="[https://jigsaw.w3.org/css-validator/validator](https://jigsaw.w3.org/css-validator/validator)">Css Validator</a>: Css code passes with no errors or warnings
-<a href="[http://pep8online.com/](http://pep8online.com/)">Pep8 Online</a>: Python code passes with no errors or warnings (appart from some length related warnings but given the fact that git-hub code review length is 130 characters this shoud not cause any issues )
-<a target="_blank" href="[https://validator.w3.org/](https://validator.w3.org/)">Html validator</a>: Html Code passes W3C validator with no issues or warnings (appart from the ones caused by jinja)
+
+- [CSS Validator](https://jigsaw.w3.org/css-validator/validator) : Css code passes with no errors or warnings
+- [Pep8 Online](http://pep8online.com/): Python code passes with no errors or warnings (appart from some length related warnings but given the fact that git-hub code review length is 130 characters this shoud not cause any issues )
+- [HTML Validator](https://validator.w3.org/): Html Code passes W3C validator with no issues or warnings (appart from the ones caused by jinja)
+
 
 Acknowledgements :
 
--   Base Code For this project has been imported from a previous project (<a target="_blank" href="[https://github.com/toderas/e-commerce](https://github.com/toderas/e-commerce)">Here</a>) and modified to suit current project’s requirements
+-   Base Code For this project has been imported from a previous project [E-commerce](https://github.com/toderas/e-commerce)  and modified to suit current project’s requirements
 - Stack Overflow users have helped me with code related issues
 - Friends have helped me with usability tests and user stories 
