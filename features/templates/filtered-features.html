@@ -11,8 +11,7 @@
         <button class="btn my-0 search-icon" type="submit"><i class="fas fa-search"></i></button>
     </div>
 </form>
-{% endblock %}
-
+{% endblock %} 
 {% block request_feature %}
 <a class="nav-link text-white" href="{% url 'add_new_feature' %}"><i class="fas fa-plus-circle"></i>Request a new Feature</a>
 {% endblock %}
@@ -20,12 +19,11 @@
 {% block content %}
 
 {% if query %}
-
 <div class="row"><span>Displaying <strong>{{ count }}</strong>, feature(s) for: <strong>"{{ query }}"</strong></span> </div> 
 {% endif %}
 {% for feature in features %}
 <div class="card mt-3">
-     <div class="card-header">
+    <div class="card-header">
         <span class="custom-size font-weight-bold d-block d-sm-inline">{{ feature.name }}</span>
         {% if feature.target_value == 0 %}
         <span class="badge badge-pill badge-secondary float-left float-sm-right  custom-size">
@@ -44,21 +42,24 @@
     <div class="card-body">
         <blockquote class="blockquote mb-1">
             <p>{{ feature.description }}</p>
-            <footer class="blockquote-footer list-inline"><small>Added {{ feature.date_reported | date}} by</small>
-                 <li class="d-block d-sm-inline"><img class="rounded-circle profile-image" src="{{ feature.author.profile.image.url }}" alt="User Profile image"></img>
+            <ul class="blockquote-footer list-inline">
+                <li class="d-inline"><small>Added {{ feature.date_reported | date}} by</small></li>
+                 <li class="d-block d-sm-inline"><img class="rounded-circle profile-image" src="{{ feature.author.profile.image.url }}" alt="User Profile image">
                     <form class="form-hidden" action="{% url 'author-features' %}">
                         <button title="Click to see user's requested features" class="hidden-input p-0" type="submit" name="author-features" value="{{ feature.author.id }}">{{ feature.author }} </button>
                     </form>
                 </li>
-            </footer>
-            </blockquote>
+            </ul>
+        </blockquote>
         <div class="d-flex">
         <a class="btn btn-sm btn-success" href="{% url 'get-feature' feature.id %}">See More</a>
         <div class="text-muted ml-4">
+            <ul class="d-inline pl-1">
                  <li class="d-inline">
                     <span class="mr-2">{{ feature.contributors }} <i class="fas fa-hand-holding-usd"></i></span>
                     <span>{{ feature.views }} <i class="far fa-eye"></i></span>
                 </li>
+                </ul>
             </div>
             </div>
     </div>
