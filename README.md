@@ -109,7 +109,8 @@ Deployment steps:
 
 -   On heroku create new app
 -   Add PostgreSQL database (heroku-resource-addons)
--   Whithin heroku dashboard click Deploy and then connect to github repository,
+-   Created Procfile
+-   Whithin heroku dashboard click Deploy and then connect to github repository
 -   Click Settings and then reveal Config Vars and add secret keys , database url, email address email password
 -   Added deployed app's url to allowed hosts in master/settings.py
 -   Comment out “import env” (content has been moved to Config Vars)
@@ -131,4 +132,3 @@ Deployment steps:
 - Stack Overflow users have helped me with code related issues
 - Friends have helped me with usability tests and user stories 
 - [Bugs](https://qa-platforms.com/most-common-bugs-in-mobile-application/) Content used on deployed version for presentation pourposes
-
