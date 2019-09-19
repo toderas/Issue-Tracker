@@ -1,0 +1,10 @@
+[run]
+branch = True
+
+omit =
+    */site-packages/*
+    */dist-packages/*
+    */tests/*
+    */env.py*
+    */migrations/*
+    */search/*
