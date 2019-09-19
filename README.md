@@ -124,6 +124,7 @@ Deployment steps:
 - [CSS Validator](https://jigsaw.w3.org/css-validator/validator) : Css code passes with no errors or warnings
 - [Pep8 Online](http://pep8online.com/): Python code passes with no errors or warnings (appart from some length related warnings but given the fact that git-hub code review length is 130 characters this shoud not cause any issues )
 - [HTML Validator](https://validator.w3.org/): Html Code passes W3C validator with no issues or warnings (appart from the ones caused by jinja)
+- [JSLint](https://www.jslint.com/): Js Code Passes trogh with no errors
 
 
 **Acknowledgements :**
