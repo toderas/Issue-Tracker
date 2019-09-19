@@ -1,5 +1,3 @@
-
-
 **Issue Tracker**
 
 **Overview**
@@ -12,12 +10,17 @@
 
 **1. Planning**
 1.1 User stories
-1.2 Development Steps
+1.2 Planing Development Steps
 1.3 Set out requirements 
 1.4 Created Wireframes
 
-**2 User Stories**
-**2.1  As a User I would like to:**    
+**2. UX **
+
+AIMS:
+-   Our Main Goal is to provide the end user with a system which enables control over what our app presents and how it behaves
+
+**2.1 User Stories**
+** As a User I would like to:**    
 -   know the scope of the app
 -   have easy accessible navigation items
 -   be able to browse trough without an account
@@ -44,6 +47,16 @@
 -   Search used to filter queries based on various criteria (keyword, status, author) (search input is dynamically displayed throughout the app according to user’s current position)
 -   Cart used to collect items user has contributed towards and allowing user to change the amount
 -   Checkout used to finalize purchase
+-   
+** Potential Features **
+
+-   Delete Feature (Currently, system will crash(for user who has feature in cart) due to inconsistency between django session and database (option removed))
+-   More Filtering Options (date, properties like amount of views, upvotes, comments, contributors)
+-   Profile View (for other than owner)
+-   Messages between users
+-   Item Report (comments , bugs, features)
+-   Notifications (email or section in app) informing users of any recent events
+-   E-mail validation (when user changes personal email address) 
 
 **4 Technologies Used :**
 
@@ -61,7 +74,7 @@
     
 -   Whitenoise – used to collect static files in one place (S3 bucket)
     
--   AWS S3 bucket – used to host our static files
+-   AWS S3 bucket – used to host our static files for deployed version
     
 -   SQLite3 – database use in development
     
@@ -96,11 +109,11 @@ Deployment steps:
 
 -   On heroku create new app
 -   Add PostgreSQL database (heroku-resource-addons)
- -   Whithin heroku dashboard click Deploy and then connect to github repository,
+-   Whithin heroku dashboard click Deploy and then connect to github repository,
 -   Click Settings and then reveal Config Vars and add secret keys , database url, email address email password
 -   Added deployed app's url to allowed hosts in master/settings.py
 -   Comment out “import env” (content has been moved to Config Vars)
-- Set Debug to False
+-   Set Debug to False
 -   Migrate (using heroku cli)
 -   Settings to host static files on S3bucket (AWS)
 -   Create new superuser (using heroku cli)
@@ -112,8 +125,10 @@ Deployment steps:
 - [HTML Validator](https://validator.w3.org/): Html Code passes W3C validator with no issues or warnings (appart from the ones caused by jinja)
 
 
-Acknowledgements :
+**Acknowledgements :**
 
--   Base Code For this project has been imported from a previous project [E-commerce](https://github.com/toderas/e-commerce)  and modified to suit current project’s requirements
+- Base Code For this project has been imported from a previous project [E-commerce](https://github.com/toderas/e-commerce)  and modified to suit current project’s requirements
 - Stack Overflow users have helped me with code related issues
 - Friends have helped me with usability tests and user stories 
+- [Bugs](https://qa-platforms.com/most-common-bugs-in-mobile-application/) Content used on deployed version for presentation pourposes
+
